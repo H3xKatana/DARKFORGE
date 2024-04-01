@@ -105,3 +105,16 @@ class Comments(models.Model):
     def __str__(self):
         return self.text
 #############################3
+class Wishlist(models.Model):
+    user = models.ForeignKey(user, on_delete=models.CASCADE)
+    game = models.ForeignKey(Game, on_delete=models.CASCADE)
+
+class MyGames(models.Model):
+    user = models.ForeignKey(user, on_delete=models.CASCADE)
+    game = models.ForeignKey(Game, on_delete=models.CASCADE)
+
+class FavoriteGames(models.Model):
+    user = models.ForeignKey(user, on_delete=models.CASCADE)
+    game = models.ForeignKey(Game, on_delete=models.CASCADE)
+
+###############################

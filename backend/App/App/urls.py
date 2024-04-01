@@ -25,4 +25,5 @@ urlpatterns = [
     path('users/',include('users.urls', namespace="user")),
     path('',include('Home.urls')),
     path('GamesLibrary/',include('GamesLibrary.urls')),
+    path('joinus/', include('joinus.urls')),
 ]

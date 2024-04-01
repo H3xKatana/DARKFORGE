@@ -29,3 +29,21 @@ class OtpCode(models.Model):
 
     def __str__(self):
         return self.code
+
+class Profile(models.Model):
+    user = models.OneToOneField(user, on_delete=models.CASCADE)
+    profile_picture = models.FileField(upload_to='image')
+    bio = models.TextField(_('Bio'), max_length=500, blank=True)
+    short_bio = models.TextField(_('Short Bio'), max_length=250, blank=True)
+    source = models.CharField(_('source'), max_length=50, blank=True)
+
+    def __str__(self):
+        return self.user.username + "'s Profile"
+
+    @property
+    def wishlist(self):
+        return self.user.wishlist.all()
+
+    @property
+    def favorite_games(self):
+        return self.user.favoritegames.all()

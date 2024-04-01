@@ -1,0 +1,107 @@
+{% extends 'base.html' %}
+
+{% block title %}Upload CV{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <div class="row">
+        <div class="col-md-6 offset-md-3">
+            <div class="card">
+                <div class="card-body">
+                    <h1 class="mb-4">Upload Your CV</h1>
+                    <form method="post" enctype="multipart/form-data" id="cv-upload-form">
+                        {% csrf_token %}
+                        <div id="drop-area" class="text-center">
+                            <div class="upload-icon mb-3">
+                                <i class="fas fa-cloud-upload-alt fa-3x"></i>
+                            </div>
+                            <input type="file" id="fileElem" name="pdf" accept="application/pdf" maxlength="10485760" style="display: none;" />
+                            <label class="btn btn-primary" for="fileElem">Select or drag and drop PDF file</label>
+                            <p class="mt-2">Supported file types: PDF</p>
+                        </div>
+                        <div id="file-list" class="mt-3"></div>
+                        <button type="submit" class="btn btn-success mt-3" id="submit-btn" disabled>Upload CV</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    const dropArea = document.getElementById('drop-area');
+    const submitBtn = document.getElementById('submit-btn');
+
+    ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
+        dropArea.addEventListener(eventName, preventDefaults, false)
+    });
+
+    function preventDefaults(e) {
+        e.preventDefault();
+        e.stopPropagation();
+    }
+
+    ['dragenter', 'dragover'].forEach(eventName => {
+        dropArea.addEventListener(eventName, highlight, false)
+    });
+
+    ['dragleave', 'drop'].forEach(eventName => {
+        dropArea.addEventListener(eventName, unhighlight, false)
+    });
+
+    function highlight() {
+        dropArea.classList.add('highlight')
+    }
+
+    function unhighlight() {
+        dropArea.classList.remove('highlight')
+    }
+
+    dropArea.addEventListener('drop', handleDrop, false);
+
+    function handleDrop(e) {
+        const fileList = e.dataTransfer.files;
+        const fileInput = document.getElementById('fileElem');
+        fileInput.files = fileList;
+        showFileList(fileList);
+        checkFileSize(fileList[0]);
+    }
+
+    function showFileList(files) {
+        const fileReader = new FileReader();
+        fileReader.onload = function () {
+            const fileElem = document.getElementById('fileElem');
+            const fileInput = document.getElementById('file-list');
+            fileInput.innerHTML = `
+                <p>File uploaded: ${files[0].name}</p>
+            `;
+        }
+        fileReader.readAsDataURL(files[0]);
+    }
+
+    function checkFileSize(file) {
+        if (file.size > 10 * 1024 * 1024) {
+            alert('File size cannot exceed 10 MB.');
+            submitBtn.disabled = true;
+        } else {
+            submitBtn.disabled = false;
+        }
+    }
+</script>
+
+<style>
+    #drop-area {
+        border: 2px dashed #ccc;
+        padding: 20px;
+        cursor: pointer;
+    }
+
+    #drop-area.highlight {
+        background-color: #f2f2f2;
+    }
+
+    .upload-icon {
+        color: #007bff;
+    }
+</style>
+{% endblock %}
