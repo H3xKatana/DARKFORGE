@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+{% load humanize %}
+{% block content %}
+<div class="container">
+  <div class="row">
+
+    <div class="col-md-6">
+      <img class="img-fluid" src="{{ game_page.image.url }}" alt="">
+    </div>
+
+    <div class="col-md-6">
+      <h3 class="my-3">Game description</h3>
+      <p>{{ game_page.description }}</p>
+      <h3 class="my-3">Game details</h3>
+      <ul>
+          <li><b>Genre:</b> {{ game_page.genre }}</li>
+          <li><b>Rating:</b> {{ game_page.rating }}</li>
+        <li><b>Release date:</b> {{ game_page.release_date|naturalday }}</li>
+      </ul>
+      <h3 class="my-3">Price: ₴{{ game_page.price }}</h3>
+    </div>
+
+  </div>
+  <!-- /.row -->
+
+  <!-- Related Projects Row -->
+  <h3 class="my-4">Related screenshots</h3>
+
+  <div class="row">
+
+    <div class="col-md-3 col-sm-6 mb-4">
+            <img style="width: 350px; height: 170px;" class="img-fluid" src="{{ game_page.screenshot_1.url }}" alt="">
+    </div>
+
+    <div class="col-md-3 col-sm-6 mb-4">
+            <img style="width: 350px; height: 170px;"  class="img-fluid" src="{{ game_page.screenshot_2.url }}" alt="">
+    </div>
+
+    <div class="col-md-3 col-sm-6 mb-4">
+            <img style="width: 350px; height: 170px;"  class="img-fluid" src="{{ game_page.screenshot_3.url }}" alt="">
+    </div>
+
+
+    </div>
+
+{% endblock %}

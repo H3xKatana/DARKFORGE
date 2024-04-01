@@ -1,0 +1,146 @@
+/* Custom CSS for Game Dev Studio */
+
+/* General Styles */
+body {
+    font-family: 'Roboto', sans-serif;
+    background-color: #121212; /* Dark background */
+    color: #fff; /* White text */
+}
+
+.container {
+    max-width: 1200px; /* Limit container width for better readability */
+    margin: 0 auto; /* Center container horizontally */
+}
+
+/* Header Styles */
+header {
+    background-color: #000;
+    padding: 20px 0;
+}
+
+header h1 {
+    font-size: 2.5em;
+    font-weight: bold;
+    text-align: center;
+}
+
+nav ul {
+    list-style: none;
+    text-align: center; /* Center navigation links */
+    margin-top: 20px;
+}
+
+nav ul li {
+    display: inline;
+    margin-right: 20px;
+}
+
+nav ul li a {
+    color: #fff;
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 1.2em;
+    transition: color 0.3s; /* Smooth color transition */
+}
+
+nav ul li a:hover {
+    color: #ff4d4d; /* Hover color */
+}
+
+/* Hero Section Styles */
+.hero {
+    background-image: url('assests\images\valo.jpg');
+    background-size: cover;
+    background-position: center;
+    text-align: center;
+    padding: 200px 0;
+}
+
+.hero h2 {
+    font-size: 3em;
+    font-weight: bold;
+    margin-bottom: 20px;
+}
+
+.hero p {
+    font-size: 1.2em;
+    margin-bottom: 30px;
+}
+
+.hero .btn {
+    display: inline-block;
+    background-color: #ff4d4d;
+    color: #fff;
+    padding: 15px 30px;
+    text-decoration: none;
+    border-radius: 5px;
+    font-weight: bold;
+    font-size: 1.2em;
+    transition: background-color 0.3s;
+}
+
+.hero .btn:hover {
+    background-color: #e60000;
+}
+
+/* Features Section Styles */
+.features {
+    padding: 100px 0;
+}
+
+.features h2 {
+    font-size: 2.5em;
+    font-weight: bold;
+    text-align: center;
+    margin-bottom: 50px;
+}
+
+.features .card {
+    background-color: #333;
+    color: #fff;
+    border: none; /* Remove border */
+    border-radius: 10px; /* Add border radius */
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.5); /* Add box shadow for depth */
+    transition: transform 0.3s; /* Smooth card hover effect */
+}
+
+.features .card:hover {
+    transform: translateY(-10px); /* Lift card on hover */
+}
+
+.features .card-title {
+    font-size: 1.8em;
+    font-weight: bold;
+}
+
+.features .card-text {
+    font-size: 1.2em;
+}
+
+/* About Section Styles */
+.about {
+    padding: 100px 0;
+}
+
+.about h2 {
+    font-size: 2.5em;
+    font-weight: bold;
+    text-align: center;
+    margin-bottom: 50px;
+}
+
+.about p {
+    font-size: 1.2em;
+}
+
+/* Footer Styles */
+footer {
+    background-color: #000;
+    color: #fff;
+    padding: 20px 0;
+    text-align: center;
+}
+
+footer p {
+    font-size: 1em;
+}
