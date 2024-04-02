@@ -18,6 +18,7 @@ toml = "==0.10.2"
 tzdata = "==2021.5"
 django-jasmine = "*"
 django-jazzmin = "*"
+environ = "*"
 
 [dev-packages]
 

@@ -202,3 +202,31 @@ JAZZMIN_UI_TWEAKS = {
 # comment the admin app from installed aps
 #also from App/urls the admin urls
 AUTH_USER_MODEL = 'users.user'
+
+
+############################################
+#email server  config 
+LOGIN_URL = 'users:login'
+AUTHENTICATION_BACKENDS = [
+    'users.backends.EmailOrUsernameModelBackend'
+]
+# debugging email server for testing and dev 
+# python -m smtpd -n -c Debuggingserver localhost:1025
+#EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'localhost'
+EMAIL_PORT = 1025
+#EMAIL_USE_TLS = False activate when production
+EMAIL_HOST_USER = ''
+EMAIL_HOST_PASSWORD = ''
+
+
+"""
+for production 
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+EMAIL_HOST_USER = 'your_email@gmail.com'
+EMAIL_HOST_PASSWORD = 'your_email_password'
+use this as a base https://youtu.be/xNqnHmXIuzU?si=PRPBzWmVAiIc7KYq
+"""
