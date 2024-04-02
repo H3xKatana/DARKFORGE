@@ -1,0 +1,154 @@
+{% extends 'shared_layout/profilebase.html' %}
+{% load crispy_forms_tags %}
+{% block content %}
+<style>
+    /* Embedded CSS */
+    .content-container {
+      background-color: #b2babf; /* Set your desired futuristic color */
+      padding: 40px; /* Add padding for spacing */
+      border: 2px solid #080707; /* Add white border */
+      border-radius: 10px; /* Add border radius for rounded corners */
+    }
+  
+    .profile-container {
+      display: flex;
+      align-items: center;
+      margin-top: 20px; /* Add margin to move it down */
+    }
+  
+    .profile-picture {
+      margin-right: 20px;
+    }
+  
+    .account-img {
+      width: 100px; /* Adjust as needed */
+      height: 100px; /* Adjust as needed */
+    }
+  
+    .profile-details {
+      flex-grow: 1;
+    }
+  
+    .account-heading {
+      font-size: 24px;
+      margin-bottom: 5px;
+      color: #080808; /* Set text color to white */
+    }
+  
+    .text-secondary {
+      color: #121010; /* Set text color to light gray */
+      margin-bottom: 10px; /* Add margin bottom for spacing */
+    }
+  
+    .bio-text {
+      font-size: 16px;
+      color: #080707; /* Set text color to white */
+    }
+
+    .custom-form {
+    margin-top: 20px;
+}
+
+/* Style for form labels */
+.custom-form label {
+    font-weight: bold;
+}
+
+/* Style for form input fields */
+.custom-form input[type="text"],
+.custom-form input[type="email"],
+.custom-form textarea {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+    margin-bottom: 10px;
+}
+
+/* Style for submit button */
+.custom-form button[type="submit"] {
+    background-color: #007bff;
+    color: #fff;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+/* Style for form fields wrapper */
+.form-fields-wrapper {
+    padding: 20px;
+    background-color: #f8f9fa;
+    border: 1px solid #dee2e6;
+    border-radius: 5px;
+}
+  </style>
+ <div class="content-section">
+    <div class="media">
+      <img class="rounded-circle account-img" src="{{ user.profile.image.url }}">
+      <div class="media-body">
+        <h2 class="account-heading">{{ user.username }}</h2>
+        <p class="text-secondary">{{ user.email }}</p>
+      </div>
+    </div>
+    <form method="POST" enctype="multipart/form-data" class="custom-form">
+        {% csrf_token %}
+        <div class="form-fields-wrapper">
+            <div class="row">
+                <div class="col-md-6">
+                    <h3>User Information</h3>
+                    <div class="form-group">
+                        {{ form.user_form.username.label_tag }}
+                        {{ form.user_form.username }}
+                    </div>
+                    <div class="form-group">
+                        {{ form.user_form.email.label_tag }}
+                        {{ form.user_form.email }}
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <h3>Profile Information</h3>
+                    <div class="form-group">
+                        {{ form.profile_form.bio.label_tag }}
+                        <textarea class="form-control" id="id_bio" name="bio" placeholder="{{ form.profile_form.bio.value }}"></textarea>
+                    </div>
+                    <div class="form-group">
+                        {{ form.profile_form.address.label_tag }}
+                        <input type="text" class="form-control" id="id_address" name="address" value="{{ form.profile_form.address.value }}" placeholder="{{ form.profile_form.address.value }}">
+                    </div>
+                    <div class="form-group">
+                        {{ form.profile_form.age.label_tag }}
+                        <input type="number" class="form-control" id="id_age" name="age" value="{{ form.profile_form.age.value }}" placeholder="{{ form.profile_form.age.value }}">
+                    </div>
+                    <div class="form-group">
+                        {{ form.profile_form.phone_number.label_tag }}
+                        <input type="text" class="form-control" id="id_phone_number" name="phone_number" value="{{ form.profile_form.phone_number.value }}" placeholder="{{ form.profile_form.phone_number.value }}">
+                    </div>
+                    <div class="form-group">
+                        {{ form.profile_form.gender.label_tag }}
+                        <select class="form-control" id="id_gender" name="gender" placeholder="{{ form.profile_form.gender.value }}">
+                            <option value="" {% if not form.profile_form.gender.value %}selected{% endif %}>---------</option>
+                            <option value="Male" {% if form.profile_form.gender.value == 'Male' %}selected{% endif %}>Male</option>
+                            <option value="Female" {% if form.profile_form.gender.value == 'Female' %}selected{% endif %}>Female</option>
+                            <option value="Other" {% if form.profile_form.gender.value == 'Other' %}selected{% endif %}>Other</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        {{ form.profile_form.image.label_tag }}
+                        {{ form.profile_form.image }}
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <button class="btn btn-primary" type="submit">Update</button>
+        </div>
+    </form>
+    
+    
+    
+  </div>
+  
+{% endblock content %}
+  

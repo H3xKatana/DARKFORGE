@@ -2,62 +2,91 @@
 {% load crispy_forms_tags %}
 {% block content %}
 <style>
-    /* Embedded CSS */
-    .content-container {
-      background-color: #52b5ea; /* Set your desired futuristic color */
-      padding: 40px; /* Add padding for spacing */
-      border: 2px solid #080707; /* Add white border */
-      border-radius: 10px; /* Add border radius for rounded corners */
-    }
-  
-    .profile-container {
-      display: flex;
-      align-items: center;
-      margin-top: 20px; /* Add margin to move it down */
-    }
-  
-    .profile-picture {
-      margin-right: 20px;
-    }
-  
-    .account-img {
-      width: 100px; /* Adjust as needed */
-      height: 100px; /* Adjust as needed */
-    }
-  
-    .profile-details {
-      flex-grow: 1;
-    }
-  
-    .account-heading {
-      font-size: 24px;
-      margin-bottom: 5px;
-      color: #080808; /* Set text color to white */
-    }
-  
-    .text-secondary {
-      color: #121010; /* Set text color to light gray */
-      margin-bottom: 10px; /* Add margin bottom for spacing */
-    }
-  
-    .bio-text {
-      font-size: 16px;
-      color: #080707; /* Set text color to white */
-    }
+.content-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.profile-container {
+    display: flex;
+    max-width: 800px;
+    background-color: #f8f9fa;
+    border-radius: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.profile-picture {
+    flex: 0 0 200px;
+    padding: 20px;
+}
+
+.account-img {
+    width: 100%;
+    max-width: 200px;
+    height: auto;
+    border-radius: 50%;
+}
+
+.profile-details {
+    flex: 1;
+    padding: 20px;
+}
+
+.account-heading {
+    margin-top: 0;
+    font-size: 2rem;
+    font-weight: bold;
+    color: #343a40;
+}
+
+.text-secondary {
+    color: #6c757d;
+}
+
+.bio-text {
+    margin-bottom: 20px;
+    color: #343a40;
+}
+
+.list-group {
+    list-style: none;
+    padding: 0;
+}
+
+.list-group-item {
+    border-bottom: 1px solid #dee2e6;
+    padding: 10px 0;
+    color: #343a40;
+}
+
+.list-group-item:last-child {
+    border-bottom: none;
+}
+
   </style>
   
   <div class="content-container">
     <div class="profile-container">
-      <div class="profile-picture">
-        <img class="rounded-circle account-img" src="{{ user.profile.image.url }}" alt="Profile Picture">
-      </div>
-      <div class="profile-details">
-        <h2 class="account-heading">{{ user.username }}</h2>
-        <p class="text-secondary">{{ user.email }}</p>
-        <p class="bio-text">{{ user.profile.bio }}</p> <!-- Include bio text here -->
-      </div>
+        <div class="profile-picture">
+            <img class="rounded-circle account-img" src="{{ user.profile.image.url }}" alt="Profile Picture">
+        </div>
+        <div class="profile-details">
+            <h2 class="account-heading">{{ user.username }}</h2>
+            <p class="text-secondary">{{ user.email }}</p>
+            <p class="bio-text">{{ user.profile.bio }}</p>
+            <ul class="list-group">
+                <li class="list-group-item"><strong>Address:</strong> {{ user.profile.address }}</li>
+                <li class="list-group-item"><strong>Age:</strong> {{ user.profile.age }}</li>
+                <li class="list-group-item"><strong>Phone Number:</strong> {{ user.profile.phone_number }}</li>
+                <li class="list-group-item"><strong>Gender:</strong> {{ user.profile.gender }}</li>
+                <!-- Include additional profile details as needed -->
+            </ul>
+        </div>
     </div>
-    <!-- FORM HERE -->
-  </div>
+</div>
+</div>
+
   
 {% endblock content %}

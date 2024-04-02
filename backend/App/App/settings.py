@@ -33,13 +33,14 @@ ALLOWED_HOSTS = []
 
 INSTALLED_APPS = [
     'jazzmin',
+    'crispy_forms',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'crispy_forms',
+    
     # my apps
     'users',
     'Home',
@@ -196,8 +197,8 @@ JAZZMIN_UI_TWEAKS = {
         "success": "btn-success",
     },
 }
-CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
+CRISPY_TEMPLATE_PACK = 'bootstrap4'
 # when u change in the model and want to migrate
 # comment the admin app from installed aps
 #also from App/urls the admin urls

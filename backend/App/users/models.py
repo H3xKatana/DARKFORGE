@@ -36,7 +36,14 @@ class Profile(models.Model):
     image = models.ImageField(default='default.jpg', upload_to='profile_pics')
     bio = models.TextField(_('Bio'), max_length=250, blank=True)
     short_bio = models.TextField(_('Short Bio'), max_length=50, blank=True)
-    
+    address = models.CharField(max_length=100, blank=True)
+    age = models.IntegerField(blank=True, null=True)
+    phone_number = models.CharField(max_length=20, blank=True)
+    gender = models.CharField(max_length=10, choices=[
+        ('male', 'Male'),
+        ('female', 'Female'),
+        ('fady','Fady')
+    ], blank=True)
     def __str__(self):
         return f"{self.user.username} Profile"
 

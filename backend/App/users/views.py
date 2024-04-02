@@ -32,6 +32,9 @@ from .forms import (
     ForgetPasswordEmailCodeForm,
     ChangePasswordForm,
     OtpForm,
+    ProfileUpdateForm,
+    UserUpdateForm,
+    FullUpdateForm
 )
 from .models import OtpCode, user
 from .utils import (
@@ -174,3 +177,21 @@ def reset_new_password_view(request):
     else:
         form = ChangePasswordForm()
     return render(request, 'users/new_password.html', {'form': form})
+
+
+@login_required
+def profile(request):
+    if request.method == 'POST':
+        form = FullUpdateForm(request.POST, request.FILES, instance=request.user.profile)
+        if form.is_valid():
+            form.save()
+            return redirect('profile')  # Redirect to the profile page after successful update
+    else:
+        user_form = UserUpdateForm(instance=request.user)
+        profile_form = ProfileUpdateForm(instance=request.user.profile)
+        initial_data = {
+            'user_form': user_form.initial,
+            'profile_form': profile_form.initial,
+        }
+        form = FullUpdateForm(initial=initial_data)
+    return render(request, 'users/profile_update.html', {'form': form})
