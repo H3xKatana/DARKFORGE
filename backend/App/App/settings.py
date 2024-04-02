@@ -39,7 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'imagekit',
+    'crispy_forms',
     # my apps
     'users',
     'Home',
@@ -196,7 +196,7 @@ JAZZMIN_UI_TWEAKS = {
         "success": "btn-success",
     },
 }
-
+CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
 # when u change in the model and want to migrate
 # comment the admin app from installed aps
@@ -207,9 +207,12 @@ AUTH_USER_MODEL = 'users.user'
 ############################################
 #email server  config 
 LOGIN_URL = 'users:login'
-AUTHENTICATION_BACKENDS = [
+
+
+"""AUTHENTICATION_BACKENDS = [
     'users.backends.EmailOrUsernameModelBackend'
-]
+]"""
+
 # debugging email server for testing and dev 
 # python -m smtpd -n -c Debuggingserver localhost:1025
 #EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'

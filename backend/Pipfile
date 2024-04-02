@@ -19,6 +19,7 @@ tzdata = "==2021.5"
 django-jasmine = "*"
 django-jazzmin = "*"
 environ = "*"
+django-crispy-forms = "*"
 
 [dev-packages]
 

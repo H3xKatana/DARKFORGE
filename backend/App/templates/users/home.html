@@ -1,1 +1,63 @@
-{% extends 'shared_layout/base.html' %}
+{% extends 'shared_layout/profilebase.html' %}
+{% load crispy_forms_tags %}
+{% block content %}
+<style>
+    /* Embedded CSS */
+    .content-container {
+      background-color: #52b5ea; /* Set your desired futuristic color */
+      padding: 40px; /* Add padding for spacing */
+      border: 2px solid #080707; /* Add white border */
+      border-radius: 10px; /* Add border radius for rounded corners */
+    }
+  
+    .profile-container {
+      display: flex;
+      align-items: center;
+      margin-top: 20px; /* Add margin to move it down */
+    }
+  
+    .profile-picture {
+      margin-right: 20px;
+    }
+  
+    .account-img {
+      width: 100px; /* Adjust as needed */
+      height: 100px; /* Adjust as needed */
+    }
+  
+    .profile-details {
+      flex-grow: 1;
+    }
+  
+    .account-heading {
+      font-size: 24px;
+      margin-bottom: 5px;
+      color: #080808; /* Set text color to white */
+    }
+  
+    .text-secondary {
+      color: #121010; /* Set text color to light gray */
+      margin-bottom: 10px; /* Add margin bottom for spacing */
+    }
+  
+    .bio-text {
+      font-size: 16px;
+      color: #080707; /* Set text color to white */
+    }
+  </style>
+  
+  <div class="content-container">
+    <div class="profile-container">
+      <div class="profile-picture">
+        <img class="rounded-circle account-img" src="{{ user.profile.image.url }}" alt="Profile Picture">
+      </div>
+      <div class="profile-details">
+        <h2 class="account-heading">{{ user.username }}</h2>
+        <p class="text-secondary">{{ user.email }}</p>
+        <p class="bio-text">{{ user.profile.bio }}</p> <!-- Include bio text here -->
+      </div>
+    </div>
+    <!-- FORM HERE -->
+  </div>
+  
+{% endblock content %}
