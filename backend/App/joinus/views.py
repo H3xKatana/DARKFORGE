@@ -4,6 +4,8 @@ from django.shortcuts import render
 from django.shortcuts import render, redirect
 from .forms import CVForm
 
+
+
 def upload_cv(request):
     if request.method == 'POST':
         form = CVForm(request.POST, request.FILES)

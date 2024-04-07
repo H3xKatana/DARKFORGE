@@ -20,6 +20,7 @@ django-jasmine = "*"
 django-jazzmin = "*"
 environ = "*"
 django-crispy-forms = "*"
+openai = "*"
 
 [dev-packages]
 

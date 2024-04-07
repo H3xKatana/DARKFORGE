@@ -46,6 +46,7 @@ INSTALLED_APPS = [
     'Home',
     'GamesLibrary',
     'joinus',
+    'help',
 ]
 
 MIDDLEWARE = [
