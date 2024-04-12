@@ -4,5 +4,6 @@ from . import views
 
 urlpatterns = [
     path('', views.index, name='index'),
-    path('<int:game_id>', views.game_page, name='game_page'),
+    path('customgame/',views.create_custom_game,name='custom_game'),
+   
 ]

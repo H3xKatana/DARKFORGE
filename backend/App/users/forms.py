@@ -151,21 +151,4 @@ class ProfileUpdateForm(forms.ModelForm):
     
     class Meta:
         model = Profile
-        fields = ['image','bio', 'address', 'age', 'phone_number', 'gender']
-
-class FullUpdateForm(forms.Form):
-    def __init__(self, *args, **kwargs):
-        super(FullUpdateForm, self).__init__(*args, **kwargs)
-        self.user_form = UserUpdateForm(*args, **kwargs)
-        self.profile_form = ProfileUpdateForm(*args, **kwargs)
-
-        self.helper = FormHelper()
-        self.helper.form_method = 'post'
-        self.helper.add_input(Submit('submit', 'Update Profile'))
-
-    def is_valid(self):
-        return self.user_form.is_valid() and self.profile_form.is_valid()
-
-    def save(self, *args, **kwargs):
-        self.user_form.save(*args, **kwargs)
-        return self.profile_form.save(*args, **kwargs)
+        fields = ['image','banner','bio', 'address', 'age', 'phone_number', 'gender']

@@ -21,6 +21,7 @@ django-jazzmin = "*"
 environ = "*"
 django-crispy-forms = "*"
 openai = "*"
+crispy-bootstrap4 = "*"
 
 [dev-packages]
 

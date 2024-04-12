@@ -34,7 +34,7 @@ from .forms import (
     OtpForm,
     ProfileUpdateForm,
     UserUpdateForm,
-    FullUpdateForm
+    
 )
 from .models import OtpCode, user
 from .utils import (
@@ -180,18 +180,25 @@ def reset_new_password_view(request):
 
 
 @login_required
-def profile(request):
+def profile_update_view(request):
     if request.method == 'POST':
-        form = FullUpdateForm(request.POST, request.FILES, instance=request.user.profile)
-        if form.is_valid():
-            form.save()
-            return redirect('profile')  # Redirect to the profile page after successful update
+        u_form = UserUpdateForm(request.POST, instance=request.user)
+        p_form = ProfileUpdateForm(request.POST,
+                                   request.FILES,
+                                   instance=request.user.profile)
+        if u_form.is_valid() and p_form.is_valid():
+            u_form.save()
+            p_form.save()
+            messages.success(request, f'Your account has been updated!')
+            return redirect('users:home')
+
     else:
-        user_form = UserUpdateForm(instance=request.user)
-        profile_form = ProfileUpdateForm(instance=request.user.profile)
-        initial_data = {
-            'user_form': user_form.initial,
-            'profile_form': profile_form.initial,
-        }
-        form = FullUpdateForm(initial=initial_data)
-    return render(request, 'users/profile_update.html', {'form': form})
+        u_form = UserUpdateForm(instance=request.user)
+        p_form = ProfileUpdateForm(instance=request.user.profile)
+
+    context = {
+        'u_form': u_form,
+        'p_form': p_form
+    }
+
+    return render(request, 'users/profile_update.html', context)

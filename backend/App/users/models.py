@@ -3,6 +3,7 @@ from django.db.models.signals import post_save
 from django.contrib.auth.models import AbstractUser
 from django.utils.translation import gettext_lazy as _
 from django.conf import settings
+from PIL import Image
 from os import path
 
 
@@ -34,6 +35,7 @@ class Profile(models.Model):
     # to inhirate from the user model / on_del if the user the profile is deleted the rev is not true 
     user = models.OneToOneField(user, on_delete=models.CASCADE)
     image = models.ImageField(default='default.jpg', upload_to='profile_pics')
+    banner = models.ImageField(default='defualt.jpg',upload_to='profile_banners')
     bio = models.TextField(_('Bio'), max_length=250, blank=True)
     short_bio = models.TextField(_('Short Bio'), max_length=50, blank=True)
     address = models.CharField(max_length=100, blank=True)
@@ -46,5 +48,14 @@ class Profile(models.Model):
     ], blank=True)
     def __str__(self):
         return f"{self.user.username} Profile"
+    def save(self):
+        super().save()
+
+        img = Image.open(self.image.path)
+
+        if img.height > 300 or img.width > 300:
+            output_size = (300, 300)
+            img.thumbnail(output_size)
+            img.save(self.image.path)
 
     

@@ -65,6 +65,7 @@ class Game(models.Model):
     price = models.FloatField(default=0, validators = [MinValueValidator(0.0)])
     platform = models.CharField(max_length=50)
     genres = models.ManyToManyField(Genre)
+    discounts = models.IntegerField(default=0,validators=[MaxValueValidator(50)],null=False)
     is_published = models.BooleanField(default=True)
     youtube_video_url = models.URLField(blank=True, null=True)
     game_status = models.CharField(choices=STATUS, max_length=12, default='coming_soon')
@@ -105,9 +106,6 @@ class Comments(models.Model):
     def __str__(self):
         return self.text
 #############################3
-class Wishlist(models.Model):
-    user = models.ForeignKey(user, on_delete=models.CASCADE)
-    game = models.ForeignKey(Game, on_delete=models.CASCADE)
 
 class MyGames(models.Model):
     user = models.ForeignKey(user, on_delete=models.CASCADE)
@@ -120,7 +118,6 @@ class FavoriteGames(models.Model):
 ###############################
     
 
-
 class Cart(models.Model):
     cart_id = models.CharField(max_length=250, blank=True)
     date_added = models.DateField(auto_now_add=True)
@@ -131,13 +128,61 @@ class Cart(models.Model):
     
 class CartItem(models.Model): 
     user     = models.ForeignKey(user, on_delete=models.CASCADE, null=True)
-    product  = models.ForeignKey(Game, on_delete=models.CASCADE)
+    Game  = models.ForeignKey(Game, on_delete=models.CASCADE)
     cart     = models.ForeignKey(Cart, on_delete=models.CASCADE, null=True)
     is_active= models.BooleanField(default=True)
 
     def sub_total(self):
-        return self.product.price * self.quantity
+        return self.Game.price - (self.Game.discounts / 100 * self.Game.price)
 
     def __unicode__(self):
         return self.product
     
+############################33
+# Improving Custom Status Choices
+CUSTOM_STATUS_CHOICES = (
+    ("draft", "Draft"),
+    ("lore_design", "Lore Design"),
+    ("characters_design", "Characters Design"),
+    ("graphics_design", "Graphics Design"),
+    ("adding_sounds", "Adding Sounds"),
+    ("game_ui", "Game UI"),
+    ("testing", "Testing"),
+    ("published_soon", "Published Soon"),
+    ("game_ready", "Game Ready"),
+)
+
+# Improving Complexity Choices
+COMPLEXITY_CHOICES = (
+    ("fast_game", "Fast Game"),
+    ("entry_level", "Entry Level"),
+    ("medium_game", "Medium Game"),
+    ("big_game_project", "Big Game Project"),
+    ("aaa_level", "AAA Level"),
+)
+
+# Improving Tech Level Choices
+TECH_LEVEL_CHOICES = (
+    ("beginner", "Beginner"),
+    ("entry_level", "Entry Level"),
+    ("junior_level", "Junior Level"),
+    ("senior_level", "Senior Level"),
+)
+
+class CustomGame(models.Model):
+    user = models.ManyToManyField(User)
+
+    title = models.CharField(max_length=100)
+    user_tech_level = models.CharField(choices=TECH_LEVEL_CHOICES, max_length=25, default="beginner")
+    game_complexity = models.CharField(choices=COMPLEXITY_CHOICES, max_length=25, default="fast_game")
+    general_info = models.TextField(default="", blank=True)
+    platform = models.CharField(max_length=50)
+    genres = models.ManyToManyField(Genre)
+    image = models.ImageField(upload_to="custom_game/", null=True, blank=True)
+    progression = models.IntegerField(default=0, validators=[MaxValueValidator(100)], null=False)
+    game_status = models.CharField(choices=CUSTOM_STATUS_CHOICES, max_length=20, default="draft")
+    prototype = models.BooleanField(default=False)
+    prototype_game = models.FileField(upload_to="prototype_games/", null=True, blank=True)
+    prototype_video_url = models.URLField(blank=True, null=True)
+    def __str__(self):
+        return f"{self.user.username} - {self.title}"

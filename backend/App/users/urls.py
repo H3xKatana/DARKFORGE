@@ -14,12 +14,12 @@ from .views import (
     check_otp_view,
     check_reset_otp_view,
     reset_new_password_view,
-    profile,
+    profile_update_view,
 )
 
 app_name = 'users'
 urlpatterns = [
-    path('update/', profile, name='profile_update'),
+    path('update/', profile_update_view, name='profile_update'),
     path('', home_view, name='home'),
     path('login/', login_view, name='login'),
     path('logout/', logout_view, name='logout'),

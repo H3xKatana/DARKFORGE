@@ -1,22 +1,35 @@
 
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib import messages
-from .models import Game
+from .models import Game,CustomGame
 from django.http import HttpResponse
+from .forms import CustomGameForm
 
 
 def index(request):  # Checking homepage
-    games = Game.objects.all().filter(is_published=True)
+    items = Game.objects.all().filter(is_published=True)
     context = {
-        'games' : games,
-        'nav' : 'store'
+        'games' : items,
+        
     }
     return render(request, 'shop/store.html', context)
 
 
-def game_page(request, game_id): # Products page
-    game_page = get_object_or_404(Game, pk=game_id)
-    context = {
-        'game_page' : game_page
-    }
-    return render(request, 'shop/game_page.html', context)
+def checkout(request):  # Checking checkout page
+    
+    return render(request,'store/checkout.html')
+
+
+
+
+def create_custom_game(request):
+    if request.method == 'POST':
+        form = CustomGameForm(request.POST, request.FILES)
+        if form.is_valid():
+            custom_game = form.save(commit=False)
+            custom_game.user = request.user  # Assuming user is authenticated
+            custom_game.save()
+            return redirect('users:home')  # Redirect to a success URL
+    else:
+        form = CustomGameForm()
+    return render(request, 'shop/custom_game_form.html', {'form': form})

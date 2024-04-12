@@ -1,9 +1,10 @@
 from django.utils.safestring import mark_safe
 from django.contrib import admin
-from .models import Genre,Comments, Game, GamesImages,Rating,Developers
+from .models import Genre,Comments, Game, GamesImages,Rating,Developers,CustomGame
 # Register your models here.
 
-
+class CustomGameAdmin(admin.ModelAdmin):
+    model= CustomGame
 class GenresAdmin(admin.ModelAdmin):
     model = Genre
 
@@ -52,3 +53,4 @@ admin.site.register(Genre,GenresAdmin)
 admin.site.register(Rating,ReviewAdmin)
 admin.site.register(Developers,DevsAdmin)
 admin.site.register(Comments, CommentAdmin)
+admin.site.register(CustomGame,CustomGameAdmin)
