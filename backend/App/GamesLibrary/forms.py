@@ -6,7 +6,7 @@ from .models import CustomGame
 class CustomGameForm(forms.ModelForm):
     class Meta:
         model = CustomGame
-        exclude = ['user','game_status','progression','progression']  # Exclude user field as we'll handle it separately
+        exclude = ['user','price','payment','game_status','progression','progression']  # Exclude user field as we'll handle it separately
         widgets = {
             'genres': forms.CheckboxSelectMultiple,  # Use checkboxes for genre selection
         }

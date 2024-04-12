@@ -170,7 +170,7 @@ TECH_LEVEL_CHOICES = (
 )
 
 class CustomGame(models.Model):
-    user = models.ManyToManyField(User)
+    user     = models.ForeignKey(user, on_delete=models.CASCADE, null=True)
 
     title = models.CharField(max_length=100)
     user_tech_level = models.CharField(choices=TECH_LEVEL_CHOICES, max_length=25, default="beginner")
@@ -184,5 +184,7 @@ class CustomGame(models.Model):
     prototype = models.BooleanField(default=False)
     prototype_game = models.FileField(upload_to="prototype_games/", null=True, blank=True)
     prototype_video_url = models.URLField(blank=True, null=True)
+    payment= models.BooleanField(default=False)
+    price = models.FloatField(default=0, validators = [MinValueValidator(0.0)])
     def __str__(self):
         return f"{self.user.username} - {self.title}"

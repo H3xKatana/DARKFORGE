@@ -29,6 +29,7 @@ def create_custom_game(request):
             custom_game = form.save(commit=False)
             custom_game.user = request.user  # Assuming user is authenticated
             custom_game.save()
+            messages.success(request, 'Your custom game order has been submitted. It will be processed shortly.')
             return redirect('users:home')  # Redirect to a success URL
     else:
         form = CustomGameForm()

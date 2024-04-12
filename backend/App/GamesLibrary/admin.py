@@ -1,10 +1,30 @@
 from django.utils.safestring import mark_safe
-from django.contrib import admin
+from django.contrib import admin,messages
+from django.utils.translation import ngettext
 from .models import Genre,Comments, Game, GamesImages,Rating,Developers,CustomGame
 # Register your models here.
 
-class CustomGameAdmin(admin.ModelAdmin):
-    model= CustomGame
+
+
+
+
+
+#Actions to use 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 class GenresAdmin(admin.ModelAdmin):
     model = Genre
 
@@ -16,6 +36,29 @@ class GamesImagesInline(admin.TabularInline):
 
 
 
+class CustomGameAdmin(admin.ModelAdmin):
+    list_display = ['title', 'price', 'payment', 'progression', 'game_status','game_complexity']
+    actions = ['mark_payment_true', 'change_game_status', 'set_price']
+    def mark_payment_true(modeladmin, request, queryset):
+        queryset.update(payment=True)
+
+
+    def change_game_status(modeladmin, request, queryset):
+        queryset.update(game_status='Draft')
+
+    def set_price(self, request, queryset):
+        selected = queryset.count()
+        if selected == 1:
+            price = request.POST.get('price')
+            if price is not None:
+                queryset.update(price=price)
+                self.message_user(request, "Price successfully updated.")
+            else:
+                self.message_user(request, "Please enter a valid price.", level=messages.ERROR)
+        else:
+            self.message_user(request, "Please select exactly one game to set the price.", level=messages.ERROR)
+
+    set_price.short_description = "Set price for selected game(s)"
 
 class GameAdmin(admin.ModelAdmin):
     inlines = [GamesImagesInline]
