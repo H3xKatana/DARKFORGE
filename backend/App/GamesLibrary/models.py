@@ -40,7 +40,11 @@ class Genre(models.Model):
     def __str__(self):
         return self.name
 
+class Platforms(models.Model):
+    name = models.CharField(max_length=50, unique=True)
 
+    def __str__(self):
+        return self.name
 class Developers(models.Model):
     user   = models.ManyToManyField(User)
     active =models.BooleanField(default=True)
@@ -65,10 +69,21 @@ class Game(models.Model):
     price = models.FloatField(default=0, validators = [MinValueValidator(0.0)])
     platform = models.CharField(max_length=50)
     genres = models.ManyToManyField(Genre)
+    platforms = models.ManyToManyField(Platforms)
     discounts = models.IntegerField(default=0,validators=[MaxValueValidator(50)],null=False)
     is_published = models.BooleanField(default=True)
     youtube_video_url = models.URLField(blank=True, null=True)
     game_status = models.CharField(choices=STATUS, max_length=12, default='coming_soon')
+
+
+    created_at = models.DateTimeField(auto_now_add=True)
+    @property
+    def is_recent(self):
+        # Calculate the difference between now and the creation date
+        time_difference = timezone.now() - self.created_at
+        # Check if the difference is less than or equal to 10 days
+        return time_difference.days <= 10
+    
     def __str__(self):
         return self.title
 
@@ -188,5 +203,12 @@ class CustomGame(models.Model):
     prototype_video_url = models.URLField(blank=True, null=True)
     payment= models.BooleanField(default=False)
     price = models.FloatField(default=0, validators = [MinValueValidator(0.0)])
+    created_at = models.DateTimeField(auto_now_add=True)
+    @property
+    def is_recent(self):
+        # Calculate the difference between now and the creation date
+        time_difference = timezone.now() - self.created_at
+        # Check if the difference is less than or equal to 10 days
+        return time_difference.days <= 10
     def __str__(self):
         return f"{self.user.username} - {self.title}"

@@ -41,9 +41,9 @@ class GamesImagesInline(admin.TabularInline):
 
 
 class CustomGameAdmin(admin.ModelAdmin):
-    list_display = ['title', 'price', 'payment', 'progression', 'game_status','game_complexity']
+    list_display = ['user','title', 'price','is_recent', 'payment', 'progression', 'game_status','game_complexity']
     actions = ['mark_payment_true', 'change_game_status','set_price','send_custom_email']
-    
+    list_filter = ('user','title','created_at','price','game_status','platform')
     
     
     def mark_payment_true(modeladmin, request, queryset):
@@ -79,8 +79,15 @@ class CustomGameAdmin(admin.ModelAdmin):
 
 
 class GameAdmin(admin.ModelAdmin):
+
+
+    
     inlines = [GamesImagesInline]
-    list_display=['title','price', 'display_image' ,'developer','game_status','is_published']
+    list_display=['title','price','is_recent' ,'developer','game_status','is_published']
+    list_filter = ('title','created_at','price','game_status','platforms')
+    #list_filter = [RecentGameFilter, PublishedGameFilter]
+
+    
     def display_image(self, obj):
         if obj.image:
             return mark_safe('<img src="image_uploads\pfp.jpg" width=100 height=100 />'.format(
