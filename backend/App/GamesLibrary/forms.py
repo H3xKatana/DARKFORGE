@@ -20,3 +20,13 @@ class CustomGameForm(forms.ModelForm):
         if not cleaned_data.get('image') and not cleaned_data.get('prototype_game'):
             raise forms.ValidationError("Either image or prototype game file is required.")
         return cleaned_data
+    
+
+#admin form 
+class SetPriceForm(forms.Form):
+    price = forms.FloatField(label='New Price', min_value=0)
+
+
+class EmailForm(forms.Form):
+    subject = forms.CharField(label='Subject', max_length=100)
+    message = forms.CharField(label='Message', widget=forms.Textarea)

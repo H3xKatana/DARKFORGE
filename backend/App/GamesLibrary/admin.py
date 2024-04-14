@@ -1,7 +1,11 @@
 from django.utils.safestring import mark_safe
 from django.contrib import admin,messages
+from django.urls import path
+from django.shortcuts import render, redirect
 from django.utils.translation import ngettext
 from .models import Genre,Comments, Game, GamesImages,Rating,Developers,CustomGame
+from .forms import SetPriceForm,EmailForm
+from django.core.mail import send_mail
 # Register your models here.
 
 
@@ -38,27 +42,41 @@ class GamesImagesInline(admin.TabularInline):
 
 class CustomGameAdmin(admin.ModelAdmin):
     list_display = ['title', 'price', 'payment', 'progression', 'game_status','game_complexity']
-    actions = ['mark_payment_true', 'change_game_status', 'set_price']
+    actions = ['mark_payment_true', 'change_game_status','set_price','send_custom_email']
+    
+    
+    
     def mark_payment_true(modeladmin, request, queryset):
         queryset.update(payment=True)
 
-
-    def change_game_status(modeladmin, request, queryset):
-        queryset.update(game_status='Draft')
-
     def set_price(self, request, queryset):
-        selected = queryset.count()
-        if selected == 1:
-            price = request.POST.get('price')
-            if price is not None:
-                queryset.update(price=price)
-                self.message_user(request, "Price successfully updated.")
-            else:
-                self.message_user(request, "Please enter a valid price.", level=messages.ERROR)
+        form = SetPriceForm(request.POST or None)
+        if form.is_valid():
+            price = form.cleaned_data['price']
+            queryset.update(price=price)
+            self.message_user(request, "Prices updated successfully.")
         else:
-            self.message_user(request, "Please select exactly one game to set the price.", level=messages.ERROR)
+            self.message_user(request, "Error: Invalid form submission.", level=messages.ERROR)
 
-    set_price.short_description = "Set price for selected game(s)"
+    set_price.short_description = "Set Price"
+
+    def send_custom_email(self, request, queryset):
+        if 'apply' in request.POST:
+            form = EmailForm(request.POST)
+            if form.is_valid():
+                subject = form.cleaned_data['subject']
+                message = form.cleaned_data['message']
+                recipients = [game.user.email for game in queryset if game.user.email]
+                send_mail(subject, message, 'your@example.com', recipients)
+                self.message_user(request, "Email sent successfully.")
+                return
+        else:
+            form = EmailForm()
+        return render(request, 'admin/send_custom_email_form.html', context={'form': form})
+
+    send_custom_email.short_description = "Send Custom Email"
+
+
 
 class GameAdmin(admin.ModelAdmin):
     inlines = [GamesImagesInline]

@@ -142,14 +142,16 @@ class CartItem(models.Model):
 # Improving Custom Status Choices
 CUSTOM_STATUS_CHOICES = (
     ("draft", "Draft"),
-    ("lore_design", "Lore Design"),
-    ("characters_design", "Characters Design"),
-    ("graphics_design", "Graphics Design"),
-    ("adding_sounds", "Adding Sounds"),
-    ("game_ui", "Game UI"),
-    ("testing", "Testing"),
-    ("published_soon", "Published Soon"),
-    ("game_ready", "Game Ready"),
+    ("concept", "Concept"),
+    ("prototyping", "Prototyping"),
+    ("alpha", "Alpha Version"),
+    ("beta", "Beta Version"),
+    ("playtesting", "Playtesting"),
+    ("polishing", "Polishing"),
+    ("final_testing", "Final Testing"),
+    ("marketing", "Marketing"),
+    ("launch", "Launch"),
+    ("post_launch_support", "Post-launch Support"),
 )
 
 # Improving Complexity Choices
