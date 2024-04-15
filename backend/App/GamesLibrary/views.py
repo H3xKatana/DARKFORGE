@@ -1,10 +1,12 @@
 
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib import messages
-from .models import Game,CustomGame
+from .models import Game,CustomGame,FavoriteGames
 from django.http import HttpResponse
 from .forms import CustomGameForm, SetPriceForm
-
+from django.contrib.auth.decorators import login_required
+from django.http import HttpResponseRedirect,HttpResponseBadRequest
+from django.urls import reverse
 
 def index(request):  # Checking homepage
     items = Game.objects.all().filter(is_published=True)
@@ -58,3 +60,20 @@ def set_price_view(request):
     else:
         form = SetPriceForm()
     return render(request, 'set_price_form.html', {'form': form})
+
+
+
+################
+@login_required
+def add_to_favorites(request, game_id):
+    if request.method == 'GET':
+        favorite, created = FavoriteGames.objects.get_or_create(user=request.user, game_id=game_id)
+        # You can handle cases where the favorite already exists
+        return HttpResponseRedirect(reverse('game-detail', args=[game_id]))
+    else:
+        return HttpResponseBadRequest("Invalid request method: POST requests are not allowed.")
+
+@login_required
+def favorites_list(request):
+    favorites = FavoriteGames.objects.filter(user=request.user)
+    return render(request, 'shop/favorites_list.html', {'favorites': favorites})

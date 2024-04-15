@@ -66,7 +66,6 @@ class Game(models.Model):
     url = models.URLField(unique=True)
     developer = models.ForeignKey(Developers, on_delete=models.CASCADE)
     price = models.FloatField(default=0, validators = [MinValueValidator(0.0)])
-    platform = models.CharField(max_length=50)
     genres = models.ManyToManyField(Genre)
     platforms = models.ManyToManyField(Platforms)
     discounts = models.IntegerField(default=0,validators=[MaxValueValidator(50)],null=False)
@@ -128,7 +127,8 @@ class MyGames(models.Model):
 class FavoriteGames(models.Model):
     user = models.ForeignKey(user, on_delete=models.CASCADE)
     game = models.ForeignKey(Game, on_delete=models.CASCADE)
-
+    class Meta:
+        unique_together = ('user', 'game')
 ###############################
     
 

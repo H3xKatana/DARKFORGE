@@ -22,7 +22,8 @@
                 <p><strong>Platform:</strong> {{ game.platform }}</p>
                 <!-- Add more details as needed -->
                 <a href="#" class="btn btn-primary">Buy Now</a>
-                <a href="#" class="btn btn-secondary">Add to Wishlist</a>
+                <a href="{% url 'add-to-favorites' game.id %}" class="btn btn-primary">⭐</a>
+
             </div>
         </div>
     </div>
