@@ -15,6 +15,14 @@ def index(request):  # Checking homepage
     return render(request, 'shop/store.html', context)
 
 
+
+def game_detail(request, pk):
+    game = get_object_or_404(Game, pk=pk)
+    context = {
+        'game': game,
+    }
+    return render(request, 'shop/game_detail.html', context)
+
 def checkout(request):  # Checking checkout page
     
     return render(request,'store/checkout.html')

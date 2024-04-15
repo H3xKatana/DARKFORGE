@@ -1,0 +1,33 @@
+<!-- shop/game_detail.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ game.title }} - Game Detail</title>
+    <!-- Add your CSS links here -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <!-- Add any additional stylesheets or CSS files you want to include -->
+</head>
+<body>
+    <div class="container">
+        <h1>{{ game.title }}</h1>
+        <div class="row">
+            <div class="col-md-4">
+                <img src="{{ game.image.url }}" class="img-fluid" alt="{{ game.title }}">
+            </div>
+            <div class="col-md-8">
+                <p><strong>Description:</strong> {{ game.description }}</p>
+                <p><strong>Price:</strong> ${{ game.price }}</p>
+                <p><strong>Platform:</strong> {{ game.platform }}</p>
+                <!-- Add more details as needed -->
+                <a href="#" class="btn btn-primary">Buy Now</a>
+                <a href="#" class="btn btn-secondary">Add to Wishlist</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Add your JavaScript links here -->
+    <!-- Add any additional scripts or JavaScript files you want to include -->
+</body>
+</html>

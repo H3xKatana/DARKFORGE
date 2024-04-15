@@ -62,8 +62,7 @@ class Game(models.Model):
     id = models.AutoField(primary_key=True)
     title = models.CharField(max_length=100)
     description = models.TextField(default='',blank=True)
-    image = models.ImageField(null=True,upload_to="image_uploads"
-                                ,blank=True,default = 'image_uploads\placeholder.png' )
+    image = models.ImageField(default='default.jpg', upload_to='game_pics')
     url = models.URLField(unique=True)
     developer = models.ForeignKey(Developers, on_delete=models.CASCADE)
     price = models.FloatField(default=0, validators = [MinValueValidator(0.0)])

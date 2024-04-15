@@ -3,7 +3,7 @@ from django.contrib import admin,messages
 from django.urls import path
 from django.shortcuts import render, redirect
 from django.utils.translation import ngettext
-from .models import Genre,Comments, Game, GamesImages,Rating,Developers,CustomGame
+from .models import Genre,Comments, Game, GamesImages,Rating,Developers,CustomGame,Platforms
 from .forms import SetPriceForm,EmailForm
 from django.core.mail import send_mail
 # Register your models here.
@@ -32,6 +32,10 @@ from django.core.mail import send_mail
 class GenresAdmin(admin.ModelAdmin):
     model = Genre
 
+
+
+class PlatformsAdmin(admin.ModelAdmin):
+    model = Platforms
 class DevsAdmin(admin.ModelAdmin):
     model=Developers 
 
@@ -117,6 +121,7 @@ class ReviewAdmin(admin.ModelAdmin):
 
 
 admin.site.register(Game,GameAdmin)
+admin.site.register(Platforms,PlatformsAdmin)
 admin.site.register(Genre,GenresAdmin)
 admin.site.register(Rating,ReviewAdmin)
 admin.site.register(Developers,DevsAdmin)
