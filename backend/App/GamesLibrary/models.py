@@ -11,6 +11,7 @@ import datetime
 from django.contrib.auth import get_user_model
 from django.core.files.storage import FileSystemStorage
 import os,uuid
+from django.db.models import Q
 
 
 
@@ -82,6 +83,25 @@ class Game(models.Model):
         # Check if the difference is less than or equal to 10 days
         return time_difference.days <= 10
     
+
+    @staticmethod
+    def search(query):
+        # Query for games matching the title or description
+        games = Game.objects.filter(
+            Q(title__icontains=query) | Q(description__icontains=query)
+        ).distinct()
+
+        # Filter by genre
+        games = games.filter(genres__name__icontains=query)
+
+        # Filter by platform
+        games = games.filter(platforms__name__icontains=query)
+
+        # Filter by developer
+        games = games.filter(developer__user__username__icontains=query)
+
+        return games.distinct()
+
     def __str__(self):
         return self.title
 

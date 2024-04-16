@@ -77,3 +77,18 @@ def add_to_favorites(request, game_id):
 def favorites_list(request):
     favorites = FavoriteGames.objects.filter(user=request.user)
     return render(request, 'shop/favorites_list.html', {'favorites': favorites})
+
+
+#############
+def game_search(request):
+    query = request.GET.get('q')
+    if query:
+        games = Game.search(query)
+    else:
+        games = Game.objects.all()
+
+    context = {
+        'games': games,
+        'query': query
+    }
+    return render(request, 'shop/game_search.html', context)
