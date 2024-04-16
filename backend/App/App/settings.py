@@ -216,7 +216,7 @@ LOGIN_URL = 'users:login'
 ]"""
 
 # debugging email server for testing and dev 
-# python -m smtpd -n -c Debuggingserver localhost:1025
+# python -m smtpd -n -c DebuggingServer localhost:1025
 #EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'localhost'
 EMAIL_PORT = 1025

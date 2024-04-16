@@ -36,7 +36,7 @@ from .forms import (
     UserUpdateForm,
     
 )
-from .models import OtpCode, user
+from .models import OtpCode, user,Notification
 from .utils import (
     send_activation_code,
     send_reset_password_code,
@@ -202,3 +202,19 @@ def profile_update_view(request):
     }
 
     return render(request, 'users/profile_update.html', context)
+
+
+
+
+
+def new_message(request):
+    # Logic to send message...
+    recipient = request.user  # Assuming the recipient is the current user
+    message = "You have a new message!"
+    Notification.objects.create(recipient=recipient, message=message)
+
+# Displaying notifications
+def view_notifications(request):
+    user_notifications = Notification.objects.filter(recipient=request.user, is_read=False)
+    total_unread_notifications = user_notifications.count()
+    return render(request, 'users/notifications.html', {'notifications': user_notifications, 'total_unread_notifications': total_unread_notifications})

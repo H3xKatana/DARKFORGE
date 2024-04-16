@@ -15,6 +15,7 @@ from .views import (
     check_reset_otp_view,
     reset_new_password_view,
     profile_update_view,
+    view_notifications,
 )
 
 app_name = 'users'
@@ -28,6 +29,7 @@ urlpatterns = [
     path('activate-email/', check_otp_view, name='activate_email'),
     path('reset-code/', check_reset_otp_view, name='reset_code'),
     path('new-password/', reset_new_password_view, name='reset_new_password'),
+    path('notifications/', view_notifications, name='view_notifications'),
 ]
 
 
