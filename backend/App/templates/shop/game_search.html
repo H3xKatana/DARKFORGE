@@ -6,13 +6,32 @@
     <title>Game Search Results</title>
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <!-- Bootstrap Slider CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-slider/11.0.2/css/bootstrap-slider.min.css">
+    <style>
+        /* Hide the detailed search form initially */
+        #detailed-search-form {
+            display: none;
+        }
+    </style>
 </head>
 <body>
     <div class="container mt-5">
         <h1 class="mb-4">Game Search Results</h1>
 
-        <!-- Search Form -->
-        <form action="{% url 'game_search' %}" method="get">
+        <!-- Simple Search Form -->
+        <form id="simple-search-form" action="{% url 'game_search' %}" method="get">
+            <div class="form-group">
+                <label for="title">Title:</label>
+                <input type="text" class="form-control" id="title" name="title" value="{{ selected_title }}">
+            </div>
+            <button type="submit" class="btn btn-primary">Search</button>
+            <!-- Button to toggle detailed search -->
+            <button type="button" class="btn btn-secondary ml-2" id="toggle-detailed-search">More Options</button>
+        </form>
+
+        <!-- Detailed Search Form (Initially Hidden) -->
+        <form id="detailed-search-form" action="{% url 'game_search' %}" method="get">
             <div class="form-group">
                 <label for="title">Title:</label>
                 <input type="text" class="form-control" id="title" name="title" value="{{ selected_title }}">
@@ -49,13 +68,16 @@
                     </div>
                 {% endfor %}
             </div>
+
             <button type="submit" class="btn btn-primary">Search</button>
+            <!-- Button to toggle back to simple search -->
+            <button type="button" class="btn btn-secondary ml-2" id="toggle-simple-search">Less Options</button>
         </form>
 
         <!-- Search Results -->
         <ul class="mt-4">
             {% for game in games %}
-                <li>{{ game.title }} - {{ game.description }}</li>
+                <li>{{ game.title }} - {{ game.description }} {{game.price}}  </li>
             {% empty %}
                 <li>No games found.</li>
             {% endfor %}
@@ -66,5 +88,19 @@
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <!-- Bootstrap Slider JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-slider/11.0.2/bootstrap-slider.min.js"></script>
+    <script>
+        // Function to toggle between simple and detailed search forms
+        $('#toggle-detailed-search').click(function(){
+            $('#simple-search-form').hide();
+            $('#detailed-search-form').show();
+        });
+
+        $('#toggle-simple-search').click(function(){
+            $('#detailed-search-form').hide();
+            $('#simple-search-form').show();
+        });
+    </script>
 </body>
 </html>
