@@ -1,7 +1,7 @@
 
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib import messages
-from .models import Game,CustomGame,FavoriteGames
+from .models import Game,CustomGame,FavoriteGames, Genre, Platforms
 from django.http import HttpResponse
 from .forms import CustomGameForm, SetPriceForm
 from django.contrib.auth.decorators import login_required
@@ -47,21 +47,6 @@ def create_custom_game(request):
 
 
 
-def set_price_view(request):
-    if request.method == 'POST':
-        form = SetPriceForm(request.POST)
-        if form.is_valid():
-            price = form.cleaned_data['price']
-            # Do something with the price, such as updating the database
-            # For example, you could save the price to a model instance
-            game.price = price
-            game.save()
-            return redirect('success_url')  # Redirect to a success page
-    else:
-        form = SetPriceForm()
-    return render(request, 'set_price_form.html', {'form': form})
-
-
 
 ################
 @login_required
@@ -81,14 +66,47 @@ def favorites_list(request):
 
 #############
 def game_search(request):
-    query = request.GET.get('q')
-    if query:
-        games = Game.search(query)
-    else:
-        games = Game.objects.all()
+    title = request.GET.get('title')
+    description = request.GET.get('description')
+    genres_filter = request.GET.getlist('genres')
+    platforms_filter = request.GET.getlist('platforms')
+    min_price = request.GET.get('min_price')
+    max_price = request.GET.get('max_price')
+
+    games = Game.objects.filter(is_published=True)
+
+    if title:
+        games = games.filter(title__icontains=title)
+
+    if description:
+        games = games.filter(description__icontains=description)
+
+    if genres_filter:
+        games = games.filter(genres__name__in=genres_filter)
+
+    if platforms_filter:
+        games = games.filter(platforms__name__in=platforms_filter)
+
+    if min_price:
+        games = games.filter(price__gte=float(min_price))
+
+    if max_price:
+        games = games.filter(price__lte=float(max_price))
+
+    # Get available genres and platforms
+    available_genres = Genre.objects.all()
+    available_platforms = Platforms.objects.all()
 
     context = {
         'games': games,
-        'query': query
+        'available_genres': available_genres,
+        'available_platforms': available_platforms,
+        'selected_genres': genres_filter,
+        'selected_platforms': platforms_filter,
+        'selected_title': title,
+        'selected_description': description,
+        'selected_min_price': min_price,
+        'selected_max_price': max_price,
     }
+
     return render(request, 'shop/game_search.html', context)
