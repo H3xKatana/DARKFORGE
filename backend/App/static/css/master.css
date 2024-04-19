@@ -1022,6 +1022,18 @@ ul {
     background-color: #a6a6a6;
 }
 
+.sign-up .content .left-side input[type="text"] {
+    display: block;
+    width: 100%;
+    margin-bottom: 25px;
+    padding: 15px;
+    border: none;
+    border-radius: 50px;
+    background-color: #f9f9f98a;
+    caret-color: var(--main-color);
+}
+
+
 .sign-in .content .left-side input[type="email"],
 .sign-in .content .left-side input[type="password"],
 .sign-up .content .left-side input:not(input[type="submit"]) {

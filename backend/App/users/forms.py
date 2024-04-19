@@ -13,7 +13,7 @@ from .models import Profile,user
 
 class CustomLoginForm(forms.Form):
     username_or_email = forms.CharField(max_length=256, widget=forms.TextInput(
-        attrs={'class': 'form-control', 'placeholder': 'Username or Email'}))
+        attrs={'class': 'form-control', 'placeholder': 'Username or Email','style': 'display: block; width: 100%; margin-bottom: 25px; padding: 15px; border: none; border-radius: 50px; background-color: #f9f9f98a; caret-color: var(--main-color);'}))
     password = forms.CharField(widget=forms.PasswordInput(
         attrs={'class': 'form-control', 'placeholder': 'Password'}))
 
@@ -38,7 +38,7 @@ class RegisterForm(UserCreationForm):
         super(RegisterForm, self).__init__(*args, **kwargs)
 
         self.fields['username'].widget = widgets.TextInput(
-            attrs={'placeholder': "username", "class": "form-control"})
+            attrs={'placeholder': "username", "class": "form-control",'style': 'display: block; width: 100%; margin-bottom: 25px; padding: 15px; border: none; border-radius: 50px; background-color: #f9f9f98a; caret-color: var(--main-color);'})
         self.fields['email'].widget = widgets.EmailInput(
             attrs={'placeholder': "email", "class": "form-control"})
         self.fields['password1'].widget = widgets.PasswordInput(
@@ -61,7 +61,8 @@ class ForgetPasswordEmailCodeForm(forms.Form):
     username_or_email = forms.CharField(max_length=256,
                                         widget=forms.TextInput(
                                             attrs={'class': 'form-control',
-                                                   'placeholder': 'Type your username or email'}
+                                                   'placeholder': 'Type your username or email',
+                                                   'style': 'display: block; width: 100%; margin-bottom: 25px; padding: 15px; border: none; border-radius: 50px; background-color: #f9f9f98a; caret-color: var(--main-color);'}
                                         )
                                         )
 
@@ -120,6 +121,7 @@ class OtpForm(forms.Form):
             attrs={
                 'class': 'form-control',
                 'placeholder': 'Enter code',
+                'style': 'display: block; width: 100%; margin-bottom: 25px; padding: 15px; border: none; border-radius: 50px; background-color: #f9f9f98a; caret-color: var(--main-color);'
             }
         )
     )

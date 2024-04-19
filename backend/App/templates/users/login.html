@@ -58,6 +58,7 @@
 <form method="post">
     {%csrf_token%}
     {%include 'users/form_snippets.html' with form=form%}  
+    <input class="btn btn-primary" type="submit" value="Login">
     <div class="text">
         <div class="remember">
             <input type="checkbox" id="remember">
@@ -73,7 +74,7 @@
         <span>Dont-Have any account ?</span>
         <div class="up"><a href="{%url 'users:register'%}">Sign Up</a></div>
     </div>              
-    <input class="btn btn-primary" type="submit" value="Login">
+  
 </form>
                 </div>
                 <div class="right-side">
