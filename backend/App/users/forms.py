@@ -91,7 +91,8 @@ class ChangePasswordForm(forms.Form):
         widget=forms.PasswordInput(
             attrs={
                 'class': 'form-control',
-                'placeholder': 'New password'
+                'placeholder': 'New password',
+                'style': 'display: block; width: 100%; margin-bottom: 25px; padding: 15px; border: none; border-radius: 50px; background-color: #f9f9f98a; caret-color: var(--main-color);'
             }
         ),
     )
@@ -101,6 +102,7 @@ class ChangePasswordForm(forms.Form):
             attrs={
                 'class': 'form-control',
                 'placeholder': 'Confirm password',
+                'style': 'display: block; width: 100%; margin-bottom: 25px; padding: 15px; border: none; border-radius: 50px; background-color: #f9f9f98a; caret-color: var(--main-color);'
             }
         ),
     )
