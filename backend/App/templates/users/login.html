@@ -57,20 +57,24 @@
 {%endif%}
 <form method="post">
     {%csrf_token%}
-    {%include 'users/form_snippets.html' with form=form%}                
+    {%include 'users/form_snippets.html' with form=form%}  
+    <div class="text">
+        <div class="remember">
+            <input type="checkbox" id="remember">
+            <label for="remember">Remember Me</label>
+        </div>
+        <div class="forget">
+            <a href="{%url 'users:forgot_password'%}">
+                <p>Forgot My password?</p>
+            </a>
+        </div>
+    </div>
+    <div class="have-account">
+        <span>Dont-Have any account ?</span>
+        <div class="up"><a href="{%url 'users:register'%}">Sign Up</a></div>
+    </div>              
     <input class="btn btn-primary" type="submit" value="Login">
 </form>
-<div class="my-2">
-    <small class="text-muted">
-        Forgot your password ? <a class="ml-2" href="{%url 'users:forgot_password'%}">restore password</a>
-    </small>
-</div>
-
-<div class="my-2">
-    <small class="text-muted">
-        Need an account ? <a class="ml-2" href="{%url 'users:register'%}">Sign Up</a>
-    </small>
-</div>
                 </div>
                 <div class="right-side">
                     <p>Or</p>

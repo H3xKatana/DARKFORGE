@@ -53,19 +53,19 @@
                     <h1>Get Started !</h1>
                     <p>Create your account now and enter the world of games with <span>DARK FORGE</span></p>
                     {%if error%}
-<div class="alert alert-danger" role="alert">
-    {{error}}
-</div>
-{%endif%}
-<form method="post">
-    {%csrf_token%} {%include 'users/form_snippets.html' with form=form%}
-    <input class="btn btn-primary" type="submit" value="Register">
-</form>
+                    <div class="alert alert-danger" role="alert">
+                        {{error}}
+                    </div>
+                    {%endif%}
+                    <form method="post">
+                        {%csrf_token%} {%include 'users/form_snippets.html' with form=form%}
+                        <input class="btn btn-primary" type="submit" value="Register">
+                    </form>
 
-<div class="have-account">
-    <span>Already have an account ?</span>
-    <div class="up"><a href="{%url 'users:login'%}">Sign In</a></div>
-</div>
+                    <div class="have-account">
+                    <span>Already have an account ?</span>
+                    <div class="up"><a href="{%url 'users:login'%}">Sign In</a></div>
+        </div>
 
                 </div>
                 <div class="right-side">
