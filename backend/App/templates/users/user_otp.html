@@ -1,27 +1,154 @@
+
 <!DOCTYPE html>
-{% extends 'shared_layout/base.html' %}
+<html lang="en">
 
-{%block title%}
-Code Verification
-{%endblock title%}
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign In</title>
+    <!-- Render All Elements Normally -->
+    <link rel="stylesheet" href="/static/css/normalize.css">
+    <!-- Font Awesome Library -->
+    <link rel="stylesheet" href="/static/css/all.min.css">
+    <!-- main Template CSS File  -->
+    <link rel="stylesheet" href="/static/css/master.css">
+    <!-- Google Fonts  -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Cairo:wght@200..1000&family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap"
+        rel="stylesheet">
+</head>
 
-{%block contents%}
-{%if error%}
-<div class="alert alert-danger" role="alert">
-    {{error}}
-</div>
-{%endif%}
-<div class="row">
-    <div class="col-12 text-center">
-        <h5 class="m-2">Code Verification</h5>
-        <p class="text-muted">
-            Enter the code witch has been sent to you.
-        </p>
-        <form method="post">
-            {%csrf_token%}
-            {%include 'users/form_snippets.html' with center=True form=form%}             
-            <input class="btn btn-primary" type="submit" value="Submit">
-        </form>    
+<body>
+    <!-- Start Header -->
+    <div class="header" id="header">
+        <div class="container">
+            <a href="#" class="logo">
+                <img src="/static/images/logo.png" alt="Logo">
+            </a>
+            <nav>
+                <i class="fas fa-bars toggle-menu"></i>
+                <ul class="principal-links">
+                    <li><a href="">Home</a></li>
+                    <li><a href="#">Discover Games</a></li>
+                    <li><a href="#">DARK AI</a></li>
+                    <li><a href="#">About Us</a></li>
+                    <li><a href="#">Contact Us</a></li>
+                    <li><a class="active" href="#">Sign In/Sign Up</a></li>
+                </ul>
+            </nav>
+        </div>
     </div>
-</div>
-{%endblock contents%}
+    <!-- End Header -->
+    <!-- Start Sign -->
+    <div class="sign-in">
+        <div class="overlay"></div>
+        <div class="container">
+            
+            <div class="content">
+                <div class="left-side">
+
+
+
+                <h1>Welcome</h1>
+                <p>Enter the authentication code we snet you in ur email <span>DARK FORGE</span></p>
+                {%if error%}
+                <div class="alert alert-danger" role="alert">
+                {{error}}
+                </div>
+                {%endif%}
+                
+                <form method="post">
+                    {%csrf_token%} {%include 'users/form_snippets.html' with form=form%}
+                    <input class="btn btn-primary" type="submit" value="Register">
+                </form>    
+                </div>
+                
+                
+                <div class="right-side">
+                    <img src="/static/images/DoorSignUp.png" alt="">
+                    <img src="/static/images/a.png" alt="">
+                </div>
+
+
+
+            </div>
+        </div>
+    </div>
+    <!-- End Sign -->
+    <!-- Start Footer -->
+    <div class="footer">
+        <div class="container">
+            <div class="box">
+                <h3>Dark Forge</h3>
+                <ul class="social">
+                    <li>
+                        <a href="#" class="facebook">
+                            <i class="fab fa-facebook-f"></i>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#" class="twitter">
+                            <i class="fab fa-twitter"></i>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#" class="youtube">
+                            <i class="fab fa-youtube"></i>
+                        </a>
+                    </li>
+                </ul>
+                <p class="text">Your best immersive and engaging gaming experiences</p>
+            </div>
+            <div class="box">
+                <ul class="links">
+                    <li><a href="#">Games</a></li>
+                    <li><a href="#">Create Your Game</a></li>
+                    <li><a href="#">Privacy Policy</a></li>
+                    <li><a href="#">About Us</a></li>
+                    <li><a href="#">Contact Us</a></li>
+                </ul>
+            </div>
+            <div class="box">
+                <div class="line">
+                    <i class="fas fa-map-marker-alt fa-fw"></i>
+                    <div class="info">
+                        Algeria, Bejaia, Amizour, École supérieure en Sciences et Technologies de l'Informatique et du
+                        Numérique, N75
+                    </div>
+                </div>
+                <div class="line">
+                    <i class="far fa-clock fa-fw"></i>
+                    <div class="info">
+                        Business Hours: From 10:00 To 18:00
+                    </div>
+                </div>
+                <div class="line">
+                    <i class="fas fa-phone-volume fa-fw"></i>
+                    <div class="info">
+                        <span>+20123456789</span>
+                        <span>+20198765432</span>
+                    </div>
+                </div>
+            </div>
+            <div class="box footer-gallery">
+                <img src="/static/images/exit.webp" alt="">
+                <img src="/static/images/door1.webp" alt="">
+                <img src="/static/images/gallery-03.jpg" alt="">
+                <img src="/static/images/gallery-04.png" alt="">
+                <img src="/static/images/gallery-05.jpg" alt="">
+                <img src="/static/images/gallery-06.png" alt="">
+            </div>
+        </div>
+        <!-- <p class="copyright">Made With <span>&lt;3</span> By Redouane</p> -->
+    </div>
+    <!-- End Footer -->
+
+
+</body>
+
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+</html>

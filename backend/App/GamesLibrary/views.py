@@ -1,12 +1,13 @@
 
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib import messages
-from .models import Game,CustomGame,FavoriteGames, Genre, Platforms
+from .models import Game,CustomGame,FavoriteGames, Genre, Platforms,Cart,CartItem
 from django.http import HttpResponse
 from .forms import CustomGameForm, SetPriceForm
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponseRedirect,HttpResponseBadRequest
 from django.urls import reverse
+from django.db import transaction
 
 def index(request):  # Checking homepage
     items = Game.objects.all().filter(is_published=True)
@@ -110,3 +111,28 @@ def game_search(request):
     }
 
     return render(request, 'shop/game_search.html', context)
+
+@transaction.atomic
+def add_to_cart(request, game_id):
+    game = get_object_or_404(Game, pk=game_id)
+    
+    # Get or create the cart associated with the session
+    cart_id = request.session.get('cart_id')
+    if cart_id:
+        cart = Cart.objects.get_or_create(cart_id=cart_id)
+    else:
+        cart = Cart.objects.create()
+        request.session['cart_id'] = cart.cart_id
+
+    # Create the cart item
+    cart_item, created = CartItem.objects.get_or_create(cart=cart, game=game)
+
+    return redirect('cart_view')
+
+def cart_view(request):
+    cart, created = Cart.objects.get_or_create(user=request.user)
+    context = {
+        'cart': cart,
+    }
+    return render(request, 'shop/cart.html', context)
+

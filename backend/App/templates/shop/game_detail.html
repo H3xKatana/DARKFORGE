@@ -21,7 +21,10 @@
                 <p><strong>Price:</strong> ${{ game.price }}</p>
                 <p><strong>Platform:</strong> {{ game.platform }}</p>
                 <!-- Add more details as needed -->
-                <a href="#" class="btn btn-primary">Buy Now</a>
+                <form action="{% url 'add_to_cart' game.id %}" method="post">
+                    {% csrf_token %}
+                    <input type="submit" value="Buy Now" class="btn btn-primary">
+                </form>
                 <a href="{% url 'add-to-favorites' game.id %}" class="btn btn-primary">⭐</a>
 
             </div>

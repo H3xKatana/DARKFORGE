@@ -1,11 +1,55 @@
 <!DOCTYPE html>
-{% extends 'shared_layout/base.html' %}
+<html lang="en">
 
-{%block title%}
-login
-{%endblock title%}
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign In</title>
+    <!-- Render All Elements Normally -->
+    <link rel="stylesheet" href="/static/css/normalize.css">
+    <!-- Font Awesome Library -->
+    <link rel="stylesheet" href="/static/css/all.min.css">
+    <!-- main Template CSS File  -->
+    <link rel="stylesheet" href="/static/css/master.css">
+    <!-- Google Fonts  -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Cairo:wght@200..1000&family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap"
+        rel="stylesheet">
+</head>
 
-{%block contents%}
+<body>
+    <!-- Start Header -->
+    <div class="header" id="header">
+        <div class="container">
+            <a href="#" class="logo">
+                <img src="/static/images/logo.png" alt="Logo">
+            </a>
+            <nav>
+                <i class="fas fa-bars toggle-menu"></i>
+                <ul class="principal-links">
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="#">Discover Games</a></li>
+                    <li><a href="#">DARK AI</a></li>
+                    <li><a href="#">About Us</a></li>
+                    <li><a href="#">Contact Us</a></li>
+                    <li><a class="active" href="#">Sign In/Sign Up</a></li>
+                </ul>
+                
+            </nav>
+        </div>
+    </div>
+    <!-- End Header -->
+    <!-- Start Sign -->
+    <div class="sign-in">
+        <div class="overlay"></div>
+        <div class="container">
+            <h1>Welcome</h1>
+            <div class="content">
+                <div class="left-side">
+                    <p>Please enter your details</p>
+                   
 {%if error%}
 <div class="alert alert-danger" role="alert">
     {{error}}
@@ -27,4 +71,91 @@ login
         Need an account ? <a class="ml-2" href="{%url 'users:register'%}">Sign Up</a>
     </small>
 </div>
-{%endblock contents%}
+                </div>
+                <div class="right-side">
+                    <p>Or</p>
+                    <a href="#" class="facebook">
+                        <i class=" fa-brands fa-facebook fa-2x"></i>
+                        <span>Sign in with Facebook</span>
+                    </a>
+                    <a href="#" class="google">
+                        <i class="fa-brands fa-google fa-2x"></i>
+                        <span>Sign in with Google</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- End Sign -->
+    <!-- Start Footer -->
+    <div class="footer">
+        <div class="container">
+            <div class="box">
+                <h3>Dark Forge</h3>
+                <ul class="social">
+                    <li>
+                        <a href="#" class="facebook">
+                            <i class="fab fa-facebook-f"></i>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#" class="twitter">
+                            <i class="fab fa-twitter"></i>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#" class="youtube">
+                            <i class="fab fa-youtube"></i>
+                        </a>
+                    </li>
+                </ul>
+                <p class="text">Your best immersive and engaging gaming experiences</p>
+            </div>
+            <div class="box">
+                <ul class="links">
+                    <li><a href="#">Games</a></li>
+                    <li><a href="#">Create Your Game</a></li>
+                    <li><a href="#">Privacy Policy</a></li>
+                    <li><a href="#">About Us</a></li>
+                    <li><a href="#">Contact Us</a></li>
+                </ul>
+            </div>
+            <div class="box">
+                <div class="line">
+                    <i class="fas fa-map-marker-alt fa-fw"></i>
+                    <div class="info">
+                        Algeria, Bejaia, Amizour, École supérieure en Sciences et Technologies de l'Informatique et du
+                        Numérique, N75
+                    </div>
+                </div>
+                <div class="line">
+                    <i class="far fa-clock fa-fw"></i>
+                    <div class="info">
+                        Business Hours: From 10:00 To 18:00
+                    </div>
+                </div>
+                <div class="line">
+                    <i class="fas fa-phone-volume fa-fw"></i>
+                    <div class="info">
+                        <span>+20123456789</span>
+                        <span>+20198765432</span>
+                    </div>
+                </div>
+            </div>
+            <div class="box footer-gallery">
+                <img src="/static/images/exit.webp" alt="">
+                <img src="/static/images/door1.webp" alt="">
+                <img src="/static/images/gallery-03.jpg" alt="">
+                <img src="/static/images/gallery-04.png" alt="">
+                <img src="/static/images/gallery-05.jpg" alt="">
+                <img src="/static/images/gallery-06.png" alt="">
+            </div>
+        </div>
+        <!-- <p class="copyright">Made With <span>&lt;3</span> By Redouane</p> -->
+    </div>
+    <!-- End Footer -->
+
+
+</body>
+
+</html>

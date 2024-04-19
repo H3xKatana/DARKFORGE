@@ -73,7 +73,7 @@ class Game(models.Model):
     is_published = models.BooleanField(default=True)
     youtube_video_url = models.URLField(blank=True, null=True)
     game_status = models.CharField(choices=STATUS, max_length=12, default='coming_soon')
-
+    rate =models.FloatField(default=0, validators = [MinValueValidator(0.0),MaxValueValidator(5.0)])
 
     created_at = models.DateTimeField(auto_now_add=True)
     @property
@@ -134,7 +134,6 @@ class FavoriteGames(models.Model):
         unique_together = ('user', 'game')
 ###############################
     
-
 class Cart(models.Model):
     cart_id = models.CharField(max_length=250, blank=True)
     date_added = models.DateField(auto_now_add=True)
@@ -144,17 +143,18 @@ class Cart(models.Model):
 
     
 class CartItem(models.Model): 
-    user     = models.ForeignKey(user, on_delete=models.CASCADE, null=True)
-    Game  = models.ForeignKey(Game, on_delete=models.CASCADE)
-    cart     = models.ForeignKey(Cart, on_delete=models.CASCADE, null=True)
-    is_active= models.BooleanField(default=True)
+    game = models.ForeignKey(Game, on_delete=models.CASCADE)
+    cart = models.ForeignKey(Cart, on_delete=models.CASCADE, null=True)
+    is_active = models.BooleanField(default=True)
 
-    def sub_total(self):
-        return self.Game.price - (self.Game.discounts / 100 * self.Game.price)
+    @property
+    def subtotal(self):
+        return self.game.price * (1 - (self.game.discounts / 100))
 
-    def __unicode__(self):
-        return self.product
-    
+    def __str__(self):
+        return f"{self.game} in Cart"
+
+
 ############################33
 # Improving Custom Status Choices
 CUSTOM_STATUS_CHOICES = (

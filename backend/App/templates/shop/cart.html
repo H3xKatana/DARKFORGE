@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shopping Cart</title>
+</head>
+<body>
+    <h1>Shopping Cart</h1>
+
+    {% if cart_items %}
+        <table border="1">
+            <tr>
+                <th>Game</th>
+                <th>Price</th>
+                <th>Quantity</th>
+                <th>Subtotal</th>
+            </tr>
+            {% for item in cart_items %}
+                <tr>
+                    <td>{{ item.game.title }}</td>
+                    <td>${{ item.game.price }}</td>
+                    <td>{{ item.quantity }}</td>
+                    <td>${{ item.subtotal }}</td>
+                </tr>
+            {% endfor %}
+            <tr>
+                <td colspan="3"><strong>Total:</strong></td>
+                <td><strong>${{ cart_total }}</strong></td>
+            </tr>
+        </table>
+        <br>
+        <a href="{% url 'checkout' %}">Proceed to Checkout</a>
+    {% else %}
+        <p>Your cart is empty.</p>
+    {% endif %}
+</body>
+</html>

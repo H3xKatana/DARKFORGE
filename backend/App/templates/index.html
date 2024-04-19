@@ -1,91 +1,411 @@
-{% load static %}
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Game Dev Studio</title>
-    
-    <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css">
-    
-    <!-- Custom CSS -->
-    <link rel="stylesheet" href="{% static 'css/home.css' %}">
+    <title>Dark Forge</title>
+    <!-- Render All Elements Normally -->
+    <link rel="stylesheet" href="/static/css/normalize.css">
+    <!-- Font Awesome Library -->
+    <link rel="stylesheet" href="/static/css/all.min.css">
+    <!-- main Template CSS File  -->
+    <link rel="stylesheet" href="/static/css/master.css">
+    <!-- Google Fonts  -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Cairo:wght@200..1000&family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap"
+        rel="stylesheet">
 </head>
+
 <body>
-    <header class="bg-dark py-3">
+    <!-- Start Header -->
+    <div class="header" id="header">
         <div class="container">
-            <h1 class="text-light">Game Dev Studio</h1>
+            <a href="#" class="logo">
+                <img src="/static/images/logo.png" alt="Logo">
+            </a>
             <nav>
-                <ul class="list-inline text-light">
-                    <li class="list-inline-item"><a href="#">Home</a></li>
-                    <li class="list-inline-item"><a href="#">Games</a></li>
-                    <li class="list-inline-item"><a href="#">About</a></li>
-                    <li class="list-inline-item"><a href="#">Contact</a></li>
+                <i class="fas fa-bars toggle-menu"></i>
+                <ul class="principal-links">
+                    <li><a class="active" href="index.html">Home</a></li>
+                    <li><a href="#gallery">Discover Games</a></li>
+                    <li><a href="#features">DARK AI</a></li>
+                    <li><a href="#features">About Us</a></li>
+                    <li><a href="#features">Contact Us</a></li>
+                    <li><a href="signIn.html">Sign In/Sign Up</a></li>
                 </ul>
+                
             </nav>
         </div>
-    </header>
-    
-    <section class="hero bg-dark text-light py-5">
-        <div class="container text-center">
-            <h2>Welcome to Game Dev Studio</h2>
-            <p class="lead">Where imagination meets reality. Dive into a world of creativity and adventure.</p>
-            <a href="#" class="btn btn-primary">View Games</a>
+    </div>
+
+    <!-- End Header -->
+    <!-- Start Landing -->
+    <div class="landing">
+        <div class="overlay">
         </div>
-    </section>
-    
-    <section class="features py-5">
+        <div class="text">
+            <div class="content">
+                <h1>The Last Of US || :</h1>
+                <p>"The Last of Us Part 2" is a gripping action-adventure game set in a post-apocalyptic world,
+                    following Ellie's journey of survival and revenge.</p>
+                <div class="purchase">
+                    <div class="buy">Buy</div>
+                    <div class="add-fav">Add to my favorite</div>
+                </div>
+                <div class="rating">
+                    <i class="fa-solid fa-star"></i>
+                    <span>4.8</span>
+                </div>
+            </div>
+        </div>
+        <!-- <div class="game">
+            <img src="/static/images/spiderman.png" alt="">
+            <p>Spiderman</p>
+        </div> -->
+        <i class="fas fa-angle-left change-background fa-2x"></i>
+        <i class="fas fa-angle-right change-background fa-2x"></i>
+        <ul class="bullets">
+            <li></li>
+            <li class="active"></li>
+            <li></li>
+        </ul>
+
+    </div>
+    <!-- End Landing -->
+    <!-- Start Description -->
+    <div class="description" id="description">
+        <h2 class="main-title">Description</h2>
         <div class="container">
-            <h2 class="text-center mb-5">Our Features</h2>
-            <div class="row">
-                <div class="col-md-4">
-                    <div class="card mb-4">
-                        <img src="{% static 'images/feature1.png' %}" class="card-img-top" alt="Feature 1">
-                        <div class="card-body">
-                            <h3 class="card-title">Immersive Gameplay</h3>
-                            <p class="card-text">Experience gaming like never before with our immersive gameplay designs.</p>
-                        </div>
+            <div class="container-two">
+                <div class="image">
+                    <img src="/static/images/game3.jpg" alt="Mobile">
+                    <img src="/static/images/game1.jpg" alt="Mobile">
+                </div>
+                <div class="content">
+                    <div class="text">
+                        <h2>Dark Forge Studios</h2>
+                        <p>Dark Forge, a video game studio founded in 2023 in the vibrant coastal city of Bejaia, has
+                            established itself as a leader in the industry. Renowned for its immersive storytelling,
+                            innovative
+                            gameplay mechanics, and breathtaking visuals
+                        </p>
                     </div>
                 </div>
-                <div class="col-md-4">
-                    <div class="card mb-4">
-                        <img src="{% static 'images/feature2.png' %}" class="card-img-top" alt="Feature 2">
-                        <div class="card-body">
-                            <h3 class="card-title">Stunning Graphics</h3>
-                            <p class="card-text">Get lost in breathtaking worlds created with stunning graphics.</p>
-                        </div>
+            </div>
+            <h2 class="main-title title-two">Our Team Members</h2>
+            <div class="members">
+                <div class="box">
+                    <img src="/static/images/avatar-03.png" alt="">
+                    <h3>Ouhab Redouane</h3>
+                    <span class="title">Front-End Developer</span>
+                    <div class="rate">
+                        <i class="filled fas fa-star"></i>
+                        <i class="filled fas fa-star"></i>
+                        <i class="filled fas fa-star"></i>
+                        <i class="filled fas fa-star"></i>
+                        <i class="far fa-star"></i>
                     </div>
+                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Maiores et reiciendis voluptatum,
+                        amet
+                        est
+                        natus quaerat ducimus</p>
                 </div>
-                <div class="col-md-4">
-                    <div class="card mb-4">
-                        <img src="{% static 'images/feature3.png' %}" class="card-img-top" alt="Feature 3">
-                        <div class="card-body">
-                            <h3 class="card-title">Community Interaction</h3>
-                            <p class="card-text">Join a thriving community and interact with fellow gamers.</p>
-                        </div>
+                <div class="box">
+                    <img src="/static/images/avatar-01.png" alt="">
+                    <h3>Belkhiri Nassrou</h3>
+                    <span class="title">Web Designer</span>
+                    <div class="rate">
+                        <i class="filled fas fa-star"></i>
+                        <i class="filled fas fa-star"></i>
+                        <i class="filled fas fa-star"></i>
+                        <i class="filled fas fa-star"></i>
+                        <i class="far fa-star"></i>
+                    </div>
+                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Maiores et reiciendis voluptatum,
+                        amet
+                        est
+                        natus quaerat ducimus</p>
+                </div>
+                <div class="box">
+                    <img class="leader" src="/static/images/avatar-06.png" alt="">
+                    <div class="leader-crown"><img src="/static/images/crownTwo.png" alt=""></div>
+                    <h3>Kara Mortadha</h3>
+                    <span class="title">Back-End Developer</span>
+                    <div class="rate">
+                        <i class="filled fas fa-star"></i>
+                        <i class="filled fas fa-star"></i>
+                        <i class="filled fas fa-star"></i>
+                        <i class="filled fas fa-star"></i>
+                        <i class="far fa-star"></i>
+                    </div>
+                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Maiores et reiciendis voluptatum,
+                        amet
+                        est
+                        natus quaerat ducimus</p>
+                </div>
+                <div class="box">
+                    <img src="/static/images/avatar-04.png" alt="">
+                    <h3>Galou Mohamed</h3>
+                    <span class="title">Back-End Developper</span>
+                    <div class="rate">
+                        <i class="filled fas fa-star"></i>
+                        <i class="filled fas fa-star"></i>
+                        <i class="filled fas fa-star"></i>
+                        <i class="filled fas fa-star"></i>
+                        <i class="far fa-star"></i>
+                    </div>
+                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Maiores et reiciendis voluptatum,
+                        amet
+                        est
+                        natus quaerat ducimus</p>
+                </div>
+                <div class="box">
+                    <img src="/static/images/avatar-05.png" alt="">
+                    <h3>Bendjama Ahmed Fady</h3>
+                    <span class="title">Game Developer</span>
+                    <div class="rate">
+                        <i class="filled fas fa-star"></i>
+                        <i class="filled fas fa-star"></i>
+                        <i class="filled fas fa-star"></i>
+                        <i class="filled fas fa-star"></i>
+                        <i class="far fa-star"></i>
+                    </div>
+                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Maiores et reiciendis voluptatum,
+                        amet
+                        est
+                        natus quaerat ducimus</p>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <!-- <div class="row red">
+        <div>
+            <svg id="" preserveAspectRatio="xMidYMax meet" class="svg-separator sep1" viewBox="0 0 1600 100" style=""
+                data-height="100">
+                <path class="" style="opacity: 1;fill: #bc4565;" d="M1040,56c0.5,0,1,0,1.6,0c-16.6-8.9-36.4-15.7-66.4-15.7c-56,0-76.8,23.7-106.9,41C881.1,89.3,895.6,96,920,96
+      C979.5,96,980,56,1040,56z"></path>
+                <path class="" style="opacity: 1;fill: #bc4565;" d="M1699.8,96l0,10H1946l-0.3-6.9c0,0,0,0-88,0s-88.6-58.8-176.5-58.8c-51.4,0-73,20.1-99.6,36.8
+      c14.5,9.6,29.6,18.9,58.4,18.9C1699.8,96,1699.8,96,1699.8,96z"></path>
+                <path class="" style="opacity: 1;fill: #bc4565;" d="M1400,96c19.5,0,32.7-4.3,43.7-10c-35.2-17.3-54.1-45.7-115.5-45.7c-32.3,0-52.8,7.9-70.2,17.8
+      c6.4-1.3,13.6-2.1,22-2.1C1340.1,56,1340.3,96,1400,96z"></path>
+                <path class="" style="opacity: 1;fill: #bc4565;" d="M320,56c6.6,0,12.4,0.5,17.7,1.3c-17-9.6-37.3-17-68.5-17c-60.4,0-79.5,27.8-114,45.2
+      c11.2,6,24.6,10.5,44.8,10.5C260,96,259.9,56,320,56z"></path>
+                <path class="" style="opacity: 1;fill: #bc4565;" d="M680,96c23.7,0,38.1-6.3,50.5-13.9C699.6,64.8,679,40.3,622.2,40.3c-30,0-49.8,6.8-66.3,15.8
+      c1.3,0,2.7-0.1,4.1-0.1C619.7,56,620.2,96,680,96z"></path>
+                <path class="" style="opacity: 1;fill: #bc4565;" d="M-40,95.6c28.3,0,43.3-8.7,57.4-18C-9.6,60.8-31,40.2-83.2,40.2c-14.3,0-26.3,1.6-36.8,4.2V106h60V96L-40,95.6
+      z"></path>
+                <path class="" style="opacity: 1;fill: #af3f5d;" d="M504,73.4c-2.6-0.8-5.7-1.4-9.6-1.4c-19.4,0-19.6,13-39,13c-19.4,0-19.5-13-39-13c-14,0-18,6.7-26.3,10.4
+      C402.4,89.9,416.7,96,440,96C472.5,96,487.5,84.2,504,73.4z"></path>
+                <path class="" style="opacity: 1;fill: #af3f5d;" d="M1205.4,85c-0.2,0-0.4,0-0.6,0c-19.5,0-19.5-13-39-13s-19.4,12.9-39,12.9c0,0-5.9,0-12.3,0.1
+      c11.4,6.3,24.9,11,45.5,11C1180.6,96,1194.1,91.2,1205.4,85z"></path>
+                <path class="" style="opacity: 1;fill: #af3f5d;" d="M1447.4,83.9c-2.4,0.7-5.2,1.1-8.6,1.1c-19.3,0-19.6-13-39-13s-19.6,13-39,13c-3,0-5.5-0.3-7.7-0.8
+      c11.6,6.6,25.4,11.8,46.9,11.8C1421.8,96,1435.7,90.7,1447.4,83.9z"></path>
+                <path class="" style="opacity: 1;fill: #af3f5d;" d="M985.8,72c-17.6,0.8-18.3,13-37,13c-19.4,0-19.5-13-39-13c-18.2,0-19.6,11.4-35.5,12.8
+      c11.4,6.3,25,11.2,45.7,11.2C953.7,96,968.5,83.2,985.8,72z"></path>
+                <path class="" style="opacity: 1;fill: #af3f5d;" d="M743.8,73.5c-10.3,3.4-13.6,11.5-29,11.5c-19.4,0-19.5-13-39-13s-19.5,13-39,13c-0.9,0-1.7,0-2.5-0.1
+      c11.4,6.3,25,11.1,45.7,11.1C712.4,96,727.3,84.2,743.8,73.5z"></path>
+                <path class="" style="opacity: 1;fill: #af3f5d;" d="M265.5,72.3c-1.5-0.2-3.2-0.3-5.1-0.3c-19.4,0-19.6,13-39,13c-19.4,0-19.6-13-39-13
+      c-15.9,0-18.9,8.7-30.1,11.9C164.1,90.6,178,96,200,96C233.7,96,248.4,83.4,265.5,72.3z"></path>
+                <path class="" style="opacity: 1;fill: #af3f5d;" d="M1692.3,96V85c0,0,0,0-19.5,0s-19.6-13-39-13s-19.6,13-39,13c-0.1,0-0.2,0-0.4,0c11.4,6.2,24.9,11,45.6,11
+      C1669.9,96,1684.8,96,1692.3,96z"></path>
+                <path class="" style="opacity: 1;fill: #af3f5d;"
+                    d="M25.5,72C6,72,6.1,84.9-13.5,84.9L-20,85v8.9C0.7,90.1,12.6,80.6,25.9,72C25.8,72,25.7,72,25.5,72z">
+                </path>
+                <path class="" style="fill: rgb(210, 77, 87);" d="M-40,95.6C20.3,95.6,20.1,56,80,56s60,40,120,40s59.9-40,120-40s60.3,40,120,40s60.3-40,120-40
+      s60.2,40,120,40s60.1-40,120-40s60.5,40,120,40s60-40,120-40s60.4,40,120,40s59.9-40,120-40s60.3,40,120,40s60.2-40,120-40
+      s60.2,40,120,40s59.8,0,59.8,0l0.2,143H-60V96L-40,95.6z"></path>
+            </svg>
+        </div>
+    </div> -->
+    <!-- End Description -->
+    <div class="grey">
+        <svg class="editorial" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+            viewBox="0 24 150 28 " preserveAspectRatio="none">
+            <defs>
+                <path id="gentle-wave" d="M-160 44c30 0 
+            58-18 88-18s
+            58 18 88 18 
+            58-18 88-18 
+            58 18 88 18
+            v44h-352z" />
+            </defs>
+            <g class="parallax1">
+                <use xlink:href="#gentle-wave" x="50" y="3" fill="#281f62" />
+            </g>
+            <g class="parallax2">
+                <use xlink:href="#gentle-wave" x="50" y="0" fill="#422463" />
+            </g>
+            <g class="parallax3">
+                <use xlink:href="#gentle-wave" x="50" y="9" fill="#3e094a" />
+            </g>
+            <g class="parallax4">
+                <use xlink:href="#gentle-wave" x="50" y="6" fill="#281f62" />
+            </g>
+        </svg>
+
+    </div>
+    <!-- Start Our Best Games -->
+    <div class="best-games">
+        <div class="container">
+            <h2 class="alt-main-title">Our Best Games :</h2>
+            <div class="games">
+                <div class="image-game">
+                    <img src="/static/images/shadow.jpg" alt="">
+                    <!-- <img src="/static/images/forza.jpg" alt="">
+                    <img src="/static/images/forza.jpg" alt=""> -->
+                </div>
+                <div class="game-name">
+                    <div class="box active">
+                        <img src="/static/images/shadow.jpg" alt="">
+                        <div class="title">Sekiro :Shadows Die Twice</div>
+                    </div>
+                    <div class="box">
+                        <img src="/static/images/forza.jpg" alt="">
+                        <div class="title">Forza Horizon 5</div>
+                    </div>
+                    <div class="box">
+                        <img src="/static/images/minecraft.png" alt="">
+                        <div class="title">Minecraft</div>
                     </div>
                 </div>
             </div>
         </div>
-    </section>
-    
-    <section class="about bg-dark text-light py-5">
-        <div class="container">
-            <h2 class="text-center mb-5">About Us</h2>
-            <p class="lead text-center">We are a passionate team of game developers dedicated to delivering unforgettable gaming experiences.</p>
+    </div>
+    <!-- End Our Best Games -->
+    <div class="row red">
+        <div>
+            <svg id="" preserveAspectRatio="xMidYMax meet" class="svg-separator sep1" viewBox="0 0 1600 100"
+                data-height="100">
+                <path class="" style="opacity: 1;fill: #281f62;" d="M1040,56c0.5,0,1,0,1.6,0c-16.6-8.9-36.4-15.7-66.4-15.7c-56,0-76.8,23.7-106.9,41C881.1,89.3,895.6,96,920,96
+      C979.5,96,980,56,1040,56z"></path>
+                <path class="" style="opacity: 1;fill: #281f62;" d="M1699.8,96l0,10H1946l-0.3-6.9c0,0,0,0-88,0s-88.6-58.8-176.5-58.8c-51.4,0-73,20.1-99.6,36.8
+      c14.5,9.6,29.6,18.9,58.4,18.9C1699.8,96,1699.8,96,1699.8,96z"></path>
+                <path class="" style="opacity: 1;fill: #281f62;" d="M1400,96c19.5,0,32.7-4.3,43.7-10c-35.2-17.3-54.1-45.7-115.5-45.7c-32.3,0-52.8,7.9-70.2,17.8
+      c6.4-1.3,13.6-2.1,22-2.1C1340.1,56,1340.3,96,1400,96z"></path>
+                <path class="" style="opacity: 1;fill: #281f62;" d="M320,56c6.6,0,12.4,0.5,17.7,1.3c-17-9.6-37.3-17-68.5-17c-60.4,0-79.5,27.8-114,45.2
+      c11.2,6,24.6,10.5,44.8,10.5C260,96,259.9,56,320,56z"></path>
+                <path class="" style="opacity: 1;fill: #281f62;" d="M680,96c23.7,0,38.1-6.3,50.5-13.9C699.6,64.8,679,40.3,622.2,40.3c-30,0-49.8,6.8-66.3,15.8
+      c1.3,0,2.7-0.1,4.1-0.1C619.7,56,620.2,96,680,96z"></path>
+                <path class="" style="opacity: 1;fill: #281f62;" d="M-40,95.6c28.3,0,43.3-8.7,57.4-18C-9.6,60.8-31,40.2-83.2,40.2c-14.3,0-26.3,1.6-36.8,4.2V106h60V96L-40,95.6
+      z"></path>
+                <path class="" style="opacity: 1;fill: #422463;" d="M504,73.4c-2.6-0.8-5.7-1.4-9.6-1.4c-19.4,0-19.6,13-39,13c-19.4,0-19.5-13-39-13c-14,0-18,6.7-26.3,10.4
+      C402.4,89.9,416.7,96,440,96C472.5,96,487.5,84.2,504,73.4z"></path>
+                <path class="" style="opacity: 1;fill: #422463;" d="M1205.4,85c-0.2,0-0.4,0-0.6,0c-19.5,0-19.5-13-39-13s-19.4,12.9-39,12.9c0,0-5.9,0-12.3,0.1
+      c11.4,6.3,24.9,11,45.5,11C1180.6,96,1194.1,91.2,1205.4,85z"></path>
+                <path class="" style="opacity: 1;fill: #422463;" d="M1447.4,83.9c-2.4,0.7-5.2,1.1-8.6,1.1c-19.3,0-19.6-13-39-13s-19.6,13-39,13c-3,0-5.5-0.3-7.7-0.8
+      c11.6,6.6,25.4,11.8,46.9,11.8C1421.8,96,1435.7,90.7,1447.4,83.9z"></path>
+                <path class="" style="opacity: 1;fill: #422463;" d="M985.8,72c-17.6,0.8-18.3,13-37,13c-19.4,0-19.5-13-39-13c-18.2,0-19.6,11.4-35.5,12.8
+      c11.4,6.3,25,11.2,45.7,11.2C953.7,96,968.5,83.2,985.8,72z"></path>
+                <path class="" style="opacity: 1;fill: #422463;" d="M743.8,73.5c-10.3,3.4-13.6,11.5-29,11.5c-19.4,0-19.5-13-39-13s-19.5,13-39,13c-0.9,0-1.7,0-2.5-0.1
+      c11.4,6.3,25,11.1,45.7,11.1C712.4,96,727.3,84.2,743.8,73.5z"></path>
+                <path class="" style="opacity: 1;fill: #422463;" d="M265.5,72.3c-1.5-0.2-3.2-0.3-5.1-0.3c-19.4,0-19.6,13-39,13c-19.4,0-19.6-13-39-13
+      c-15.9,0-18.9,8.7-30.1,11.9C164.1,90.6,178,96,200,96C233.7,96,248.4,83.4,265.5,72.3z"></path>
+                <path class="" style="opacity: 1;fill: #422463;" d="M1692.3,96V85c0,0,0,0-19.5,0s-19.6-13-39-13s-19.6,13-39,13c-0.1,0-0.2,0-0.4,0c11.4,6.2,24.9,11,45.6,11
+      C1669.9,96,1684.8,96,1692.3,96z"></path>
+                <path class="" style="opacity: 1;fill: #422463;"
+                    d="M25.5,72C6,72,6.1,84.9-13.5,84.9L-20,85v8.9C0.7,90.1,12.6,80.6,25.9,72C25.8,72,25.7,72,25.5,72z">
+                </path>
+                <path class="" style="fill: #3e094a;" d="M-40,95.6C20.3,95.6,20.1,56,80,56s60,40,120,40s59.9-40,120-40s60.3,40,120,40s60.3-40,120-40
+      s60.2,40,120,40s60.1-40,120-40s60.5,40,120,40s60-40,120-40s60.4,40,120,40s59.9-40,120-40s60.3,40,120,40s60.2-40,120-40
+      s60.2,40,120,40s59.8,0,59.8,0l0.2,143H-60V96L-40,95.6z"></path>
+            </svg>
         </div>
-    </section>
-    
-    <footer class="bg-dark py-3 text-light">
+    </div>
+    <!-- Start Create -->
+    <div class="create">
         <div class="container">
-            <p class="text-center">&copy; 2024 Game Dev Studio. All rights reserved.</p>
-        </div>
-    </footer>
+            <h2 class="alt-main-title">Create Your Special Game</h2>
+            <div class="content">
+                <div class="image">
+                    <img src="/static/images/create.png" alt="">
+                </div>
+                <div class="text">
+                    <p>Gamers, assemble! Do you have a game idea burning a hole in your pocket? One so innovative, so
+                        downright fun, it'll redefine the genre? We want to hear it! Here at DARK FORGE, we believe the
+                        best games come from the brilliant minds of our players.<br><br> So, unleash your inner
+                        gamechanger
+                        and
+                        tell us about the experience that keeps you up at night, the one you wish already existed. This
+                        is your chance to be heard, to shape the future of gaming, and maybe even see your dream become
+                        reality. Don't be shy, submit your wildest ideas today!</p>
+                    <div class="dreams">Turn your dreams into reality</div>
 
-    <!-- Bootstrap Bundle with Popper -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
-    <!-- Custom JavaScript -->
-    <script src="{% static 'js\home.js' %}"></script>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- End Create -->
+    <!-- Start Footer -->
+    <div class="footer">
+        <div class="container">
+            <div class="box">
+                <h3>Dark Forge</h3>
+                <ul class="social">
+                    <li>
+                        <a href="#" class="facebook">
+                            <i class="fab fa-facebook-f"></i>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#" class="twitter">
+                            <i class="fab fa-twitter"></i>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#" class="youtube">
+                            <i class="fab fa-youtube"></i>
+                        </a>
+                    </li>
+                </ul>
+                <p class="text">Your best immersive and engaging gaming experiences</p>
+            </div>
+            <div class="box">
+                <ul class="links">
+                    <li><a href="#">Games</a></li>
+                    <li><a href="#">Create Your Game</a></li>
+                    <li><a href="#">Privacy Policy</a></li>
+                    <li><a href="#">About Us</a></li>
+                    <li><a href="#">Contact Us</a></li>
+                </ul>
+            </div>
+            <div class="box">
+                <div class="line">
+                    <i class="fas fa-map-marker-alt fa-fw"></i>
+                    <div class="info">
+                        Algeria, Bejaia, Amizour, École supérieure en Sciences et Technologies de l'Informatique et du
+                        Numérique, N75
+                    </div>
+                </div>
+                <div class="line">
+                    <i class="far fa-clock fa-fw"></i>
+                    <div class="info">
+                        Business Hours: From 10:00 To 18:00
+                    </div>
+                </div>
+                <div class="line">
+                    <i class="fas fa-phone-volume fa-fw"></i>
+                    <div class="info">
+                        <span>+20123456789</span>
+                        <span>+20198765432</span>
+                    </div>
+                </div>
+            </div>
+            <div class="box footer-gallery">
+                <img src="/static/images/exit.webp" alt="">
+                <img src="/static/images/door1.webp" alt="">
+                <img src="/static/images/gallery-03.jpg" alt="">
+                <img src="/static/images/gallery-04.png" alt="">
+                <img src="/static/images/gallery-05.jpg" alt="">
+                <img src="/static/images/gallery-06.png" alt="">
+            </div>
+        </div>
+        <!-- <p class="copyright">Made With <span>&lt;3</span> By Redouane</p> -->
+    </div>
+    <!-- End Footer -->
 </body>
+
 </html>
