@@ -22,6 +22,7 @@ environ = "*"
 django-crispy-forms = "*"
 openai = "*"
 crispy-bootstrap4 = "*"
+stripe = "*"
 
 [dev-packages]
 

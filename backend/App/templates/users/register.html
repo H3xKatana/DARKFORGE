@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sign In</title>
+    <title>Sign Up</title>
     <!-- Render All Elements Normally -->
     <link rel="stylesheet" href="/static/css/normalize.css">
     <!-- Font Awesome Library -->
@@ -29,51 +29,63 @@
             <nav>
                 <i class="fas fa-bars toggle-menu"></i>
                 <ul class="principal-links">
-                    <li><a href="">Home</a></li>
+                    <li><a href="index.html">Home</a></li>
                     <li><a href="#">Discover Games</a></li>
                     <li><a href="#">DARK AI</a></li>
                     <li><a href="#">About Us</a></li>
                     <li><a href="#">Contact Us</a></li>
                     <li><a class="active" href="#">Sign In/Sign Up</a></li>
                 </ul>
+                <div class="form">
+                    <i class="fas fa-search"></i>
+                </div>
             </nav>
         </div>
     </div>
     <!-- End Header -->
     <!-- Start Sign -->
-    <div class="sign-in">
+    <div class="sign-up">
         <div class="overlay"></div>
         <div class="container">
-            <h1>Welcome</h1>
             <div class="content">
                 <div class="left-side">
-
-
-
                     <h1>Get Started !</h1>
                     <p>Create your account now and enter the world of games with <span>DARK FORGE</span></p>
-                    {%if error%}
-                    <div class="alert alert-danger" role="alert">
-                        {{error}}
-                    </div>
-                    {%endif%}
-                    <form method="post">
-                        {%csrf_token%} {%include 'users/form_snippets.html' with form=form%}
-                        <input class="btn btn-primary" type="submit" value="Register">
-                    </form>
+                    
+                {%if error%}
+                <div class="alert alert-danger" role="alert">
+                    {{error}}
+                </div>
+                {%endif%}
+                <form method="post">
+                    {%csrf_token%} {%include 'users/form_snippets.html' with form=form%}
+                    <input class="btn btn-primary" type="submit" value="Register">
+                </form>
 
+<div class="have-account">
+<span>Already have an account ?</span>
+<div class="up"><a href="{%url 'users:login'%}">Sign In</a></div>
+
+                    <p class="continue">Or continue with</p>
+                    <div class="socials">
+                        <a href="#" class="facebook">
+                            <i class=" fa-brands fa-facebook fa-2x"></i>
+                            <span>Sign in with Facebook</span>
+                        </a>
+                        <a href="#" class="google">
+                            <i class="fa-brands fa-google fa-2x"></i>
+                            <span>Sign in with Google</span>
+                        </a>
+                    </div>
                     <div class="have-account">
-                    <span>Already have an account ?</span>
-                    <div class="up"><a href="{%url 'users:login'%}">Sign In</a></div>
-        </div>
-
-                </div>
-                <div class="right-side">
-                    <div class="right-side">
-                        <img src="/static/images/DoorSignUp.png" alt="">
-                        <img src="/static/images/a.png" alt="">
+                        <span>Already have an account ?</span>
+                        <div class="up"><a href="signIn.html">Sign In</a></div>
                     </div>
                 </div>
+            </div>
+            <div class="right-side">
+                <img src="/static/images/DoorSignUp.png" alt="">
+                <img src="/static/images/a.png" alt="">
             </div>
         </div>
     </div>
@@ -149,7 +161,4 @@
 
 </body>
 
-<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 </html>

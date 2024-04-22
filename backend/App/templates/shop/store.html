@@ -1,119 +1,79 @@
-{% extends 'shop/base.html' %}
-{% block title %}Game Store - Store{% endblock %}
-<style>
-
-    /* Add this to your CSS file or <style> tag */
-@import url("https://fonts.googleapis.com/css2?family=Istok+Web:wght@400;700&display=swap");
-
-* {
-  margin: 0;
-  padding: 0;
-  font-family: "Istok Web", sans-serif;
-}
-
-.card {
-  position: relative;
-  width: 320px;
-  height: 480px;
-  background: #191919;
-  border-radius: 20px;
-  overflow: hidden;
-}
-
-.card::before {
-  content: "";
-  position: absolute;
-  top: -50%;
-  width: 100%;
-  height: 100%;
-  background: #ffce00;
-  transform: skewY(345deg);
-  transition: 0.5s;
-}
-
-.card:hover::before {
-  top: -70%;
-  transform: skewY(390deg);
-}
-
-.card .imgBox {
-  position: relative;
-  width: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  padding-top: 20px;
-  z-index: 1;
-}
-
-.card .contentBox {
-  position: relative;
-  padding: 20px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
-  z-index: 2;
-}
-
-.card .contentBox h3 {
-  font-size: 18px;
-  color: white;
-  font-weight: 500;
-  text-transform: uppercase;
-  letter-spacing: 1px;
-}
-
-.card .contentBox .card-text {
-  font-size: 14px;
-  color: white;
-  margin-bottom: 15px;
-}
-
-.card .contentBox .card-price {
-  font-size: 24px;
-  color: white;
-  font-weight: 700;
-  letter-spacing: 1px;
-}
-
-.card .contentBox .btn-buy {
-  opacity: 0;
-  padding: 10px 30px;
-  margin-top: 15px;
-  color: #000000;
-  text-decoration: none;
-  background: #ffce00;
-  border-radius: 30px;
-  text-transform: uppercase;
-  letter-spacing: 1px;
-  transition: 0.5s;
-}
-
-.card:hover .contentBox .btn-buy {
-  opacity: 1;
-}
-
-</style>
-{% block content %}
-    <div class="container">
-        <h1 class="mt-4 mb-3">Welcome to the Game Store</h1>
+<!-- shop/store.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Store</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        /* Optional: Add custom CSS for additional styling */
+    </style>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <a class="navbar-brand" href="#">My Store</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item active">
+                    <a class="nav-link" href="#">Home</a>
+                </li>
+            </ul>
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'view_order' order.id %}">
+                        View Cart
+                        <span id="cart-count" class="badge badge-light ml-1">{{ order.total_items }}</span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+    
+    <div class="container mt-4">
         <div class="row">
-            {% for game in games %}
+            {% for item in items %}
                 <div class="col-md-4 mb-4">
-                    <div class="card h-100">
-                        <div class="imgBox">
-                            <img src="{{ game.image.url }}" class="card-img-top mouse" alt="{{ game.title }}">
-                        </div>
-                        <div class="contentBox">
-                            <h3 class="card-title">{{ game.title }}</h3>
-                            <p class="card-text">{{ game.description }}</p>
-                            <p class="card-price">{{ game.price }}</p>
-                            <a href="{% url 'game-detail' game.id %}" class="btn btn-primary btn-buy">View Details</a>
+                    <div class="card">
+                        <img src="{{ item.image.url }}" class="card-img-top" alt="{{ item.title }}">
+                        <div class="card-body">
+                            <h5 class="card-title">{{ item.title }}</h5>
+                            <p class="card-text">${{ item.price }}</p>
+                            {% if request.user.is_authenticated %}
+                                <form action="{% url 'add_to_order' item.id %}" method="post">
+                                    {% csrf_token %}
+                                    <button type="submit" class="btn btn-primary btn-sm">Add to Order</button>
+                                </form>
+                            {% endif %}
                         </div>
                     </div>
                 </div>
             {% endfor %}
         </div>
     </div>
-{% endblock %}
+
+    <!-- Bootstrap JS (optional) -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+    <!-- JavaScript for updating cart count -->
+    <script>
+        // Function to update cart count
+        function updateCartCount() {
+            // Fetch cart count from backend or local storage
+            var cartCount = 0; // Replace with your logic to fetch cart count
+            $('#cart-count').text(cartCount);
+        }
+
+        // Call updateCartCount function on page load
+        $(document).ready(function() {
+            updateCartCount();
+        });
+    </script>
+</body>
+</html>

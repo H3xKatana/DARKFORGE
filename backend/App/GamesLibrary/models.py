@@ -37,6 +37,7 @@ RATING_CHOICES = (
 )
 class Genre(models.Model):
     name = models.CharField(max_length=50, unique=True)
+    image = models.ImageField(default='default.jpg', upload_to='genres_pics')
 
     def __str__(self):
         return self.name
@@ -133,29 +134,8 @@ class FavoriteGames(models.Model):
     class Meta:
         unique_together = ('user', 'game')
 ###############################
-    
-class Cart(models.Model):
-    cart_id = models.CharField(max_length=250, blank=True)
-    date_added = models.DateField(auto_now_add=True)
 
-    def __str__(self):
-        return self.cart_id
-
-    
-class CartItem(models.Model): 
-    game = models.ForeignKey(Game, on_delete=models.CASCADE)
-    cart = models.ForeignKey(Cart, on_delete=models.CASCADE, null=True)
-    is_active = models.BooleanField(default=True)
-
-    @property
-    def subtotal(self):
-        return self.game.price * (1 - (self.game.discounts / 100))
-
-    def __str__(self):
-        return f"{self.game} in Cart"
-
-
-############################33
+    ############################33
 # Improving Custom Status Choices
 CUSTOM_STATUS_CHOICES = (
     ("draft", "Draft"),
@@ -214,3 +194,36 @@ class CustomGame(models.Model):
         return time_difference.days <= 10
     def __str__(self):
         return f"{self.user.username} - {self.title}"
+
+
+
+
+
+class Order(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+    is_completed = models.BooleanField(default=False)
+
+    def __str__(self):
+        return f"Order #{self.id} for {self.user.username}"
+
+    @property
+    def total_items(self):
+        return sum(item.quantity for item in self.orderitem_set.all())
+
+    @property
+    def total(self):
+        return sum(item.quantity * item.game.price for item in self.orderitem_set.all())
+
+class OrderItem(models.Model):
+    order = models.ForeignKey(Order, on_delete=models.CASCADE)
+    game = models.ForeignKey(Game, on_delete=models.CASCADE)
+    quantity = models.PositiveIntegerField(default=1)
+
+    def __str__(self):
+        return f"{self.quantity} x {self.game.title} in order #{self.order.id}"
+    
+
+    def remove_from_cart(self):
+        self.delete()

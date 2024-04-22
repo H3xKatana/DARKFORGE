@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+
+{% load static %}
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Myshop</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <link rel="stylesheet" href="{% static 'css/all.css' %}">
+    <link rel="stylesheet" href="{% static 'css/cart.css' %}">
+</head>
+
+<style>
+    a{
+        color: white;
+        text-decoration: none;
+    }
+</style>
+
+<body>
+
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container">
+            <a class="navbar-brand" href="{% url 'index' %}">myShop</a>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'order_detail' order_uuid=order.uuid %}">
+                            <div class="cart-container">
+                                <span class="cart-items">{{ cart.num_of_items }}</span>
+                                <i class="fas fa-cart-shopping"></i>
+                            </div>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container mt-4">
+        {% if messages %}
+            {% for message in messages %}
+                <div class="alert alert-success alert-dismissible fade show" role="alert">
+                    {{ message }}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+            {% endfor %}
+        {% endif %}
+
+    </div>
+     {% block content %}
+        
+     {% endblock content %}
+     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+
+   <script src="{% static 'js/cart.js' %}"></script>
+   <script>
+    document.addEventListener("DOMContentLoaded", function() {
+        // Get the add to cart button
+        const addToCartBtn = document.getElementById("add-to-cart-btn");
+
+        // Add click event listener to the button
+        addToCartBtn.addEventListener("click", function(event) {
+            event.preventDefault(); // Prevent default form submission
+
+            // Get the game ID from the data attribute
+            const gameId = addToCartBtn.dataset.gameId;
+
+            // Send an AJAX request to add the game to the cart
+            fetch('/add_to_cart/', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRFToken': getCookie('csrftoken') // Get CSRF token
+                },
+                body: JSON.stringify({ game_id: gameId })
+            })
+            .then(response => {
+                if (response.ok) {
+                    // Game successfully added to cart, display a success message or update UI
+                    console.log("Game added to cart successfully!");
+                } else {
+                    // Handle error response, display error message or take appropriate action
+                    console.error("Error adding game to cart.");
+                }
+            })
+            .catch(error => {
+                console.error("Error adding game to cart:", error);
+            });
+        });
+
+        // Function to get CSRF token from cookies
+        function getCookie(name) {
+            let cookieValue = null;
+            if (document.cookie && document.cookie !== '') {
+                const cookies = document.cookie.split(';');
+                for (let i = 0; i < cookies.length; i++) {
+                    const cookie = cookies[i].trim();
+                    if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                        cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                        break;
+                    }
+                }
+            }
+            return cookieValue;
+        }
+    });
+</script>
+</body>
+</html>

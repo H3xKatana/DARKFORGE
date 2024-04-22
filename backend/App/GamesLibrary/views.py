@@ -1,21 +1,55 @@
 
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib import messages
-from .models import Game,CustomGame,FavoriteGames, Genre, Platforms,Cart,CartItem
-from django.http import HttpResponse
+from .models import Game,CustomGame,FavoriteGames, Genre, Platforms,Order,OrderItem
+from django.http import HttpResponse,JsonResponse
+from django.core.exceptions import ObjectDoesNotExist
 from .forms import CustomGameForm, SetPriceForm
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponseRedirect,HttpResponseBadRequest
 from django.urls import reverse
 from django.db import transaction
+import json
 
-def index(request):  # Checking homepage
-    items = Game.objects.all().filter(is_published=True)
-    context = {
-        'games' : items,
-        
-    }
-    return render(request, 'shop/store.html', context)
+
+def index(request):
+    items = Game.objects.all()
+    order = None
+    
+    if request.user.is_authenticated:
+        order, created = Order.objects.get_or_create(user=request.user, is_completed=False)
+    
+    context = {"items": items, "order": order}
+    return render(request, "shop/store.html", context)
+
+
+def add_to_order(request, game_id):
+    game = get_object_or_404(Game, pk=game_id)
+    order, created = Order.objects.get_or_create(user=request.user, is_completed=False)
+    
+    # Check if the item already exists in the order
+    order_item, item_created = OrderItem.objects.get_or_create(order=order, game=game)
+    
+    # If item already exists, increase quantity
+    if not item_created:
+        order_item.quantity += 1
+        order_item.save()
+    
+    return redirect('index') 
+
+
+
+def view_order(request, order_id):
+    order = get_object_or_404(Order, id=order_id)
+    return render(request, 'shop/cart.html', {'order': order})
+
+
+
+def remove_from_cart(request, item_id):
+    item = get_object_or_404(OrderItem, id=item_id)
+    item.remove_from_cart()
+    return redirect('view_order', order_id=item.order.id)
+
 
 
 
@@ -29,6 +63,8 @@ def game_detail(request, pk):
 def checkout(request):  # Checking checkout page
     
     return render(request,'store/checkout.html')
+
+
 
 
 
@@ -112,27 +148,27 @@ def game_search(request):
 
     return render(request, 'shop/game_search.html', context)
 
-@transaction.atomic
-def add_to_cart(request, game_id):
-    game = get_object_or_404(Game, pk=game_id)
-    
-    # Get or create the cart associated with the session
-    cart_id = request.session.get('cart_id')
-    if cart_id:
-        cart = Cart.objects.get_or_create(cart_id=cart_id)
-    else:
-        cart = Cart.objects.create()
-        request.session['cart_id'] = cart.cart_id
 
-    # Create the cart item
-    cart_item, created = CartItem.objects.get_or_create(cart=cart, game=game)
 
-    return redirect('cart_view')
+@login_required
+def order_detail(request, order_uuid):
+    order = get_object_or_404(Order, uuid=order_uuid)
+    return render(request, 'shop/order_detail.html', {'order': order})
 
-def cart_view(request):
-    cart, created = Cart.objects.get_or_create(user=request.user)
-    context = {
-        'cart': cart,
-    }
-    return render(request, 'shop/cart.html', context)
+@login_required
+def payment_process(request, order_uuid):
+    order = get_object_or_404(Order, uuid=order_uuid)
+    # Add your payment processing logic here
+    return redirect(reverse('shop/payment_done', args=[order.uuid]))
 
+@login_required
+def payment_done(request, order_uuid):
+    order = get_object_or_404(Order, uuid=order_uuid)
+    order.is_completed = True
+    order.save()
+    return render(request, 'shop/payment_done.html', {'order': order})
+
+@login_required
+def payment_canceled(request, order_uuid):
+    order = get_object_or_404(Order, uuid=order_uuid)
+    return render(request, 'shop/payment_canceled.html', {'order': order})

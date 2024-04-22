@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Order Detail</title>
+</head>
+<body>
+    <h1>Order Detail</h1>
+    <p>Order ID: {{ order.uuid }}</p>
+    <p>User: {{ order.user.username }}</p>
+    <p>Created At: {{ order.created_at }}</p>
+    <p>Updated At: {{ order.updated_at }}</p>
+    <p>Completed: {% if order.is_completed %} Yes {% else %} No {% endif %}</p>
+    
+    <!-- Display order items -->
+    <h2>Order Items</h2>
+    <ul>
+        {% for order_item in order.orderitem_set.all %}
+            <li>{{ order_item.game.title }}</li>
+        {% endfor %}
+    </ul>
+    
+    <!-- Add more details or actions as needed -->
+</body>
+</html>

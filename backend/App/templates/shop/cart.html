@@ -1,38 +1,39 @@
+<!-- shop/cart.html -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Shopping Cart</title>
+    <title>Cart</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        /* Optional: Add custom CSS for additional styling */
+    </style>
 </head>
 <body>
-    <h1>Shopping Cart</h1>
-
-    {% if cart_items %}
-        <table border="1">
-            <tr>
-                <th>Game</th>
-                <th>Price</th>
-                <th>Quantity</th>
-                <th>Subtotal</th>
-            </tr>
-            {% for item in cart_items %}
-                <tr>
-                    <td>{{ item.game.title }}</td>
-                    <td>${{ item.game.price }}</td>
-                    <td>{{ item.quantity }}</td>
-                    <td>${{ item.subtotal }}</td>
-                </tr>
+    <div class="container">
+        <h1 class="mt-5 mb-4">Your Cart</h1>
+        <ul class="list-group mb-4">
+            {% for item in order.orderitem_set.all %}
+                <li class="list-group-item">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <span>{{ item.quantity }} x {{ item.game.title }}</span>
+                        <span class="badge badge-primary badge-pill">${{ item.game.price }}</span>
+                    </div>
+                    <form action="{% url 'remove_from_cart' item.id %}" method="post">
+                        {% csrf_token %}
+                        <button type="submit" class="btn btn-danger btn-sm mt-2">Remove</button>
+                    </form>
+                </li>
             {% endfor %}
-            <tr>
-                <td colspan="3"><strong>Total:</strong></td>
-                <td><strong>${{ cart_total }}</strong></td>
-            </tr>
-        </table>
-        <br>
-        <a href="{% url 'checkout' %}">Proceed to Checkout</a>
-    {% else %}
-        <p>Your cart is empty.</p>
-    {% endif %}
+        </ul>
+        <p class="lead">Total: ${{ order.total }}</p>
+    </div>
+
+    <!-- Bootstrap JS (optional) -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
 </html>

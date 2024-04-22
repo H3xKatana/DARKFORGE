@@ -1,4 +1,3 @@
-<!-- shop/game_detail.html -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -20,13 +19,13 @@
                 <p><strong>Description:</strong> {{ game.description }}</p>
                 <p><strong>Price:</strong> ${{ game.price }}</p>
                 <p><strong>Platform:</strong> {{ game.platform }}</p>
-                <!-- Add more details as needed -->
-                <form action="{% url 'add_to_cart' game.id %}" method="post">
+               
+                <!-- Add to Cart form -->
+                <form id="add-to-cart-form" action="{% url 'add_to_cart' %}" method="post">
                     {% csrf_token %}
-                    <input type="submit" value="Buy Now" class="btn btn-primary">
+                    <input type="hidden" name="product_id" value="{{ game.pk }}">
+                    <button type="submit" class="btn btn-primary">Add to Cart</button>
                 </form>
-                <a href="{% url 'add-to-favorites' game.id %}" class="btn btn-primary">⭐</a>
-
             </div>
         </div>
     </div>
