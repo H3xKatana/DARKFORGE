@@ -32,23 +32,21 @@ def add_to_order(request, game_id):
     
     # If item already exists, increase quantity
     if not item_created:
-        order_item.quantity += 1
+        order_item.quantity = 1
         order_item.save()
     
     return redirect('index') 
 
 
-
-def view_order(request, order_id):
-    order = get_object_or_404(Order, id=order_id)
-    return render(request, 'shop/cart.html', {'order': order})
-
-
-
 def remove_from_cart(request, item_id):
     item = get_object_or_404(OrderItem, id=item_id)
     item.remove_from_cart()
-    return redirect('view_order', order_id=item.order.id)
+    return redirect('view_order', order_reference=item.order.order_reference)
+
+def view_order(request, order_reference):
+    order = get_object_or_404(Order, order_reference=order_reference)
+    return render(request, 'shop/cart.html', {'order': order})
+
 
 
 

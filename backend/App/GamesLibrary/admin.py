@@ -3,7 +3,7 @@ from django.contrib import admin,messages
 from django.urls import path
 from django.shortcuts import render, redirect
 from django.utils.translation import ngettext
-from .models import Genre,Comments, Game, GamesImages,Rating,Developers,CustomGame,Platforms,FavoriteGames
+from .models import Genre,Comments, Game, GamesImages,Rating,Developers,CustomGame,Platforms,FavoriteGames,Order
 from .forms import SetPriceForm,EmailForm
 from django.core.mail import send_mail
 # Register your models here.
@@ -126,7 +126,7 @@ class FavoriteGamesAdmin(admin.ModelAdmin):
     list_filter = ['user']
 
 admin.site.register(FavoriteGames, FavoriteGamesAdmin)
-
+admin.site.register(Order)
 admin.site.register(Game,GameAdmin)
 admin.site.register(Platforms,PlatformsAdmin)
 admin.site.register(Genre,GenresAdmin)
