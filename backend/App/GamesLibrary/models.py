@@ -64,6 +64,7 @@ class Game(models.Model):
     id = models.AutoField(primary_key=True)
     title = models.CharField(max_length=100)
     description = models.TextField(default='',blank=True)
+    game_requirments = models.TextField(default='',blank=True)
     image = models.ImageField(default='default.jpg', upload_to='game_pics')
     url = models.URLField(unique=True)
     developer = models.ForeignKey(Developers, on_delete=models.CASCADE)
