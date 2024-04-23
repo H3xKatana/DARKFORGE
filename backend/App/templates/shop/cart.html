@@ -27,7 +27,11 @@
                 </li>
             {% endfor %}
         </ul>
-        <p class="lead">Total: ${{ order.total }}</p>
+        
+        <!-- Checkout Button -->
+        <div class="text-center">
+          <a href="{% url 'checkout' order_reference=order.order_reference %}" class="btn btn-primary">Checkout</a>
+      </div>
     </div>
 
     <!-- Bootstrap JS (optional) -->

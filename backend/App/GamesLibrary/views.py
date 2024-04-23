@@ -10,7 +10,8 @@ from django.http import HttpResponseRedirect,HttpResponseBadRequest
 from django.urls import reverse
 from django.db import transaction
 import json
-
+from paypal.standard.forms import PayPalPaymentsForm
+from django.conf import settings
 
 def index(request):
     items = Game.objects.all()
@@ -153,20 +154,47 @@ def order_detail(request, order_uuid):
     order = get_object_or_404(Order, uuid=order_uuid)
     return render(request, 'shop/order_detail.html', {'order': order})
 
-@login_required
-def payment_process(request, order_uuid):
-    order = get_object_or_404(Order, uuid=order_uuid)
-    # Add your payment processing logic here
-    return redirect(reverse('shop/payment_done', args=[order.uuid]))
 
-@login_required
-def payment_done(request, order_uuid):
-    order = get_object_or_404(Order, uuid=order_uuid)
-    order.is_completed = True
-    order.save()
-    return render(request, 'shop/payment_done.html', {'order': order})
 
-@login_required
-def payment_canceled(request, order_uuid):
-    order = get_object_or_404(Order, uuid=order_uuid)
-    return render(request, 'shop/payment_canceled.html', {'order': order})
+
+
+
+def CheckOut(request, order_reference):
+    order = get_object_or_404(Order, order_reference=order_reference)
+
+    host = request.get_host()
+
+    paypal_checkout = {
+        'business': settings.PAYPAL_RECEIVER_EMAIL,
+        'amount': order.total,
+        'item_name': 'Order',
+        'invoice': order.order_reference,
+        'currency_code': 'USD',
+        'notify_url': f"http://{host}{reverse('paypal-ipn')}",
+        'return_url': f"http://{host}{reverse('payment-success', kwargs={'order_reference': order_reference})}",
+        'cancel_url': f"http://{host}{reverse('payment-failed', kwargs={'order_reference': order_reference})}",
+    }
+
+    paypal_payment = PayPalPaymentsForm(initial=paypal_checkout)
+
+    context = {
+        'order': order,
+        'paypal': paypal_payment
+    }
+
+    return render(request, 'shop/checkout.html', context)
+
+def PaymentSuccessful(request, order_reference):
+    order = get_object_or_404(Order, order_reference=order_reference)
+
+    return render(request, 'shop/payment-success.html', {'order': order})
+
+
+
+def paymentFailed(request, order_reference):
+
+    order = get_object_or_404(Order, order_reference=order_reference)
+
+
+    return render(request, 'store/payment-failed.html', {'order': order})
+

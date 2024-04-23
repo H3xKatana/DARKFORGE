@@ -215,12 +215,19 @@ class Order(models.Model):
 
     @property
     def total(self):
-        return sum(item.quantity * item.game.price for item in self.orderitem_set.all())
+        return sum(item.quantity * item.price for item in self.orderitem_set.all())
 
 class OrderItem(models.Model):
     order = models.ForeignKey(Order, on_delete=models.CASCADE)
     game = models.ForeignKey(Game, on_delete=models.CASCADE)
     quantity = models.PositiveIntegerField(default=1)
+
+    @property
+    def price(self):
+        discount_percentage = self.game.discounts
+        discount_decimal = (100 - discount_percentage) / 100
+        discounted_price = self.game.price * discount_decimal
+        return discounted_price
 
     def __str__(self):
         return f"{self.quantity} x {self.game.title} in order #{self.order.id}"
@@ -228,3 +235,22 @@ class OrderItem(models.Model):
 
     def remove_from_cart(self):
         self.delete()
+
+
+
+
+
+
+
+
+
+class UserPayment(models.Model):
+	app_user = models.ForeignKey(user, on_delete=models.CASCADE)
+	payment_bool = models.BooleanField(default=False)
+	stripe_checkout_id = models.CharField(max_length=500)
+
+
+@receiver(post_save, sender=user)
+def create_user_payment(sender, instance, created, **kwargs):
+	if created:
+		UserPayment.objects.create(app_user=instance)

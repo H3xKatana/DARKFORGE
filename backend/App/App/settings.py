@@ -41,12 +41,14 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'crispy_bootstrap4',
+    
     # my apps
     'users',
     'Home',
     'GamesLibrary',
     'joinus',
     'help',
+    'paypal.standard.ipn'
     
 ]
 
@@ -225,6 +227,11 @@ EMAIL_PORT = 1025
 EMAIL_HOST_USER = ''
 EMAIL_HOST_PASSWORD = ''
 
+
+DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+PAYPAL_RECEIVER_EMAIL = 'sb-3so3020154368@business.example.com' # where cash is paid into
+PAYPAL_TEST = True
 
 """
 for production 

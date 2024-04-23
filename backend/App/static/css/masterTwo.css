@@ -1,0 +1,469 @@
+/* This css file is for: myGames.html */
+
+:root {
+    --blue-color: #0075ff;
+    --blue-alt-color: #0d69d5;
+    --orange-color: #f59e0b;
+    --green-color: #22c55e;
+    --red-color: #f44336;
+    --grey-color: #888;
+    --main-color: #FFFF20;
+    --main-transition: 0.3s;
+    --fa-style-family-classic: "Font Awesome 6 Free";
+    --fa-font-solid: normal 900 1em/1 "Font Awesome 6 Free";
+}
+
+
+* {
+    --webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: "Open Sans", sans-serif;
+    margin: 0;
+}
+
+*:focus {
+    outline: none;
+}
+
+a {
+    text-decoration: none;
+}
+
+ul {
+    list-style: none;
+    padding: 0;
+}
+
+
+/* Start SideBar */
+
+.page {
+    background-image: url(../images/back.png);
+    background-size: cover;
+    position: relative;
+}
+
+.sidebar {
+    width: 250px;
+    box-shadow: 0 0 10px #DDD;
+    color: white;
+    background-color: rgb(0 0 0 / 20%);
+    z-index: 1;
+}
+
+.sidebar>h3:first-of-type {
+    margin-bottom: 50px;
+
+}
+
+.sidebar>h3:first-of-type:before,
+.sidebar>h3:first-of-type:after {
+    content: "";
+    background-color: var(--main-color);
+    position: absolute;
+    transform: translateX(-50%);
+    left: 50%;
+}
+
+.sidebar>h3:first-of-type::after {
+    width: 12px;
+    height: 12px;
+    bottom: -29px;
+    border-radius: 50%;
+    border: 4px solid #2e1a4e;
+    overflow: hidden;
+}
+
+.sidebar>h3:first-of-type::before {
+    width: 80px;
+    height: 2px;
+    bottom: -20px;
+}
+
+.sidebar ul {
+    margin-top: 75px;
+    margin-bottom: 50px;
+}
+
+.sidebar ul li a {
+    transition: var(--main-transition);
+    margin-bottom: 10px;
+    color: #d1c3d5;
+}
+
+.sidebar ul li a.home {
+    background-color: #0000004f;
+}
+
+.sidebar ul li a:hover,
+.sidebar ul li a.active {
+    /* background-color: var(--main-color);
+    color: black; */
+
+    background-color: #0000004f;
+    color: var(--main-color);
+}
+
+
+.sidebar ul li a span {
+    font-size: 14px;
+    margin-left: 10px;
+}
+
+@media (max-width:767px) {
+    .sidebar {
+        width: 58px;
+        padding: 10px;
+    }
+
+    .sidebar>h3 {
+        font-size: 14px;
+        margin-bottom: 15px;
+        letter-spacing: -1px;
+    }
+
+    .sidebar>h3::before,
+    .sidebar>h3::after {
+        display: none;
+    }
+
+
+    .sidebar ul li a span {
+        display: none;
+    }
+}
+
+.sidebar .last-played {
+    color: #d1c3d5;
+}
+
+@media (max-width:767px) {
+    .sidebar .last-played-game {
+        flex-direction: column;
+    }
+
+    .sidebar .last-played-game .info p {
+        display: none;
+    }
+}
+
+.sidebar .last-played-game img {
+    width: 35px;
+    height: 35px;
+}
+
+@media (min-width:768px) {
+    .sidebar .last-played-game img {
+        margin-right: 10px;
+    }
+}
+
+
+/* End SideBar */
+/* Start Content */
+.content {
+    overflow: hidden;
+    background-image: url(../images/i-sjust-hh-level.gif);
+    background-size: cover;
+    position: relative;
+}
+
+.content:before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgb(0 0 0 / 60%);
+}
+
+.head {
+    background-color: rgb(0 0 0 / 20%);
+    box-shadow: 0 0 10px #DDD;
+    position: relative;
+
+}
+
+.head .search::before {
+    font-family: var(--fa-style-family-classic);
+    content: "\f002";
+    font-weight: 900;
+    position: absolute;
+    left: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 14px;
+    /* color: var(--main-color); */
+    color: #3f3f3f;
+}
+
+.head .search input {
+    border: 1px solid #373737;
+    border-radius: 10px;
+    margin-left: 5px;
+    padding-left: 30px;
+    width: 160px;
+    transition: width var(--main-transition);
+    background-color: #f9f9f98a;
+
+}
+
+.head .search input:focus {
+    border-color: black;
+    width: 200px;
+    background-color: rgb(205, 205, 205);
+}
+
+.head .search input:focus::placeholder {
+    opacity: 0;
+}
+
+.head .icons .notification {
+    cursor: pointer;
+    transition: var(--main-transition);
+}
+
+.head .icons .notification::before {
+    content: "";
+    position: absolute;
+    width: 10px;
+    height: 10px;
+    background-color: var(--red-color);
+    border-radius: 50%;
+    right: -5px;
+    top: -5px;
+}
+
+.head .icons .notification i {
+    color: var(--main-color);
+}
+
+.head .icons .notification:hover i {
+    color: black;
+}
+
+.head .icons img {
+    width: 32px;
+    height: 32px;
+    margin-left: 15px;
+    border-radius: 50%;
+}
+
+.page h1 {
+    margin: 20px 20px 40px;
+    color: #d1c3d5;
+    font-size: 40px;
+}
+
+
+.page h1::before,
+.page h1::after {
+    content: "";
+    height: 4px;
+    position: absolute;
+    bottom: -15px;
+    left: 0;
+}
+
+.page h1:before {
+    background-color: #d1c3d5;
+    width: 160px;
+}
+
+.page h1:after {
+    background-color: var(--main-color);
+    width: 60px;
+}
+
+
+
+
+/* Start Files-page */
+.files-page {
+    flex-direction: row-reverse;
+    align-items: flex-start;
+}
+
+@media (max-width:767px) {
+    .files-page {
+        flex-direction: column;
+        align-items: normal;
+    }
+}
+
+.files-page .games-stats {
+    min-width: 260px;
+    background-color: #7e7e7e69;
+    box-shadow: 0 2px 15px rgb(0 0 0 / 71%);
+    transition: var(--main-transition);
+    position: relative;
+}
+
+.files-page .games-stats>h2 {
+    margin-bottom: 35px;
+}
+
+.files-page .games-stats>h3 {
+    margin-bottom: 10px;
+}
+
+.files-page .games-stats .favourite-game {
+    margin-bottom: 35px;
+}
+
+.files-page .games-stats .favourite-game-title {
+    font-size: 20px;
+    color: #161616;
+}
+
+.files-page .games-stats .favourite-game img {
+    width: 60px;
+    height: 60px;
+}
+
+.files-page .games-stats .favourite-game .info p {
+    font-weight: bold;
+    color: white;
+    margin: 0;
+    margin-left: 10px;
+    margin-bottom: 5px;
+}
+
+.files-page .games-stats .upload {
+    margin: 15px auto 0;
+    transition: var(--main-transition);
+    padding: 10px 15px;
+}
+
+.files-page .games-stats .upload:hover {
+    background-color: var(--blue-alt-color);
+    border-radius: 10px;
+}
+
+.files-page .games-stats .upload:hover i {
+    animation: go-up 0.8s infinite;
+}
+
+.files-page .files-content {
+    flex: 1;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    padding-bottom: 50px;
+    /* background-image: url(../images/giphy.gif); */
+}
+
+.files-page .file {
+    transition: var(--main-transition);
+    background-color: #7e7e7e69;
+    padding-bottom: 120px;
+    box-shadow: 0 2px 15px rgb(0 0 0 / 71%);
+}
+
+.files-page .file:hover {
+    transform: translateY(-3px);
+    box-shadow: 0px 0px 7px 1px #f5f5f56e;
+    background-color: var(--main-color-alt);
+}
+
+.files-page .files-content .file i {
+    transition: var(--main-transition);
+    cursor: pointer;
+}
+
+.files-page .files-content .file i:hover {
+    color: var(--green-color);
+}
+
+i.filled,
+i.half-star {
+    color: #ff9a20;
+}
+
+.files-page .files-content .file span>i:not(.filled):not(.half-star) {
+    color: black;
+}
+
+.files-page .files-content .file span:last-of-type {
+    transition: var(--main-transition);
+}
+
+.files-page .files-content .file:hover span:last-of-type {
+    font-weight: bold;
+    color: black;
+}
+
+.files-page .files-content img {
+    width: 100%;
+    height: 100%;
+    transition: var(--main-transition);
+    filter: grayscale(0);
+    transition: var(--main-transition);
+}
+
+.files-page .files-content .file:hover img {
+    /* transform: rotate(5deg); */
+    filter: grayscale(100%);
+}
+
+.files-page .files-content .file div:nth-of-type(2) {
+    transition: var(--main-transition);
+}
+
+.files-page .files-content .file:hover div:nth-of-type(2) {
+    color: var(--blue-color);
+    font-weight: bold;
+}
+
+.files-page .files-content .file p {
+    transition: var(--main-transition);
+    color: white;
+    text-align: center;
+    font-weight: bold;
+    font-size: 16px;
+}
+
+.files-page .files-content .file:hover p {
+    color: black;
+    font-weight: bold;
+}
+
+.files-page .files-content .info {
+    border-top: 1px solid #EEE;
+    position: absolute;
+    width: calc(100% - 30px);
+    bottom: 15px;
+}
+
+.files-page .files-content .file:hover .info {
+    border-color: black;
+}
+
+/* End Files-page */
+/* Start Animation */
+@keyframes change-color {
+    from {
+        background-color: var(--blue-color);
+    }
+
+    to {
+        background-color: white;
+    }
+}
+
+@keyframes go-up {
+
+    0%,
+    100% {
+        transform: translateY(0);
+    }
+
+    50% {
+        transform: translateY(-5px);
+    }
+}
+
+/* End Animation */

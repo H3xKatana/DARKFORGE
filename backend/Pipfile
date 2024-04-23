@@ -23,6 +23,8 @@ django-crispy-forms = "*"
 openai = "*"
 crispy-bootstrap4 = "*"
 stripe = "*"
+django-paypal = "*"
+paypalrestsdk = "*"
 
 [dev-packages]
 

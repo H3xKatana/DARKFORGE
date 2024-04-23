@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Payment successful</title>
+</head>
+<body>
+    <h1>Payment successful for order: {{order.order_reference}}</h1>
+    <div class="order-container">
+        {% for item in order.orderitem_set.all %}
+        <div class="order-item">
+            <p>{{ item.game.title }}</p>
+            <p>Price: $ {{ item.game.price }}</p>
+            <p>Quantity: {{ item.quantity }}</p>
+        </div>
+        {% endfor %}
+        <div class="message">
+            <p>Your payment for this order was successful. Thank you!</p>
+        </div>
+    </div>
+    <style>
+        body {
+            padding: 10px;
+            box-sizing: border-box;
+        }
+
+        .order-container {
+            display: flex;
+            flex-direction: row;
+            width: 100%;
+            height: 100vh;
+        }
+
+        .order-item {
+            margin-right: 20px;
+        }
+
+        .img {
+            width: 60%;
+            border-radius: 50px;
+        }
+
+        .message {
+            margin-top: 20px;
+        }
+
+        button {
+            padding: 10px;
+            border-radius: 5px;
+            background-color: dodgerblue;
+            color: white;
+            border: none;
+        }
+    </style>
+</body>
+</html>
