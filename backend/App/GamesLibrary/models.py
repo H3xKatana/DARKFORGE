@@ -176,6 +176,7 @@ class CustomGame(models.Model):
     game_complexity = models.CharField(choices=COMPLEXITY_CHOICES, max_length=25, default="fast_game")
     general_info = models.TextField(default="", blank=True)
     platform = models.CharField(max_length=50)
+    Platforms = models.ManyToManyField(Platforms)
     genres = models.ManyToManyField(Genre)
     image = models.ImageField(upload_to="custom_game/", null=True, blank=True)
     progression = models.IntegerField(default=0, validators=[MaxValueValidator(100)], null=False)

@@ -3,7 +3,6 @@ from django.db.models.signals import post_save
 from django.contrib.auth.models import AbstractUser
 from django.utils.translation import gettext_lazy as _
 from django.conf import settings
-from PIL import Image
 from os import path
 
 
@@ -19,8 +18,7 @@ class user(AbstractUser):
 
 
 class OtpCode(models.Model):
-    user = models.ForeignKey(settings.AUTH_USER_MODEL,
-                             on_delete=models.CASCADE)
+    user = models.ForeignKey(settings.AUTH_USER_MODEL,on_delete=models.CASCADE)
     created_at = models.DateTimeField(auto_now_add=True)
     code = models.CharField(max_length=20, unique=True)
     email = models.EmailField(blank=True)
@@ -50,6 +48,7 @@ class Profile(models.Model):
 
 class Notification(models.Model):
     recipient = models.ForeignKey(user, on_delete=models.CASCADE)
+    title = models.CharField(max_length=50)
     message = models.CharField(max_length=255)
     timestamp = models.DateTimeField(auto_now_add=True)
     is_read = models.BooleanField(default=False)
