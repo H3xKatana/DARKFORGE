@@ -1,6 +1,12 @@
 
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib import messages
+import smtplib
+from email.mime.multipart import MIMEMultipart
+from email.mime.text import MIMEText
+from django.shortcuts import render, redirect
+from django.template.loader import render_to_string
+from django.utils.html import strip_tags
 from .models import Game,CustomGame,FavoriteGames, Genre, Platforms,Order,OrderItem
 from django.http import HttpResponse,JsonResponse
 from django.core.exceptions import ObjectDoesNotExist
@@ -65,9 +71,6 @@ def checkout(request):  # Checking checkout page
 
 
 
-
-
-
 def create_custom_game(request):
     if request.method == 'POST':
         form = CustomGameForm(request.POST, request.FILES)
@@ -75,12 +78,37 @@ def create_custom_game(request):
             custom_game = form.save(commit=False)
             custom_game.user = request.user  # Assuming user is authenticated
             custom_game.save()
-            messages.success(request, 'Your custom game order has been submitted. It will be processed shortly.An email will be sent for the interview with our devs team')
+
+            # Send email to the user
+            subject = 'Your Custom Game Order'
+            html_message = render_to_string('email/custom_game_email.html', {'custom_game': custom_game})
+            plain_message = strip_tags(html_message)
+            from_email = 'your@example.com'  # Update with your email address
+            to_email = custom_game.user.email
+
+            # Create message container - the correct MIME type is multipart/alternative.
+            msg = MIMEMultipart('alternative')
+            msg['Subject'] = subject
+            msg['From'] = from_email
+            msg['To'] = to_email
+
+            # Create the body of the message (a plain-text and an HTML version).
+            text_part = MIMEText(plain_message, 'plain')
+            html_part = MIMEText(html_message, 'html')
+
+            # Attach parts into message container.
+            msg.attach(text_part)
+            msg.attach(html_part)
+
+            # Send the message via the debugging server.
+            with smtplib.SMTP('localhost', 1025) as server:
+                server.sendmail(from_email, to_email, msg.as_string())
+
+            messages.success(request, 'Your custom game order has been submitted. It will be processed shortly. An email has been sent to you with the details.')
             return redirect('users:home')  # Redirect to a success URL
     else:
         form = CustomGameForm()
     return render(request, 'shop/custom_game_form.html', {'form': form})
-
 
 
 

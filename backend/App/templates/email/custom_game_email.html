@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your Custom Game Order</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 20px;
+        }
+        .container {
+            max-width: 600px;
+            margin: auto;
+            background: #fff;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+        p {
+            margin-bottom: 20px;
+        }
+        .order-details {
+            margin-top: 30px;
+            border-top: 1px solid #ccc;
+            padding-top: 20px;
+        }
+        .order-details p {
+            margin-bottom: 10px;
+        }
+        .button {
+            display: inline-block;
+            background-color: #007bff;
+            color: #fff;
+            text-decoration: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Your Custom Game Order</h1>
+        <p>Dear {{ custom_game.user.username }},</p>
+        <p>another email will be send for a tehnical interview  and a zoomz calll</p>
+        <p>another paymen link will be send after the end of devloopment </p>
+        <p>Thank you for submitting your custom game order. We have received your request and it will be processed shortly. Below are the details of your order:</p>
+        <div class="order-details">
+            <p><strong>Title:</strong> {{ custom_game.title }}</p>
+            <p><strong>User Tech Level:</strong> {{ custom_game.get_user_tech_level_display }}</p>
+            <p><strong>Game Complexity:</strong> {{ custom_game.get_game_complexity_display }}</p>
+            <p><strong>Platform:</strong> {{ custom_game.platform }}</p>
+            <p><strong>Genres:</strong> 
+                {% for genre in custom_game.genres.all %}
+                    {{ genre.name }}{% if not forloop.last %}, {% endif %}
+                {% endfor %}
+            </p>
+            <p><strong>Progression:</strong> {{ custom_game.progression }}%</p>
+            <p><strong>Status:</strong> {{ custom_game.get_game_status_display }}</p>
+            <p><strong>Prototype:</strong> {% if custom_game.prototype %}Yes{% else %}No{% endif %}</p>
+            <p><strong>Price:</strong> ${{ custom_game.price }}</p>
+        </div>
+        <p>If you have any further questions or concerns, feel free to contact us. Thank you for choosing us!</p>
+        <p>this our phone number +23156784999</p>
+        
+        <div style="text-align: center;">
+            <a href="#" class="button">Contact Us</a>
+        </div>
+    </div>
+</body>
+</html>

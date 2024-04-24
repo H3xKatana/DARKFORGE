@@ -1,5 +1,8 @@
 # the project is session based to stop CRSF+XSS
 # defined endpoints 
+
+
+
 from django.contrib import messages
 from django.shortcuts import render,redirect
 import json 

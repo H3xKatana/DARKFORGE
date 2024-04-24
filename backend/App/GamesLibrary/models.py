@@ -188,6 +188,7 @@ class CustomGame(models.Model):
     payment= models.BooleanField(default=False)
     price = models.FloatField(default=0, validators = [MinValueValidator(0.0)])
     created_at = models.DateTimeField(auto_now_add=True)
+    order_reference = models.UUIDField(default=uuid.uuid4, editable=False, unique=True)
     @property
     def is_recent(self):
         # Calculate the difference between now and the creation date

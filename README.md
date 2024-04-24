@@ -52,10 +52,17 @@ To get started, follow these steps:
    ```
 
 8. **Run the Development Server**: Start the Django development server:
+   
 
    ```
    python manage.py runserver
    ```
+   and in another cmd seesion u should run the server Email server 
+
+    ```
+    python -m smtpd -n -c DebuggingServer localhost:1025
+    ```
+
 
 ## Usage
 
