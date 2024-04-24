@@ -128,7 +128,8 @@ class Comments(models.Model):
 class MyGames(models.Model):
     user = models.ForeignKey(user, on_delete=models.CASCADE)
     game = models.ForeignKey(Game, on_delete=models.CASCADE)
-
+    class Meta:
+        unique_together = ('user', 'game')
 class FavoriteGames(models.Model):
     user = models.ForeignKey(user, on_delete=models.CASCADE)
     game = models.ForeignKey(Game, on_delete=models.CASCADE)

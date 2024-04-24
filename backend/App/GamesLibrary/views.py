@@ -7,7 +7,7 @@ from email.mime.text import MIMEText
 from django.shortcuts import render, redirect
 from django.template.loader import render_to_string
 from django.utils.html import strip_tags
-from .models import Game,CustomGame,FavoriteGames, Genre, Platforms,Order,OrderItem
+from .models import Game,CustomGame,FavoriteGames, Genre, Platforms,Order,OrderItem,MyGames
 from django.http import HttpResponse,JsonResponse
 from django.core.exceptions import ObjectDoesNotExist,ValidationError
 from .forms import CustomGameForm, SetPriceForm
@@ -121,7 +121,7 @@ def track_game(request):
             return render(request, 'shop/track_game.html', {'custom_game': custom_game,'user_custom_games': user_custom_games})
         except ValidationError:
             # If the order reference is not a valid UUID, render a 404 error page
-            return render(request, '404.html')
+            return redirect('404')
     else:
         # Retrieve custom game order references of the current user
         user_custom_games = CustomGame.objects.filter(user=request.user)
@@ -227,11 +227,25 @@ def CheckOut(request, order_reference):
 
     return render(request, 'shop/checkout.html', context)
 
+
+
 def PaymentSuccessful(request, order_reference):
     order = get_object_or_404(Order, order_reference=order_reference)
-
+    
+    # Assuming you have a list of games associated with the order, loop through them
+    for game in order.games.all():
+        # Check if the game is already associated with the user in MyGames model
+        existing_my_game = MyGames.objects.filter(user=request.user, game=game).first()
+        
+        if not existing_my_game:
+            # Create a new MyGames object if the game is not already associated
+            MyGames.objects.create(user=request.user, game=game)
+        else:
+            # Handle the case if the game is already associated with the user
+            # You can update some attributes of the existing MyGames object if needed
+            pass
+    
     return render(request, 'shop/payment-success.html', {'order': order})
-
 
 
 def paymentFailed(request, order_reference):
