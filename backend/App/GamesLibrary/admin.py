@@ -45,7 +45,7 @@ class GamesImagesInline(admin.TabularInline):
 
 
 class CustomGameAdmin(admin.ModelAdmin):
-    list_display = ['user','title', 'price','is_recent', 'payment', 'progression', 'game_status','game_complexity']
+    list_display = ['user','title', 'price','is_recent', 'payment', 'progression', 'game_status','game_complexity','order_reference']
     actions = ['mark_payment_true', 'change_game_status','set_price','send_custom_email']
     list_filter = ('user','title','created_at','price','game_status','platform')
     

@@ -9,7 +9,7 @@ from django.template.loader import render_to_string
 from django.utils.html import strip_tags
 from .models import Game,CustomGame,FavoriteGames, Genre, Platforms,Order,OrderItem
 from django.http import HttpResponse,JsonResponse
-from django.core.exceptions import ObjectDoesNotExist
+from django.core.exceptions import ObjectDoesNotExist,ValidationError
 from .forms import CustomGameForm, SetPriceForm
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponseRedirect,HttpResponseBadRequest
@@ -69,7 +69,7 @@ def checkout(request):  # Checking checkout page
     
     return render(request,'store/checkout.html')
 
-
+##################################################
 
 def create_custom_game(request):
     if request.method == 'POST':
@@ -111,6 +111,21 @@ def create_custom_game(request):
     return render(request, 'shop/custom_game_form.html', {'form': form})
 
 
+
+def track_game(request):
+    if request.method == 'POST':
+        order_reference = request.POST.get('order_reference')
+        try:
+            user_custom_games = CustomGame.objects.filter(user=request.user)
+            custom_game = get_object_or_404(CustomGame, order_reference=order_reference)
+            return render(request, 'shop/track_game.html', {'custom_game': custom_game,'user_custom_games': user_custom_games})
+        except ValidationError:
+            # If the order reference is not a valid UUID, render a 404 error page
+            return render(request, '404.html')
+    else:
+        # Retrieve custom game order references of the current user
+        user_custom_games = CustomGame.objects.filter(user=request.user)
+        return render(request, 'shop/track_game.html', {'user_custom_games': user_custom_games})
 
 ################
 @login_required
