@@ -85,7 +85,12 @@ class Game(models.Model):
         # Check if the difference is less than or equal to 10 days
         return time_difference.days <= 10
     
-
+    @property
+    def price_discounted(self):
+        discount_percentage = self.discounts
+        discount_decimal = (100 - discount_percentage) / 100
+        discounted_price = self.price * discount_decimal
+        return discounted_price
    
     def __str__(self):
         return self.title
@@ -190,6 +195,7 @@ class CustomGame(models.Model):
     price = models.FloatField(default=0, validators = [MinValueValidator(0.0)])
     created_at = models.DateTimeField(auto_now_add=True)
     order_reference = models.UUIDField(default=uuid.uuid4, editable=False, unique=True)
+    completed= models.BooleanField(default=False)
     @property
     def is_recent(self):
         # Calculate the difference between now and the creation date

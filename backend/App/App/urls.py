@@ -26,7 +26,7 @@ urlpatterns = [
     path('',include('Home.urls'),name='home'),
     path('GamesLibrary/',include('GamesLibrary.urls')),
     path('joinus/', include('joinus.urls')),
-    path('help/', include('help.urls')),
+    path('help/', include('help.urls'),name='darkai'),
     path('', include('paypal.standard.ipn.urls')),
 ]
 if settings.DEBUG:

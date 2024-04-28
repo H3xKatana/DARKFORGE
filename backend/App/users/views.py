@@ -66,7 +66,7 @@ def login_view(request):
                     return redirect('users:activate_email')
                 else:
                     login(request, user)
-                    return redirect('users:home')
+                    return redirect('users:login')
             else:
                 error = 'Invalid Credentials'
     else:
@@ -91,7 +91,7 @@ def registeration_view(request):
             user.source = 'Register'
             user.save(True)
 
-            code = get_random_string(20)
+            code = get_random_string(10)
             otp = OtpCode(code=code, user=user)
             otp.save(True)
             try:
@@ -144,7 +144,7 @@ def check_otp_view(request):
             otp.delete()
             user.is_active = True
             user.save()
-            return redirect('users:login')
+            return redirect('users:home')
     else:
         form = OtpForm()
     return render(request, 'users/user_otp.html', {'form': form})

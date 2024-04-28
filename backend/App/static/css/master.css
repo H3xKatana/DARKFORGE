@@ -1541,6 +1541,7 @@ ul {
     text-align: center;
     font-weight: bold;
     transition: var(--main-transition-duration);
+    color: white;
 }
 
 

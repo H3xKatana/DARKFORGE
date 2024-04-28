@@ -20,13 +20,15 @@ from paypal.standard.forms import PayPalPaymentsForm
 from django.conf import settings
 
 def index(request):
-    items = Game.objects.all()
+    items = Game.objects.filter(rate__gt=4)
+    genres = Genre.objects.all()
+    
     order = None
     
     if request.user.is_authenticated:
         order, created = Order.objects.get_or_create(user=request.user, is_completed=False)
     
-    context = {"items": items, "order": order}
+    context = {"items": items, "order": order,"genres": genres,}
     return render(request, "shop/store.html", context)
 
 
@@ -61,6 +63,7 @@ def view_order(request, order_reference):
 def game_detail(request, pk):
     game = get_object_or_404(Game, pk=pk)
     context = {
+        'user': request.user, 
         'game': game,
     }
     return render(request, 'shop/game_detail.html', context)
