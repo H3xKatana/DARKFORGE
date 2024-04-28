@@ -1,17 +1,16 @@
 <!DOCTYPE html>
+{% load static %}
 <html lang="en">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dark Forge</title>
-    <!-- Render All Elements Normally -->
-    <link rel="stylesheet" href="/static/css/normalize.css">
-    <!-- Font Awesome Library -->
-    <link rel="stylesheet" href="/static/css/all.min.css">
-    <!-- main Template CSS File  -->
-    <link rel="stylesheet" href="/static/css/master.css">
-    <!-- Google Fonts  -->
+
+    <link rel="stylesheet" href="{% static 'css/normalize.css' %}">
+    <link rel="stylesheet" href="{% static 'css/all.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/master.css' %}">
+
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
@@ -24,17 +23,18 @@
     <div class="header" id="header">
         <div class="container">
             <a href="#" class="logo">
-                <img src="/static/images/logo.png" alt="Logo">
+                <img src="{% static 'images/logo.png' %}" alt="Logo">      
             </a>
             <nav>
                 <i class="fas fa-bars toggle-menu"></i>
                 <ul class="principal-links">
                     <li><a class="active" href="index.html">Home</a></li>
-                    <li><a href="#gallery">Discover Games</a></li>
+                    <li><a href="#" onclick="returnUrl('GamesLibrary/discoverGames')">Discover Games</a></li> 
                     <li><a href="#features">DARK AI</a></li>
                     <li><a href="#features">About Us</a></li>
                     <li><a href="#features">Contact Us</a></li>
-                    <li><a href="signIn.html">Sign In/Sign Up</a></li>
+                    <li><a href="#" onclick="returnUrl('signIn')">sign In</a></li>
+                    <li><a href="#" onclick="returnUrl('signUp')">sign Up</a></li> 
                 </ul>
                 
             </nav>
@@ -81,8 +81,8 @@
         <div class="container">
             <div class="container-two">
                 <div class="image">
-                    <img src="/static/images/game3.jpg" alt="Mobile">
-                    <img src="/static/images/game1.jpg" alt="Mobile">
+                    <img src="{% static 'images/game3.jpg' %}" alt="Mobile">   
+                    <img src="{% static 'images/game1.jpg' %}" alt="Mobile">    
                 </div>
                 <div class="content">
                     <div class="text">
@@ -98,7 +98,7 @@
             <h2 class="main-title title-two">Our Team Members</h2>
             <div class="members">
                 <div class="box">
-                    <img src="/static/images/avatar-03.png" alt="">
+                    <img src="{% static 'images/avatar-03.png' %}" alt="">   
                     <h3>Ouhab Redouane</h3>
                     <span class="title">Front-End Developer</span>
                     <div class="rate">
@@ -114,7 +114,7 @@
                         natus quaerat ducimus</p>
                 </div>
                 <div class="box">
-                    <img src="/static/images/avatar-01.png" alt="">
+                   <img src="{% static 'images/avatar-01.jpg' %}" alt="">    
                     <h3>Belkhiri Nassrou</h3>
                     <span class="title">Web Designer</span>
                     <div class="rate">
@@ -130,8 +130,8 @@
                         natus quaerat ducimus</p>
                 </div>
                 <div class="box">
-                    <img class="leader" src="/static/images/avatar-06.png" alt="">
-                    <div class="leader-crown"><img src="/static/images/crownTwo.png" alt=""></div>
+                    <img class="leader" src="{% static 'images/avatar-06.png' %}" alt="">   
+                    <div class="leader-crown">  <img src="{% static 'images/crownTwo.png' %}" alt=""> </div>
                     <h3>Kara Mortadha</h3>
                     <span class="title">Back-End Developer</span>
                     <div class="rate">
@@ -147,8 +147,8 @@
                         natus quaerat ducimus</p>
                 </div>
                 <div class="box">
-                    <img src="/static/images/avatar-04.png" alt="">
-                    <h3>Galou Mohamed</h3>
+                    <img src="{% static 'images/avatar-04.png' %}" alt="">   
+                    <h3>Galou Mohand larbi</h3>
                     <span class="title">Back-End Developper</span>
                     <div class="rate">
                         <i class="filled fas fa-star"></i>
@@ -163,7 +163,7 @@
                         natus quaerat ducimus</p>
                 </div>
                 <div class="box">
-                    <img src="/static/images/avatar-05.png" alt="">
+                    <img src="{% static 'images/avatar-05.png' %}" alt="">   
                     <h3>Bendjama Ahmed Fady</h3>
                     <span class="title">Game Developer</span>
                     <div class="rate">
@@ -264,11 +264,11 @@
                         <div class="title">Sekiro :Shadows Die Twice</div>
                     </div>
                     <div class="box">
-                        <img src="/static/images/forza.jpg" alt="">
+                        <img src="{% static 'images/forza.jpg' %}" alt="">  
                         <div class="title">Forza Horizon 5</div>
                     </div>
                     <div class="box">
-                        <img src="/static/images/minecraft.png" alt="">
+                        <img src="{% static 'images/minecraft.png' %}" alt="">  
                         <div class="title">Minecraft</div>
                     </div>
                 </div>
@@ -321,7 +321,7 @@
             <h2 class="alt-main-title">Create Your Special Game</h2>
             <div class="content">
                 <div class="image">
-                    <img src="/static/images/create.png" alt="">
+                    <img src="{% static 'images/create.png' %}" alt="">  
                 </div>
                 <div class="text">
                     <p>Gamers, assemble! Do you have a game idea burning a hole in your pocket? One so innovative, so
@@ -395,17 +395,24 @@
                 </div>
             </div>
             <div class="box footer-gallery">
-                <img src="/static/images/exit.webp" alt="">
-                <img src="/static/images/door1.webp" alt="">
-                <img src="/static/images/gallery-03.jpg" alt="">
-                <img src="/static/images/gallery-04.png" alt="">
-                <img src="/static/images/gallery-05.jpg" alt="">
-                <img src="/static/images/gallery-06.png" alt="">
+                <img src="{% static 'images/exit.webp' %}" alt="">    
+                <img src="{% static 'images/door1.webp' %}" alt="">  
+                <img src="{% static 'images/gallery-03.jpg' %}" alt="">    
+                <img src="{% static 'images/gallery-04.png' %}" alt="">    
+                <img src="{% static 'images/gallery-04.jpg' %}" alt=""> 
+                <img src="{% static 'images/gallery-06.png' %}" alt="">   
             </div>
         </div>
         <!-- <p class="copyright">Made With <span>&lt;3</span> By Redouane</p> -->
     </div>
     <!-- End Footer -->
 </body>
+<script>
+    function returnUrl(dest) {
+      var locationS = window.location.origin +"/"+dest
+      console.log("the locationS is : ",locationS)
+      window.location.href = locationS
+    }
+    </script>
 
 </html>

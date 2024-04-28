@@ -1,0 +1,368 @@
+
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Games</title>
+   
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Cairo:wght@200..1000&family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap"
+        rel="stylesheet">
+
+        <link rel="stylesheet" href="{% static 'css/normalize.css' %}"> -->
+        <link rel="stylesheet" href="{% static 'css/framework.css' %}">
+        <link rel="stylesheet" href="{% static 'css/all.min.css' %}">
+        <link rel="stylesheet" href="{% static 'css/master.css' %}">
+        <link rel="stylesheet" href="{% static 'css/masterTwo.css' %}">
+ 
+</head>
+
+<body>
+    <div class="page d-flex">
+        <div class="overlay"></div>
+        <!-- p-relative => Sidebar above Contents -->
+        <div class="sidebar p-20 p-relative">
+            <h3 class="p-relative txt-c mt-0">Dark Forge</h3>
+            <ul>
+                <li>
+                    <a class="d-flex align-center fs-14 c-black rad-6 p-10 home" href="index.html">
+                        <i class="fa-solid fa-house"></i>
+                        <span>Home</span>
+                    </a>
+                </li>
+                <li>
+                    <a class=" d-flex align-center fs-14 c-black rad-6 p-10" href="profile.html">
+                        <i class="fa-regular fa-user fa-fw"></i>
+                        <span>Profile</span>
+                    </a>
+                </li>
+                <li>
+                    <a class="d-flex align-center fs-14 c-black rad-6 p-10" href="discoverGames.html">
+                        <i class="fa-solid fa-diagram-project fa-fw"></i>
+                        <span>Games</span>
+                    </a>
+                </li>
+            </ul>
+
+            <h3 class="last-played">Last Played</h3>
+            <div class="last-played-game d-flex  align-center border-eee p-10 rad-6 mb-15 fs-13">
+                <img src="{% static 'images/ReadDead2.png' %}" alt="">
+                <div class="info txt-c">
+                    <p>Red Dead Redemption||</p>
+                    <span class="c-grey d-block mt-5">130h</span>
+                </div>
+            </div>
+            <div class="last-played-game d-flex align-center border-eee p-10 rad-6 mb-15 fs-13">
+                <img src="{% static 'images/Farcry.png' %}" alt="">
+                <div class="info txt-c">
+                    <p>FARCRY4</p>
+                    <span class="c-grey d-block mt-5">150h</span>
+                </div>
+            </div>
+            <div class="last-played-game d-flex align-center border-eee p-10 rad-6 mb-15 fs-13">
+                <img src="{% static 'images/Horizon.png' %}" alt="">
+                <div class="info txt-c">
+                    <p>Horizon Forbidden West</p>
+                    <span class="c-grey d-block mt-5">285h</span>
+                </div>
+            </div>
+
+
+        </div>
+        <div class="content w-full p-relative">
+            <!-- Start Head -->
+            <div class="head p-15 between-flex">
+                <div class="search p-relative">
+                    <input class="p-10" type="search" placeholder="Search">
+                </div>
+                <div class="icons d-flex align-center">
+                    <span class="notification p-relative ">
+                        <i class="fa-regular fa-bell fa-lg"></i>
+                    </span>
+                    <img class="profile-pic" src="{% static 'images/nassro.png' %}" alt="">
+                </div>
+            </div>
+            <!-- End Head -->
+            <h1 class="p-relative">
+                My Games
+            </h1>
+            <div class="files-page d-flex m-20 gap-20">
+                <div class="games-stats p-20 bg-white rad-10">
+                    <h2 class="mt-0 mb-35 c-white txt-c-mobile">Games Statistics</h2>
+                    <h3 class="favourite-game-title">Favourite Game:</h3>
+                    <div class="favourite-game d-flex align-center border-eee p-10 rad-6 fs-13">
+                        <img src="{% static 'images/Horizon.png' %}" alt="">
+                        <div class="info txt-c">
+                            <p>Horizon Forbidden West</p>
+                            <div class="rating">
+                                <i class="filled fas fa-star"></i>
+                                <i class="filled fas fa-star"></i>
+                                <i class="filled fas fa-star"></i>
+                                <i class="filled fas fa-star"></i>
+                                <i class="far fa-star"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <a href="#" class="upload bg-blue c-white fs-13 rad-6 d-block btn-shape w-fit m-auto">
+                        <i class="fa-solid fa-angles-up mr-10"></i>
+                        Upload
+                    </a>
+                </div>
+                <div class="files-content d-grid gap-20">
+                    <div class="file p-relative p-15 rad-10">
+                        <img src="{% static 'images/ReadDead2.png' %}" alt=""> 
+                        <p class=" fs-13">Red Dead Redemption ||</p>
+                        <div class="info between-flex mt-0 pt-10 fs-10 c-grey">
+                            <span>
+                                <i class="filled fas fa-star"></i>
+                                <i class="filled fas fa-star"></i>
+                                <i class="filled fas fa-star"></i>
+                                <i class="filled fas fa-star"></i>
+                                <i class="far fa-star"></i>
+                            </span>
+                            <span>5.5MB</span>
+                        </div>
+                    </div>
+                    <div class="file p-relative p-15 rad-10">
+                        <img src="{% static 'images/Horizon.png' %}" alt=""> 
+                        <p class="mb-10 fs-13">Horizon Forbidden West</p>
+                        <div class="info between-flex mt-0 pt-10 fs-10 c-grey">
+                            <span>
+                                <i class="filled fas fa-star"></i>
+                                <i class="filled fas fa-star"></i>
+                                <i class="filled fas fa-star"></i>
+                                <i class="far fa-star"></i>
+                                <i class="far fa-star"></i>
+                            </span>
+                            <span>5.5MB</span>
+                        </div>
+                    </div>
+                    <div class="file p-relative p-15 rad-10">
+                        <img src="{% static 'images/Farcry.png' %}" alt=""> 
+
+                        <p class="mb-10 fs-13">FARCRY4</p>
+                        <div class="info between-flex mt-0 pt-10 fs-10 c-grey">
+                            <span>
+                                <i class="filled fas fa-star"></i>
+                                <i class="filled fas fa-star"></i>
+                                <i class="filled fas fa-star"></i>
+                                <i class="filled fas fa-star"></i>
+                                <i class="half-star fa-solid fa-star-half-stroke"></i>
+                            </span>
+                            <span>5.5MB</span>
+                        </div>
+                    </div>
+                    <div class="file p-relative p-15 rad-10">
+                        <img src="{% static 'images/EldenRing.png' %}" alt="">  
+
+                        <p class="mb-10 fs-13">Elden Ring</p>
+                        <div class="info between-flex mt-0 pt-10 fs-10 c-grey">
+                            <span>
+                                <i class="filled fas fa-star"></i>
+                                <i class="filled fas fa-star"></i>
+                                <i class="half-star fa-solid fa-star-half-stroke"></i>
+                                <i class="far fa-star"></i>
+                                <i class="far fa-star"></i>
+                            </span>
+                            <span>5.5MB</span>
+                        </div>
+                    </div>
+                    <div class="file p-relative p-15 rad-10">
+                        <img src="{% static 'images/Farcry6.png' %}" alt="">  
+
+                        <p class="mb-10 fs-13">FARCRY 6</p>
+                        <div class="info between-flex mt-0 pt-10 fs-10 c-grey">
+                            <span>
+                                <i class="filled fas fa-star"></i>
+                                <i class="filled fas fa-star"></i>
+                                <i class="filled fas fa-star"></i>
+                                <i class="filled fas fa-star"></i>
+                                <i class="filled fas fa-star"></i>
+                            </span>
+                            <span>5.5MB</span>
+                        </div>
+                    </div>
+                    <div class="file p-relative p-15 rad-10">
+                        <img src="{% static 'images/Doom.png' %}" alt=""> 
+
+                        <p class="mb-10 fs-13">DOOM ETERNAL</p>
+                        <div class="info between-flex mt-0 pt-10 fs-10 c-grey">
+                            <span>
+                                <i class="filled fas fa-star"></i>
+                                <i class="filled fas fa-star"></i>
+                                <i class="filled fas fa-star"></i>
+                                <i class="filled fas fa-star"></i>
+                                <i class="far fa-star"></i>
+                            </span>
+                            <span>5.5MB</span>
+                        </div>
+                    </div>
+                    <div class="file p-relative p-15 rad-10">
+                        <img src="{% static 'images/ReadDead2.png' %}" alt="">  
+                        <p class=" fs-13">Red Dead Redemption ||</p>
+                        <div class="info between-flex mt-0 pt-10 fs-10 c-grey">
+                            <span>
+                                <i class="filled fas fa-star"></i>
+                                <i class="filled fas fa-star"></i>
+                                <i class="filled fas fa-star"></i>
+                                <i class="filled fas fa-star"></i>
+                                <i class="far fa-star"></i>
+                            </span>
+                            <span>5.5MB</span>
+                        </div>
+                    </div>
+                    <div class="file p-relative p-15 rad-10">
+                        <img src="{% static 'images/Horizon.png' %}" alt=""> 
+                        <p class="mb-10 fs-13">Horizon Forbidden West</p>
+                        <div class="info between-flex mt-0 pt-10 fs-10 c-grey">
+                            <span>
+                                <i class="filled fas fa-star"></i>
+                                <i class="filled fas fa-star"></i>
+                                <i class="filled fas fa-star"></i>
+                                <i class="far fa-star"></i>
+                                <i class="far fa-star"></i>
+                            </span>
+                            <span>5.5MB</span>
+                        </div>
+                    </div>
+                    <div class="file p-relative p-15 rad-10">
+                        <img src="{% static 'images/Farcry.png' %}" alt="">
+
+                        <p class="mb-10 fs-13">FARCRY4</p>
+                        <div class="info between-flex mt-0 pt-10 fs-10 c-grey">
+                            <span>
+                                <i class="filled fas fa-star"></i>
+                                <i class="filled fas fa-star"></i>
+                                <i class="filled fas fa-star"></i>
+                                <i class="filled fas fa-star"></i>
+                                <i class="half-star fa-solid fa-star-half-stroke"></i>
+                            </span>
+                            <span>5.5MB</span>
+                        </div>
+                    </div>
+                    <div class="file p-relative p-15 rad-10">
+                        <img src="{% static 'images/EldenRing.png' %}" alt="">  
+
+                        <p class="mb-10 fs-13">Elden Ring</p>
+                        <div class="info between-flex mt-0 pt-10 fs-10 c-grey">
+                            <span>
+                                <i class="filled fas fa-star"></i>
+                                <i class="filled fas fa-star"></i>
+                                <i class="half-star fa-solid fa-star-half-stroke"></i>
+                                <i class="far fa-star"></i>
+                                <i class="far fa-star"></i>
+                            </span>
+                            <span>5.5MB</span>
+                        </div>
+                    </div>
+                    <div class="file p-relative p-15 rad-10">
+                        <img src="{% static 'images/Farcry6.png' %}" alt=""> 
+
+                        <p class="mb-10 fs-13">FARCRY 6</p>
+                        <div class="info between-flex mt-0 pt-10 fs-10 c-grey">
+                            <span>
+                                <i class="filled fas fa-star"></i>
+                                <i class="filled fas fa-star"></i>
+                                <i class="filled fas fa-star"></i>
+                                <i class="filled fas fa-star"></i>
+                                <i class="filled fas fa-star"></i>
+                            </span>
+                            <span>5.5MB</span>
+                        </div>
+                    </div>
+                    <div class="file p-relative p-15 rad-10">
+                       
+                        <img src="{% static 'images/Doom.png' %}" alt="">  
+                         <p class="mb-10 fs-13">DOOM ETERNAL</p>
+                        <div class="info between-flex mt-0 pt-10 fs-10 c-grey">
+                            <span>
+                                <i class="filled fas fa-star"></i>
+                                <i class="filled fas fa-star"></i>
+                                <i class="filled fas fa-star"></i>
+                                <i class="filled fas fa-star"></i>
+                                <i class="far fa-star"></i>
+                            </span>
+                            <span>5.5MB</span>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <!-- Start Footer -->
+    <div class="footer">
+        <div class="container">
+            <div class="box">
+                <h3>Dark Forge</h3>
+                <ul class="social">
+                    <li>
+                        <a href="#" class="facebook">
+                            <i class="fab fa-facebook-f"></i>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#" class="twitter">
+                            <i class="fab fa-twitter"></i>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#" class="youtube">
+                            <i class="fab fa-youtube"></i>
+                        </a>
+                    </li>
+                </ul>
+                <p class="text">Your best immersive and engaging gaming experiences</p>
+            </div>
+            <div class="box">
+                <ul class="links">
+                    <li><a href="discoverGames.html">Games</a></li>
+                    <li><a href="#">Create Your Game</a></li>
+                    <li><a href="#">Privacy Policy</a></li>
+                    <li><a href="#">About Us</a></li>
+                    <li><a href="#">Contact Us</a></li>
+                </ul>
+            </div>
+            <div class="box">
+                <div class="line">
+                    <i class="fas fa-map-marker-alt fa-fw"></i>
+                    <div class="info">
+                        Algeria, Bejaia, Amizour, École supérieure en Sciences et Technologies de l'Informatique et du
+                        Numérique, N75
+                    </div>
+                </div>
+                <div class="line">
+                    <i class="far fa-clock fa-fw"></i>
+                    <div class="info">
+                        Business Hours: From 10:00 To 18:00
+                    </div>
+                </div>
+                <div class="line">
+                    <i class="fas fa-phone-volume fa-fw"></i>
+                    <div class="info">
+                        <span>+20123456789</span>
+                        <span>+20198765432</span>
+                    </div>
+                </div>
+            </div>
+            <div class="box footer-gallery">
+                <img src="{% static 'images/exit.webp' %}" alt="">  
+                <img src="{% static 'images/door1.webp' %}" alt="">  
+                <img src="{% static 'images/gallery-03.jpg' %}" alt="">  
+                <img src="{% static 'images/gallery-04.png' %}" alt="">  
+                <img src="{% static 'images/gallery-05.jpg' %}" alt="">  
+                <img src="{% static 'images/gallery-06.png' %}" alt="">  
+            </div>
+        </div>
+        <!-- <p class="copyright">Made With <span>&lt;3</span> By Redouane</p> -->
+    </div>
+    <!-- End Footer -->
+
+</body>
+
+</html>

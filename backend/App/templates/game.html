@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dark Forge</title>
+        <link rel="stylesheet" href="{% static 'css/normalize.css' %}"> 
+        <link rel="stylesheet" href="{% static 'css/all.min.css' %}">
+        <link rel="stylesheet" href="{% static 'css/master.css' %}">
+        <link rel="stylesheet" href="{% static 'css/masterTwo.css' %}">
+    <!-- Google Fonts  -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Cairo:wght@200..1000&family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap"
+        rel="stylesheet">
+</head>
+
+<body>
+    <!-- Start Header -->
+    <div class="header header-back" id="header">
+        <div class="container">
+            <a href="index.html" class="logo">
+                <img src="{% static 'images/logo.png' %}" alt="Logo">   
+            </a>
+            <nav>
+                <i class="fas fa-bars toggle-menu"></i>
+                <ul class="principal-links">
+                    <li><a href="#" onclick="returnUrl('')">Home</a></li>
+                    <li><a href="#" onclick="returnUrl('GamesLibrary/discoverGames')">Discover Games</a></li> 
+                    <li><a href="#features">DARK AI</a></li>
+                    <li><a href="#features">About Us</a></li>
+                    <li><a href="#features">Contact Us</a></li>
+                    <li><a href="#" onclick="returnUrl('signIn')">Sign In</a></li>
+                    <li><a href="#" onclick="returnUrl('signUp')">Sign Up</a></li>
+                </ul>
+                <div class="form">
+                    <i class="fas fa-search"></i>
+                </div>
+                <div class="profile">
+                    <i class="fa-solid fa-caret-up"></i>
+                    <a href="#">
+                        <img src="{% static 'images/redouane.jpg' %}" alt="Logo">    
+                    </a>
+                </div>
+            </nav>
+        </div>
+    </div>
+
+    <!-- End Header -->
+    <!-- Start Discover Games -->
+    <div class="discover-Games discover-game">
+        <div class="container">
+            <div class="overlay">
+            </div>
+            <!-- Start Section -->
+            <div class="section section-game">
+                <div class="left-side">
+                    <!-- Start Trailer -->
+                    <div class="game-title">
+                        <a href="discoverGames.html">
+                            <i class="fa-solid fa-circle-arrow-left"></i>
+                        </a>
+                        <h2>EXIT?</h2>
+                    </div>
+                    <!-- End Trailer -->
+                    <div class="game-categories">
+                        <div>Puzzle</div>
+                        <div>Action</div>
+                    </div>
+                    <div class="rating">
+                        <i class="filled fas fa-star"></i>
+                        <i class="filled fas fa-star"></i>
+                        <i class="filled fas fa-star"></i>
+                        <i class="filled fas fa-star"></i>
+                        <i class="far fa-star"></i>
+                        <span>4.5</span>
+                    </div>
+
+                    <div class="trailer">
+                        <img src="{% static 'images/door1.webp' %}" alt=""> 
+                        <div class="trailer-images">
+                            <div class="image">
+                                <img src="{% static 'images/Action.png' %}" alt=""> 
+                            </div>
+                            <div class="image">
+                                <img src="{% static 'images/Action.png' %}" alt="">   
+                            </div>
+                            <div class="image">
+                                <img src="{% static 'images/Action.png' %}" alt=""> 
+                            </div>
+                            <div class="image">
+                                <img src="{% static 'images/Action.png' %}" alt=""> 
+                            </div>
+                        </div>
+                        <p class="description-game">EXIT? challenges players with captivating CTF puzzles, each
+                            unlocking a
+                            doorway to a hidden world. Solve intricate riddles, crack codes, and unravel mysteries to
+                            gain
+                            entry into the realm beyond the door</p>
+                    </div>
+                </div>
+                <div class="right-side">
+                    <a href="myGames.html">
+                        <i class="fa-solid fa-gamepad"></i>
+                        <h2>My Games</h2>
+                    </a>
+                    <img src="{% static 'images/exit.webp' %}" alt="">  
+                    <div class="pricing">
+                        <span class="promo" reduction="-40%"></span>
+                        <span>$16,99</span>
+                        <span>$8,99</span>
+                    </div>
+                    <p class="discount-delay">
+                        The discount end in <span>29/03/2024</span>
+                    </p>
+                    <input type="button" value="Buy">
+                    <input type="button" value="Add to Cart">
+                    <input type="button" value="Add to Favorites">
+                    <p class="unknown">Makch</p>
+                    <div class="share-report">
+                        <input type="button" value="Share">
+                        <input type="button" value="Repport">
+                    </div>
+
+                </div>
+            </div>
+            <!-- End Section -->
+
+
+        </div>
+
+
+    </div>
+
+
+
+    </div>
+    <!-- End Discover Games -->
+    <!-- Start Footer -->
+    <div class="footer">
+        <div class="container">
+            <div class="box">
+                <h3>Dark Forge</h3>
+                <ul class="social">
+                    <li>
+                        <a href="#" class="facebook">
+                            <i class="fab fa-facebook-f"></i>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#" class="twitter">
+                            <i class="fab fa-twitter"></i>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#" class="youtube">
+                            <i class="fab fa-youtube"></i>
+                        </a>
+                    </li>
+                </ul>
+                <p class="text">Your best immersive and engaging gaming experiences</p>
+            </div>
+            <div class="box">
+                <ul class="links">
+                    <li><a href="discoverGames.html">Games</a></li>
+                    <li><a href="#">Create Your Game</a></li>
+                    <li><a href="#">Privacy Policy</a></li>
+                    <li><a href="#">About Us</a></li>
+                    <li><a href="#">Contact Us</a></li>
+                </ul>
+            </div>
+            <div class="box">
+                <div class="line">
+                    <i class="fas fa-map-marker-alt fa-fw"></i>
+                    <div class="info">
+                        Algeria, Bejaia, Amizour, École supérieure en Sciences et Technologies de l'Informatique et du
+                        Numérique, N75
+                    </div>
+                </div>
+                <div class="line">
+                    <i class="far fa-clock fa-fw"></i>
+                    <div class="info">
+                        Business Hours: From 10:00 To 18:00
+                    </div>
+                </div>
+                <div class="line">
+                    <i class="fas fa-phone-volume fa-fw"></i>
+                    <div class="info">
+                        <span>+20123456789</span>
+                        <span>+20198765432</span>
+                    </div>
+                </div>
+            </div>
+            <div class="box footer-gallery">
+                <img src="{% static 'images/exit.webp' %}" alt="">    
+                <img src="{% static 'images/door1.webp' %}" alt="">   
+                <img src="{% static 'images/gallery-03.jpg' %}" alt="">    
+                <img src="{% static 'images/gallery-04.png' %}" alt="">  
+                <img src="{% static 'images/gallery-05.jpg' %}" alt="">     
+                <img src="{% static 'images/gallery-06.png' %}" alt="">   
+            </div>
+        </div>
+        <!-- <p class="copyright">Made With <span>&lt;3</span> By Redouane</p> -->
+    </div>
+    <!-- End Footer -->
+
+</body>
+
+<script>
+    function returnUrl(dest) {
+      var locationS = window.location.origin +"/"+dest
+      console.log("the locationS is : ",locationS)
+      window.location.href = locationS
+    }
+    </script>
+
+</html>

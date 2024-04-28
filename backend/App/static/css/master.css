@@ -9,6 +9,7 @@
 :root {
     --main-color: #FFFF20;
     --main-color-alt: #cece19;
+    --font-color: #d1c3d5;
     --section-background: #ECECEC;
     --main-transition-duration: 0.3s;
     --main-padding-top: 100px;
@@ -1442,7 +1443,7 @@ ul {
 }
 
 .discover-Games h2:not(.discover-Games .main-title) {
-    color: #d1c3d5;
+    color: var(--font-color);
     font-size: 35px;
     position: relative;
 }
@@ -1491,6 +1492,7 @@ ul {
 
 
 
+
 .discover-Games .trending .trending-games {
     display: flex;
     justify-content: space-evenly;
@@ -1502,7 +1504,6 @@ ul {
 
 .discover-Games .trending .trending-games .box {
     z-index: 1;
-    color: white;
     position: relative;
     padding: 20px;
     text-align: center;
@@ -1541,6 +1542,7 @@ ul {
     text-align: center;
     font-weight: bold;
     transition: var(--main-transition-duration);
+    color: white;
 }
 
 
@@ -1709,9 +1711,6 @@ ul {
     transform: translateX(-50%);
 }
 
-.discover-Games .section .right-side img {
-    max-width: 100%;
-}
 
 .discover-Games .section .right-side .discounts {
     margin-bottom: 55px;
@@ -1719,6 +1718,7 @@ ul {
 
 .discover-Games .section .right-side .discounts img {
     border-radius: 10px;
+    max-width: 100%;
 }
 
 .discover-Games .section .right-side .discounts .image {
@@ -1757,6 +1757,10 @@ ul {
     margin: auto;
 }
 
+.discover-Games .section .right-side .create-game img {
+    max-width: 100%;
+}
+
 .discover-Games .trending .trending-games,
 .discounts .image,
 .discover-Games .section .right-side .create-game img,
@@ -1789,8 +1793,337 @@ ul {
 
 
 /* End Discover Games */
+/* Start Game */
+
+.discover-game {
+    background-image: url(../images/i-sjust-hh-level.gif);
+}
+
+.discover-Games .section-game {
+    gap: 80px;
+}
+
+
+.discover-Games .section .left-side {
+    flex-grow: 1;
+}
+
+.discover-Games .section .left-side .game-title {
+    display: flex;
+    align-items: center;
+}
+
+.discover-Games .section .left-side .game-title a i,
+.discover-Games .section .right-side>a i {
+    font-size: 28px;
+    color: var(--font-color);
+    margin-right: 10px;
+    transition: var(--main-transition-duration);
+}
+
+.discover-Games .section .left-side .game-title a:hover i,
+.discover-Games .section .right-side>a:hover i {
+    color: var(--main-color);
+}
+
+.discover-Games .section .left-side .game-categories {
+    display: flex;
+    margin-bottom: 20px;
+}
+
+.discover-Games .section .left-side .game-categories>div,
+.discover-Games .section .left-side .rating span {
+    padding: 10px 20px;
+    background-color: #00000061;
+    border-radius: 5px;
+    color: #777;
+    transition: var(--main-transition-duration);
+}
+
+.discover-Games .section .left-side .game-categories>div:hover {
+    background-color: var(--main-color);
+    color: black;
+    /* font-weight: bold; */
+}
+
+.discover-Games .section .left-side .game-categories>div:not(:last-child) {
+    margin-right: 10px;
+}
+
+.discover-Games .section .left-side .rating {
+    margin-bottom: 50px;
+}
+
+.discover-Games .section .left-side .rating span {
+    padding: 5px 8px;
+    color: #ff9a20;
+}
+
+.discover-Games .section .left-side .trailer>img {
+    height: 347px;
+    margin: auto;
+    display: block;
+    margin-bottom: 50px;
+    box-shadow: 0 2px 15px rgb(0 0 0 / 71%);
+    max-width: 100%;
+}
+
+@media (min-width:767px) {
+    .discover-Games .section .left-side .trailer>img {
+        min-width: 400px;
+    }
+}
+
+.discover-Games .section .left-side .trailer-images {
+    box-shadow: 0 2px 15px rgb(0 0 0 / 71%);
+    display: flex;
+    justify-content: space-evenly;
+    overflow-x: auto;
+    overflow-y: hidden;
+    position: relative;
+    gap: 15px;
+    padding: 20px;
+    border-radius: 43px;
+    transition: 2s;
+    margin-bottom: 35px;
+}
+
+.discover-Games .section .left-side .trailer-images:hover {
+    box-shadow: 0 2px 15px #fefefe;
+}
+
+.discover-Games .section .left-side .trailer-images img {
+    transition: var(--main-transition-duration);
+    position: relative;
+}
+
+@media (min-width:1201px) {
+    .discover-Games .section .left-side .trailer-images img {
+        max-width: 100%;
+
+    }
+}
+
+.discover-Games .section .left-side .trailer-images img:hover {
+    transform: translateY(-4px);
+}
+
+.discover-Games .section .left-side .trailer-images .image {
+    position: relative;
+}
+
+.discover-Games .section .left-side .trailer-images .image::after {
+    content: "";
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    background-color: #00000073;
+    z-index: 3;
+    transition: var(--main-transition-duration);
+}
+
+.discover-Games .section .left-side .trailer-images .image:hover::after {
+    background-color: transparent;
+}
+
+.discover-Games .section .left-side .trailer .description-game {
+    color: var(--font-color);
+    font-size: 22px;
+    line-height: 1.7;
+}
+
+@media (max-width:1200px) {
+    .discover-Games .section .left-side .trailer .description-game {
+        text-align: center;
+    }
+}
+
+.discover-Games .section .right-side>a {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 80px;
+}
+
+.discover-Games .section .right-side>a>h2 {
+    text-align: center;
+}
+
+.discover-Games .section .right-side>img {
+    min-width: 241px;
+    min-width: 343px;
+    margin-bottom: 20px;
+    box-shadow: 0 2px 15px rgb(0 0 0 / 71%);
+    max-width: 100%;
+}
+
+@media (max-width:1200px) {
+    .discover-Games .section .right-side>img {
+        display: block;
+        margin: 0 auto 20px;
+    }
+}
+
+.discover-Games .section .right-side .pricing {
+    text-align: center;
+    position: relative;
+    margin-bottom: 25px;
+}
+
+.discover-Games .section .right-side .pricing .promo {
+    position: absolute;
+}
+
+.discover-Games .section .right-side .pricing .promo:after {
+    content: attr(reduction);
+    position: absolute;
+    background-color: red;
+    border-radius: 45%;
+    padding: 3px;
+    font-weight: bold;
+    color: white;
+    left: -70px;
+    top: -2px;
+
+}
+
+.discover-Games .section .right-side .pricing span:nth-child(2) {
+    color: var(--font-color);
+    position: relative;
+}
+
+.discover-Games .section .right-side .pricing span:nth-child(2)::after {
+    content: "";
+    position: absolute;
+    height: 1px;
+    width: 100%;
+    background-color: var(--font-color);
+    top: 50%;
+    transform: translateY(-50%);
+    left: 0;
+    margin-right: 5px;
+}
+
+.discover-Games .section .right-side .pricing span:nth-child(3) {
+    font-weight: bold;
+    color: white;
+    font-size: 20px;
+    font-size: 21px;
+    margin-left: 5px;
+}
+
+.discover-Games .section .right-side .discount-delay {
+    color: var(--font-color);
+    font-size: 17px;
+    text-align: center;
+}
+
+.discover-Games .section .right-side .discount-delay span {
+    color: white;
+    font-size: 20px;
+}
+
+.discover-Games .section .right-side input {
+    cursor: pointer;
+    transition: var(--main-transition-duration);
+}
+
+.discover-Games .section .right-side>input[type="button"] {
+    display: block;
+    width: 100%;
+    padding: 10px;
+    border: none;
+    font-size: 20px;
+}
+
+.discover-Games .section .right-side>input[type="button"]:nth-of-type(1) {
+    margin-bottom: 30px;
+    background-color: var(--main-color);
+    font-weight: bold;
+    color: black;
+    border-radius: 9px;
+    box-shadow: 0px 0px 5px white;
+}
+
+.discover-Games .section .right-side>input[type="button"]:nth-of-type(1):hover {
+    background-color: var(--main-color-alt);
+}
+
+.discover-Games .section .right-side>input[type="button"]:nth-of-type(2) {
+    margin-bottom: 15px;
+}
+
+.discover-Games .section .right-side>input[type="button"]:not([type="button"]:nth-of-type(1)) {
+    color: white;
+    background-color: #00000082;
+}
+
+.discover-Games .section .right-side>input[type="button"]:hover:not([type="button"]:nth-of-type(1)) {
+    background-color: #00000061;
+}
+
+.discover-Games .section .right-side .unknown {
+    min-height: 150px;
+    background-color: #00000082;
+
+}
+
+.discover-Games .section .right-side .share-report {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.discover-Games .section .right-side .share-report>input {
+    padding: 10px;
+    border: none;
+    font-size: 20px;
+    min-width: 100px;
+    flex-grow: 1;
+    background-color: #00000082;
+    color: white;
+    font-weight: bold;
+    box-shadow: 0 2px 15px rgb(0 0 0 / 71%);
+    border-radius: 9px;
+}
+
+.discover-Games .section .right-side .share-report>input:first-of-type {
+    margin-right: 10px;
+}
+
+.discover-Games .section .right-side .share-report>input:last-of-type {
+    margin-left: 10px;
+}
+
+.discover-Games .section .right-side .share-report>input:hover {
+    background-color: var(--main-color);
+    color: black;
+    transform: translateY(-3px);
+    box-shadow: 0px 0px 7px 1px #f5f5f56e;
+}
+
+
+
+/* End Game */
 
 /* Start Animations */
+@keyframes flashing {
+
+    0%,
+    40% {
+        opacity: 1;
+    }
+
+    100% {
+        opacity: 0;
+        width: 200%;
+        height: 200%;
+    }
+
+}
+
 
 @keyframes left-move {
     50% {

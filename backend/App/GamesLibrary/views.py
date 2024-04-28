@@ -13,6 +13,20 @@ import json
 from paypal.standard.forms import PayPalPaymentsForm
 from django.conf import settings
 
+def myGames(request):
+    return render(request,"myGames.html")
+
+def discoverGames(request):
+    return render(request,"discoverGames.html")
+
+def about(request):
+    return render(request,"about.html")
+
+def game(request):
+    return render(request,"game.html")
+
+
+
 def index(request):
     items = Game.objects.all()
     order = None

@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dark Forge</title>
+   
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Cairo:wght@200..1000&family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap"
+        rel="stylesheet">
+     
+        <link rel="stylesheet" href="{% static 'css/normalize.css' %}">
+        <link rel="stylesheet" href="{% static 'css/all.min.css' %}">
+        <link rel="stylesheet" href="{% static 'css/master.css' %}">
+       
+    </head>
+
+<body>
+    <!-- Start Header -->
+    <div class="header header-back" id="header">
+        <div class="container">
+            <a href="index.html" class="logo">
+                <img src="{% static 'images/logo.png' %}" alt="Logo"> 
+            </a>
+            <nav>
+                <i class="fas fa-bars toggle-menu"></i>
+                <ul class="principal-links">
+                    <li><a href="#" onclick="returnUrl('')">Home</a></li>
+                    <li><a class="active"  href="#features" target="_blank">Discover Games</a></li>
+                    <li><a href="#features">DARK AI</a></li>
+                    <li><a href="#" onclick="returnUrl('GamesLibrary')" >About Us</a></li>
+                    <li><a href="#features" target="top">Contact Us</a></li>
+                    <li><a href="#" onclick="returnUrl('signIn')">Sign In</a></li>
+                    <li><a href="#" onclick="returnUrl('signUp')">Sign Up</a></li>
+                </ul>
+                <div class="form">
+                    <i class="fas fa-search"></i>
+                </div>
+                <div class="profile">
+                    <i class="fa-solid fa-caret-up"></i>
+                    <a href="#">
+                        <img src="{% static 'images/redouane.jpg' %}" alt="">  
+                    </a>
+                </div>
+            </nav>
+        </div>
+    </div>
+
+    <!-- End Header -->
+    <!-- Start Discover Games -->
+    <div class="discover-Games">
+        <h2 class="main-title">Discover Games</h2>
+        <div class="container">
+            <div class="overlay">
+            </div>
+            <!-- Start Trending -->
+            <div class="trending">
+                <!-- <i class="fa-solid fa-circle-arrow-right"></i>
+                <i class="fa-solid fa-circle-arrow-right"></i> -->
+                <h2>Trending</h2>
+                <div class="trending-games">
+                    <div class="box">
+                        <img src="{% static 'images/theLastOfUspart2.jpg' %}" alt="">  
+                        <p>The last of us part 2</p>
+                        <span class="free">Free</span>
+                    </div>
+                    <div class="box">
+                        <img src="{% static 'images/fc24.png' %}" alt=""> 
+                        <p>EA Sports FC 24</p>
+                        <span class="promo" reduction="-40%">69,99$</span>
+                    </div>
+                    <div class="box">
+                        <img src="{% static 'images/tomb-raider-cover.jpg' %}" alt=""> 
+                        <p>Tomb Raider</p>
+                        <span class="free">Free</span>
+                    </div>
+                    <div class="box">
+                        <img src="{% static 'images/exit.webp' %}" alt="">  
+                        <p>EXIT?</p>
+                        <span>8,50$</span>
+                    </div>
+                    <div class="box">
+                        <img src="{% static 'images/zelda.png' %}" alt="">  
+                        <p>The Legends of Zelda</p>
+                        <span>4.5$</span>
+                    </div>
+                    <div class="box">
+                        <img src="{% static 'images/gta6.png' %}" alt="">  
+                        <p>Grand Theft Auto VI</p>
+                        <span class="free">Free</span>
+                    </div>
+                    <div class="box">
+                        <img src="{% static 'images/Cyberpunk.png' %}" alt="">   
+                        <p>cyberpunk 2077</p>
+                        <span class="promo" reduction="-70%">59,55$</span>
+                    </div>
+                    <div class="box">
+                        <img src="{% static 'images/theLastOfUsPart2.jpg' %}" alt="">   
+                        <p>The last of us part II</p>
+                        <span class="free">Free</span>
+                    </div>
+                    <div class="box">
+                        <img src="{% static 'images/fc24.png' %}" alt=""> 
+                        <p>EA Sports FC 24</p>
+                        <span class="promo" reduction="-40%">69,99$</span>
+                    </div>
+                    <div class="box">
+                        <img src="{% static 'images/tomb-raider-cover.jpg' %}" alt="">   
+                        <p>Tomb Raider</p>
+                        <span class="free">Free</span>
+                    </div>
+                    <div class="box">
+                        <img src="{% static 'images/exit.webp' %}" alt="">  
+                        <p>EXIT?</p>
+                        <span>8,50$</span>
+                    </div>
+                    <div class="box">
+                        <img src="{% static 'images/zelda.png' %}" alt="">  
+                        <p>The Legends of Zelda</p>
+                        <span>4.5$</span>
+                    </div>
+                    <div class="box">
+                        <img src="{% static 'images/gta6.png' %}" alt="">   <
+                        <p>Grand Theft Auto VI</p>
+                        <span class="free">Free</span>
+                    </div>
+                    <div class="box">
+                        <img src="{% static 'images/Cyberpunk.jpg' %}" alt="">  
+                        <p>cyberpunk 2077</p>
+                        <span class="promo" reduction="-70%">59,55$</span>
+                    </div>
+
+                </div>
+            </div>
+            <!-- End Trending -->
+            <div class="containerr">
+                <div class="pacman">
+                </div>
+                <div class="path"></div>
+                <div class="path"></div>
+                <div class="path"></div>
+                <div class="path"></div>
+                <div class="path"></div>
+            </div>
+            <!-- Start Section -->
+            <div class="section">
+                <div class="left-side">
+                    <div class="categories">
+                        <h2 class="my-categories-title">Categories</h2>
+                        <div class="games-categories">
+                            <div class="box">
+                                <img src="{% static 'images/Action.png' %}" alt=""> 
+                                <p>Action</p>
+                            </div>
+                            <div class="box">
+                                <img src="{% static 'images/Racing.png' %}" alt="">   
+                                <p>Racing</p>
+                            </div>
+                            <div class="box">
+                                <img src="{% static 'images/Sport.png' %}" alt="">   
+                                <p>Sports</p>
+                            </div>
+                            <div class="box">
+                                <img src="{% static 'images/fps.jpg' %}" alt="">  
+                                <p>FPS</p>
+                            </div>
+                            <div class="box">
+                                <img src="{% static 'images/Action.png' %}" alt="">  
+                                <p>Action</p>
+                            </div>
+                            <div class="box">
+                                <img src="{% static 'images/fictif.jpg' %}" alt="">  
+                                <p>Fictional</p>
+                            </div>
+                            <div class="box">
+                                <img src="{% static 'images/strategy.jpg' %}" alt="">   
+                                <p>Strategy</p>
+                            </div>
+                            <div class="box">
+                                <img src="{% static 'images/shooting-g.png' %}" alt=""> 
+                                <p>Shooting</p>
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="my-games">
+                        <a href="myGames.html">
+                            <h2 class="my-games-title">My Games</h2>
+                        </a>
+                        <div class="games-categories">
+                            <div class="box">
+                                <img src="{% static 'images/gta6-cover.webp' %}" alt="">   
+                                <p>Grand Theft Auto VI</p>
+                            </div>
+                            <div class="box">
+                                <img src="{% static 'images/tombRaider.webp' %}" alt=""> 
+                                <p>Tomb Raider</p>
+                            </div>
+                            <div class="box">
+                                <img src="{% static 'images/zelda-cover.jpg' %}" alt=""> 
+                                <p>Zelda</p>
+                            </div>
+                            <div class="box">
+                                <img src="{% static 'images/Cyberpunk-cover.png' %}" alt="">  
+                                <p>Cyber Punk</p>
+                            </div>
+                            <div class="box">
+                                <img src="{% static 'images/fc24-cover.jpg' %}" alt=""> 
+                                <p>EA Sports FC 24</p>
+                            </div>
+                            <div class="box">
+                                <img src="{% static 'images/the-last-of-us-part-ii-4k-artwork-dz.jpg' %}" alt="">   
+                                <p>The last of us part II</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="right-side">
+                    <div class="discounts">
+                        <h2 class="discounts-title">Discounts</h2>
+                        <div class="image">
+                            <img src="{% static 'images/SPodermainWithout.png' %}" alt="">  
+                        </div>
+                    </div>
+                    <div class="create-game">
+                        <h2 class="create-title">Create Your Game</h2>
+                        <img src="{% static 'images/create.png' %}" alt="">   
+                        <div class="dreams">Turn your dreams into reality</div>
+
+                    </div>
+                </div>
+            </div>
+            <!-- End Section -->
+
+
+        </div>
+
+
+    </div>
+
+
+
+    </div>
+    <!-- End Discover Games -->
+    <!-- Start Footer -->
+    <div class="footer">
+        <div class="container">
+            <div class="box">
+                <h3>Dark Forge</h3>
+                <ul class="social">
+                    <li>
+                        <a href="#" class="facebook">
+                            <i class="fab fa-facebook-f"></i>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#" class="twitter">
+                            <i class="fab fa-twitter"></i>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#" class="youtube">
+                            <i class="fab fa-youtube"></i>
+                        </a>
+                    </li>
+                </ul>
+                <p class="text">Your best immersive and engaging gaming experiences</p>
+            </div>
+            <div class="box">
+                <ul class="links">
+                    <li><a href="discoverGames.html">Games</a></li>
+                    <li><a href="#">Create Your Game</a></li>
+                    <li><a href="#">Privacy Policy</a></li>
+                    <li><a href="#">About Us</a></li>
+                    <li><a href="#">Contact Us</a></li>
+                </ul>
+            </div>
+            <div class="box">
+                <div class="line">
+                    <i class="fas fa-map-marker-alt fa-fw"></i>
+                    <div class="info">
+                        Algeria, Bejaia, Amizour, École supérieure en Sciences et Technologies de l'Informatique et du
+                        Numérique, N75
+                    </div>
+                </div>
+                <div class="line">
+                    <i class="far fa-clock fa-fw"></i>
+                    <div class="info">
+                        Business Hours: From 10:00 To 18:00
+                    </div>
+                </div>
+                <div class="line">
+                    <i class="fas fa-phone-volume fa-fw"></i>
+                    <div class="info">
+                        <span>+20123456789</span>
+                        <span>+20198765432</span>
+                    </div>
+                </div>
+            </div>
+            <div class="box footer-gallery">
+                <img src="{% static 'images/exit.webp' %}" alt="">   
+                <img src="{% static 'images/door1.webp' %}" alt="">  
+                <img src="{% static 'images/gallery-03.jpg' %}" alt="">  
+                <img src="{% static 'images/gallery-04.png' %}" alt="">  
+                <img src="{% static 'images/gallery-05.jpg' %}" alt="">  
+                <img src="{% static 'images/gallery-06.png' %}" alt="">  
+            </div>
+        </div>
+        <!-- <p class="copyright">Made With <span>&lt;3</span> By Redouane</p> -->
+    </div>
+    <!-- End Footer -->
+
+</body>
+<script>
+    function returnUrl(dest) {
+      var locationS = window.location.origin +"/"+dest
+      console.log("the locationS is : ",locationS)
+      window.location.href = locationS
+    }
+    </script>
+</html>
