@@ -32,7 +32,7 @@
                 <i class="fas fa-bars toggle-menu"></i>
                 <ul class="principal-links">
                     <li><a href="{% url 'Home_page' %}">Home</a></li>
-                    <li><a class="active" href="discoverGames.html">Discover Games</a></li>
+                    <li><a class="active" href="{% url 'index' %}">Discover Games</a></li>
                     <li><a href="{% url 'help' %}">DARK AI</a></li>
                     <li><a href="#features">About Us</a></li>
                     <li><a href="#features">Contact Us</a></li>
@@ -41,6 +41,14 @@
                     {% else %}
                     <li><a href="{% url 'users:register' %}">Sign In/Sign Up</a></li>
                     {% endif %}
+                    {% if order.total_items > 0 %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'view_order' order.order_reference %}">
+                            <i class="fas fa-shopping-cart"></i>
+                            <span id="cart-count" class="badge badge-light ml-1">{{ order.total_items }}</span>
+                        </a>
+                    </li>
+                {% endif %}
                 </ul>
                 <div class="form">
                     <i class="fas fa-search"></i>
@@ -54,6 +62,7 @@
                     </a>
                 {% endif %}
                 </div>
+                
             </nav>
         </div>
     </div>

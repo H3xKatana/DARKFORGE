@@ -32,6 +32,25 @@ def index(request):
     return render(request, "shop/store.html", context)
 
 
+
+
+
+
+def MyGames(request):
+    if request.user.is_authenticated:
+        # Filter games based on the current user
+        user_games = MyGames.objects.filter(user=request.user)
+        # Extract game IDs
+        game_ids = [user_game.game_id for user_game in user_games]
+        # Fetch games based on the extracted IDs
+        items = Game.objects.filter(id__in=game_ids)
+    else:
+        items = []  # If user is not authenticated, return empty list
+    
+    context = {"items": items}
+    return render(request, "users/mygames.html", context)
+
+
 def add_to_order(request, game_id):
     game = get_object_or_404(Game, pk=game_id)
     order, created = Order.objects.get_or_create(user=request.user, is_completed=False)

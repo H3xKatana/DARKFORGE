@@ -76,7 +76,7 @@ class Game(models.Model):
     youtube_video_url = models.URLField(blank=True, null=True)
     game_status = models.CharField(choices=STATUS, max_length=12, default='coming_soon')
     rate =models.FloatField(default=0, validators = [MinValueValidator(0.0),MaxValueValidator(5.0)])
-
+    size = models.FloatField(default=0) #size in megabytes
     created_at = models.DateTimeField(auto_now_add=True)
     @property
     def is_recent(self):
