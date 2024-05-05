@@ -3,7 +3,7 @@ from django.contrib import admin,messages
 from django.urls import path
 from django.shortcuts import render, redirect
 from django.utils.translation import ngettext
-from .models import Genre,Comments, Game, GamesImages,Rating,Developers,CustomGame,Platforms,FavoriteGames,Order
+from .models import Genre,Comments, Game, GamesImages,Rating,Developers,CustomGame,Platforms,FavoriteGames,Order,MyGames
 from .forms import SetPriceForm,EmailForm
 from django.core.mail import send_mail
 # Register your models here.
@@ -133,4 +133,13 @@ admin.site.register(Genre,GenresAdmin)
 admin.site.register(Rating,ReviewAdmin)
 admin.site.register(Developers,DevsAdmin)
 admin.site.register(Comments, CommentAdmin)
+class MyGamesAdmin(admin.ModelAdmin):
+    list_display = ['user', 'get_games_list']
+
+    def get_games_list(self, obj):
+        return ", ".join([game.title for game in obj.games.all()])
+
+    get_games_list.short_description = 'Games'
+
+admin.site.register(MyGames, MyGamesAdmin)
 admin.site.register(CustomGame,CustomGameAdmin)

@@ -1631,6 +1631,8 @@ ul {
     border-radius: 43px;
 }
 
+
+
 @media (max-width:1200px) {
     .discover-Games .section .left-side .games-categories {
         display: flex;

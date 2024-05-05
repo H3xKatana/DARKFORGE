@@ -16,12 +16,24 @@
     <!-- Google Fonts  -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+
     <link
         href="https://fonts.googleapis.com/css2?family=Cairo:wght@200..1000&family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap"
         rel="stylesheet">
 </head>
 
 <body>
+    <form action="{% url 'index' %}" method="GET">
+        <input type="text" name="query" placeholder="Search games...">
+        <select name="genre">
+            <option value="" selected>All Genres</option>
+            {% for genre in genres %}
+                <option value="{{ genre.name }}">{{ genre.name }}</option>
+            {% endfor %}
+        </select>
+        <button type="submit">Search</button>
+    </form>
     <!-- Start Header -->
     <div class="header header-back" id="header">
         <div class="container">
@@ -72,6 +84,7 @@
     <div class="discover-Games">
         <h2 class="main-title">Discover Games</h2>
         <div class="container">
+           
             <div class="overlay">
             </div>
             <!-- Start Trending -->
@@ -116,41 +129,40 @@
                         <div class="games-categories">
                             {% for genre in genres %}
                             <div class="box">
-                                <img src="{{ genre.image.url }}" alt="">
-                                <p>{{ genre.name }}</p>
+                                <a href="{% url 'index' %}?query=&genre={{ genre.name }}">
+                                    <img src="{{ genre.image.url }}" alt="">
+                                    <p>{{ genre.name }}</p>
+                                </a>
                             </div>
                             {% endfor %}
                         </div>
                     </div>
                     <div class="my-games">
-                        <a href="myGames.html">
+                        <a href="all-Gmes">
                             <h2 class="my-games-title">My Games</h2>
                         </a>
                         <div class="games-categories">
+                            
+                            {% for item in all_games %}
                             <div class="box">
-                                <img src="/static/images/gta6-cover.webp" alt="">
-                                <p>Grand Theft Auto VI</p>
+                            <a href="{% url 'game-detail' item.pk %}">
+                            <img src="{{ item.image.url }}" alt="">
+                            <p style="color: white;">{{ item.title }}</p>
+                            {% if item.price == 0 %}
+                                <span class="free">Free</span>
+                            {% else %}
+                                {% if item.discounts %}
+                                    <span class="promo" reduction="-{{ item.discounts }}%">{{ item.price_discounted }}$</span>
+                                {% else %}
+                                    <span>${{ item.price }}</span>
+                                {% endif %}
+                            {% endif %}
+                            </a>
                             </div>
-                            <div class="box">
-                                <img src="/static/images/tombRaider.webp" alt="">
-                                <p>Tomb Raider</p>
-                            </div>
-                            <div class="box">
-                                <img src="/static/images/zelda-cover.jpg" alt="">
-                                <p>Zelda</p>
-                            </div>
-                            <div class="box">
-                                <img src="/static/images/Cyberpunk-cover.png" alt="">
-                                <p>Cyber Punk</p>
-                            </div>
-                            <div class="box">
-                                <img src="/static/images/fc24-cover.jpg" alt="">
-                                <p>EA Sports FC 24</p>
-                            </div>
-                            <div class="box">
-                                <img src="/static/images/the-last-of-us-part-ii-4k-artwork-dz.jpg" alt="">
-                                <p>The last of us part II</p>
-                            </div>
+                            {% endfor %}
+
+
+                            
                         </div>
                     </div>
                 </div>

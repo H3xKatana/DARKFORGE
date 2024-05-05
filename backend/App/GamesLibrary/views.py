@@ -18,9 +18,11 @@ from django.db import transaction
 import json
 from paypal.standard.forms import PayPalPaymentsForm
 from django.conf import settings
+from django.db.models import Q
 
 def index(request):
     items = Game.objects.filter(rate__gt=4)
+    all_games =Game.objects.all()
     genres = Genre.objects.all()
     
     order = None
@@ -28,7 +30,23 @@ def index(request):
     if request.user.is_authenticated:
         order, created = Order.objects.get_or_create(user=request.user, is_completed=False)
     
-    context = {"items": items, "order": order,"genres": genres,}
+    active_category = request.GET.get('genre', '')
+    query = request.GET.get('query', '')
+
+    if active_category:
+        items = items.filter(genres__name__icontains=active_category)
+
+    if query:
+        items = Game.objects.filter(Q(title__icontains=query) | Q(description__icontains=query), rate__gt=4)
+
+    context = {
+        "items": items,
+        "order": order,
+        "genres": genres,
+        "all_games": all_games,
+        'active_category': active_category
+    }
+
     return render(request, "shop/store.html", context)
 
 
@@ -37,17 +55,12 @@ def index(request):
 
 
 def MyGames(request):
-    if request.user.is_authenticated:
-        # Filter games based on the current user
-        user_games = MyGames.objects.filter(user=request.user)
-        # Extract game IDs
-        game_ids = [user_game.game_id for user_game in user_games]
-        # Fetch games based on the extracted IDs
-        items = Game.objects.filter(id__in=game_ids)
-    else:
-        items = []  # If user is not authenticated, return empty list
-    
-    context = {"items": items}
+    # Retrieve games associated with the current user
+    user_games = Game.objects.filter(mygames__user=request.user)
+    favorites = FavoriteGames.objects.filter(user=request.user)
+
+    context = {"items": user_games,
+               "favorites":favorites}
     return render(request, "users/mygames.html", context)
 
 
@@ -250,25 +263,10 @@ def CheckOut(request, order_reference):
     return render(request, 'shop/checkout.html', context)
 
 
-
 def PaymentSuccessful(request, order_reference):
     order = get_object_or_404(Order, order_reference=order_reference)
     
-    # Assuming you have a list of games associated with the order, loop through them
-    for game in order.games.all():
-        # Check if the game is already associated with the user in MyGames model
-        existing_my_game = MyGames.objects.filter(user=request.user, game=game).first()
-        
-        if not existing_my_game:
-            # Create a new MyGames object if the game is not already associated
-            MyGames.objects.create(user=request.user, game=game)
-        else:
-            # Handle the case if the game is already associated with the user
-            # You can update some attributes of the existing MyGames object if needed
-            pass
-    
     return render(request, 'shop/payment-success.html', {'order': order})
-
 
 def paymentFailed(request, order_reference):
 

@@ -233,6 +233,19 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 PAYPAL_RECEIVER_EMAIL = 'sb-3so3020154368@business.example.com' # where cash is paid into
 PAYPAL_TEST = True
 
+
+PAYPAL_BUY_BUTTON_IMAGE = 'https://res.cloudinary.com/the-proton-guy/image/upload/v1685882223/paypal-PhotoRoom_v9pay7.png'
+
+"""
+Generated credit card details
+Card number
+4032030731945649
+Expiry date
+02/2027
+CVC code
+303
+
+"""
 """
 for production 
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
