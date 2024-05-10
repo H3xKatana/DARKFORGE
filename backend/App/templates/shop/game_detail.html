@@ -22,11 +22,90 @@
     <link
         href="https://fonts.googleapis.com/css2?family=Cairo:wght@200..1000&family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap"
         rel="stylesheet">
+        <style>
+       .purchase {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start; /* Align items to the start of the flex container */
+}
+
+.purchase .buy,
+.purchase .add-fav {
+    background-color: var(--main-color);
+    color: black;
+    width: 150px;
+    font-weight: bold;
+    border-radius: 5px;
+    padding: 10px;
+    margin-bottom: 10px;
+    cursor: pointer;
+    text-align: center; /* Center the text horizontally */
+    text-decoration: none; /* Remove default hyperlink underline */
+    transition: background-color var(--main-transition-duration);
+}
+
+.purchase .buy:hover,
+.purchase .add-fav:hover {
+    background-color: var(--main-color-alt);
+    box-shadow: 0px 1px 9px 0px var(--main-color);
+}
+
+.purchase .add-fav {
+    background-color: white;
+}
+
+.purchase .add-fav:hover {
+    box-shadow: 0px 0px 7px 0px white;
+}
+        .unknown {
+            color: aliceblue;
+        }
+        .pricing {
+    position: relative;
+}
+
+.pricing .promo:after {
+    content: attr(discount);
+    position: absolute;
+    background-color: red;
+    border-radius: 45%;
+    padding: 3px;
+    font-weight: bold;
+    color: white;
+    left: -70px;
+    top: -2px;
+}
+
+.pricing span:nth-child(2) {
+    color: var(--font-color);
+    position: relative;
+}
+
+.pricing span:nth-child(2)::after {
+    content: "";
+    position: absolute;
+    height: 1px;
+    width: 100%;
+    background-color: var(--font-color);
+    top: 50%;
+    transform: translateY(-50%);
+    left: 0;
+    margin-right: 5px;
+}
+
+.pricing span:nth-child(3) {
+    font-weight: bold;
+    color: white;
+    font-size: 20px; /* Note: It's better to remove duplicate font-size declarations */
+    margin-left: 5px;
+}
+
+        </style>
 </head>
 
 <body>
     <!-- Start Header -->
-    <div class="header header-back" id="header">
+    <div class="header" id="header">
         <div class="container">
             <a href="index.html" class="logo">
                 <img src="/static/images/logo.png" alt="Logo">
@@ -34,15 +113,15 @@
             <nav>
                 <i class="fas fa-bars toggle-menu"></i>
                 <ul class="principal-links">
-                    <li><a href="{% url 'Home_page' %}">Home</a></li>
-                    <li><a class="active" href="discoverGames.html">Discover Games</a></li>
+                    <li><a class="active" href="{% url 'Home_page' %}">Home</a></li>
+                    <li><a href="{% url 'index' %}">Discover Games</a></li>
                     <li><a href="{% url 'help' %}">DARK AI</a></li>
                     <li><a href="#features">About Us</a></li>
-                    <li><a href="#features">Contact Us</a></li>
+                    <li><a href="{% url 'upload_cv' %}">Contact Us</a></li>
                     {% if user.is_authenticated %}
                     <!-- If the user is authenticated, do not show the Sign In/Sign Up link -->
                     {% else %}
-                    <li><a href="{% url 'users:register' %}">Sign In/Sign Up</a></li>
+                    <li><a href="{% url 'users:home' %}">Sign In/Sign Up</a></li>
                     {% endif %}
                 </ul>
                 <div class="form">
@@ -52,7 +131,7 @@
                     <i class="fa-solid fa-caret-up"></i>
                     {% if user.is_authenticated %}
                     <!-- If the user is authenticated, show the user's image -->
-                    <a href="#">
+                    <a href="{% url 'users:register' %}">
                         <img src="{{ user.profile.image.url }}" alt="Profile Image">
                     </a>
                 {% endif %}
@@ -60,7 +139,6 @@
             </nav>
         </div>
     </div>
-
     <!-- End Header -->
     <!-- Start Discover Games -->
     <div class="discover-Games discover-game">
@@ -79,8 +157,12 @@
                     </div>
                     <!-- End Trailer -->
                     <div class="game-categories">
-                        <div>Puzzle</div>
-                        <div>Action</div>
+                        {% if game.genres.all %}
+                        {% for genre in game.genres.all %}
+                            <div>{{ genre.name }}</div>
+                        {% endfor %}
+                        {% endif %}
+
                     </div>
                     <div class="rating">
                         <i class="filled fas fa-star"></i>
@@ -88,7 +170,7 @@
                     </div>
 
                     <div class="trailer">
-                        <img src="{{ game.image.url }}" alt="">
+                        <img class="main-image" src="{{ game.gamesimages_set.all.1.image.url }}" alt="">
                         <div class="trailer-images">
                             {% for game_image in game.gamesimages_set.all %}
                                 <div class="image">
@@ -100,32 +182,40 @@
                     </div>
                 </div>
                 <div class="right-side">
-                    <a href="myGames.html">
+                    <a href="{% url 'index' %}">
                         <i class="fa-solid fa-gamepad"></i>
                         <h2>My Games</h2>
                     </a>
                     <img src="{{ game.image.url }}" alt="">
-                    <div class="pricing">
-                        {% if game.discount %}
-                        <span class="promo" reduction="{{game.disounts}}"></span>
-                        {% endif %}
-                        {% if game.discount > 0 %}
-                            <span>${{ game.price_discounted }}</span>
-                            <span>${{ game.price }}</span>
-                        {% else %}
-                            <span>${{ game.price }}</span>
-                        {% endif %}
-                    </div>
                    
-                    <a href="{% url 'add-to-favorites' game.id %}" class="btn btn-primary">⭐</a>
+
+                    <div class="pricing">
+                        {% if game.discounts %}
+                        <span class="promo" reduction="-{{ game.discounts }}%"></span>
+                        
+                        <span>{{ game.discounted_price }}</span>
+                        <span>{{ game.price }}</span>
+                        {% else %}
+                        <span>${{ game.price }}</span>
+                    {% endif %}
+                    </div>
+                    <div class="purchase">
+                    <a href="{% url 'add-to-favorites' game.id %}" class="add-fav">Add To Favorites</a>
 
                     <form action="{% url 'add_to_order' game.id %}" method="post">
                     {% csrf_token %}
-                    <button type="submit" class="btn btn-primary btn-sm">Add to Order</button>
+                    <button type="submit" class="buy">Buy</button>
                     </form>
-                    
-                    <p class="unknown">Makch</p>
+                    </div>
+                    <p class="unknown">{{game.game_requirments}}</p>
+                    <div class="share-report">
+                        <input type="button" value="Share">
+                        <input type="button" value="Repport">
+                    </div>
                    
+
+                    
+                    
 
                 </div>
             </div>
@@ -210,5 +300,19 @@
     <!-- End Footer -->
 
 </body>
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        var images = document.querySelectorAll(".trailer-images .image img");
+        var mainImage = document.querySelector(".trailer .main-image");
+        var index = 1; // Start from the second image
 
+        function changeImage() {
+            index = index % images.length;
+            mainImage.src = images[index].src;
+            index++; // Increment index for the next image
+        }
+
+        setInterval(changeImage, 5000); // Change image every 10 seconds
+    });
+</script>
 </html>

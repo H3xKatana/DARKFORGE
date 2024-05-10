@@ -18,24 +18,128 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
 
-    <link
-        href="https://fonts.googleapis.com/css2?family=Cairo:wght@200..1000&family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap"
-        rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@200..1000&family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap"rel="stylesheet">
+       
+
+      
+
+
 </head>
 
 <body>
-    <form action="{% url 'index' %}" method="GET">
-        <input type="text" name="query" placeholder="Search games...">
-        <select name="genre">
-            <option value="" selected>All Genres</option>
-            {% for genre in genres %}
-                <option value="{{ genre.name }}">{{ genre.name }}</option>
-            {% endfor %}
-        </select>
-        <button type="submit">Search</button>
-    </form>
+    
     <!-- Start Header -->
-    <div class="header header-back" id="header">
+    <style>
+
+        .form {
+                position: relative;
+            }
+        
+            .search-form {
+                display: none;
+                position: absolute;
+                top: calc(100% );
+                left: 50%;
+                transform: translateX(-50%);
+                z-index: 1;
+                background-color: white;
+                padding: 10px;
+                border: 1px solid #ccc;
+                border-radius: 5px;
+                box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+                transition: opacity 0.3s ease, transform 0.3s ease;
+                opacity: 0;
+            }
+        
+            .form:hover .search-form {
+                display: block;
+                opacity: 1;
+            }
+        
+            .form:hover .search-form:focus-within {
+                display: block;
+                opacity: 1;
+            }
+        
+            .search-form input[type="text"],
+            .search-form select {
+                width: 100%;
+                margin-bottom: 10px;
+                padding: 8px;
+                border: 1px solid #ccc;
+                border-radius: 5px;
+            }
+        
+            .search-form button {
+                display: block;
+                width: 100%;
+                padding: 8px;
+                border: none;
+                background-color: #c359da;
+                color: white;
+                border-radius: 5px;
+                cursor: pointer;
+                transition: background-color 0.3s ease;
+            }
+        
+            .search-form button:hover {
+                background-color: #0056b3;
+            }
+            .dropdown {
+                position: relative;
+                display: inline-block;
+            }
+        
+            .dropdown-content {
+                display: none;
+                position: absolute;
+                background-color: #f9f9f9;
+                min-width: 160px;
+                box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+                z-index: 1;
+                border-radius: 5px;
+            }
+        
+            .dropdown-content a {
+                color: black;
+                padding: 10px 16px;
+                text-decoration: none;
+                display: block;
+            }
+        
+            .dropdown-content a:hover {
+                background-color: #f1f1f1;
+            }
+        
+            .dropdown:hover .dropdown-content {
+                display: block;
+            }
+        
+            .dropdown-btn {
+                margin-left: 10px;
+                color: white;
+                padding: 5px;
+                font-size: 16px;
+                border: none;
+                cursor: pointer;
+                border-radius: 50%;
+            }
+        
+            .dropdown-btn:hover {
+                
+            }
+        
+            .dropdown-btn:hover .fa-solid {
+                display: none;
+            }
+        
+            .dropdown-btn:hover:after {
+                font-family: "Font Awesome 5 Free";
+                font-weight: 900;
+                content: '\f0d7'; /* fa-caret-down */
+            }
+                </style>
+    <div class="header" id="header">
         <div class="container">
             <a href="index.html" class="logo">
                 <img src="/static/images/logo.png" alt="Logo">
@@ -43,15 +147,15 @@
             <nav>
                 <i class="fas fa-bars toggle-menu"></i>
                 <ul class="principal-links">
-                    <li><a href="{% url 'Home_page' %}">Home</a></li>
-                    <li><a class="active" href="{% url 'index' %}">Discover Games</a></li>
+                    <li><a class="active" href="{% url 'Home_page' %}">Home</a></li>
+                    <li><a href="{% url 'index' %}">Discover Games</a></li>
                     <li><a href="{% url 'help' %}">DARK AI</a></li>
                     <li><a href="#features">About Us</a></li>
-                    <li><a href="#features">Contact Us</a></li>
+                    <li><a href="{% url 'upload_cv' %}">Contact Us</a></li>
                     {% if user.is_authenticated %}
                     <!-- If the user is authenticated, do not show the Sign In/Sign Up link -->
                     {% else %}
-                    <li><a href="{% url 'users:register' %}">Sign In/Sign Up</a></li>
+                    <li><a href="{% url 'users:home' %}">Sign In/Sign Up</a></li>
                     {% endif %}
                     {% if order.total_items > 0 %}
                     <li class="nav-item">
@@ -64,21 +168,40 @@
                 </ul>
                 <div class="form">
                     <i class="fas fa-search"></i>
+                    <div class="search-form">
+                        <form action="{% url 'index' %}" method="GET">
+                            <input type="text" name="query" placeholder="Search games...">
+                            <select name="genre">
+                                <option value="" selected>All Genres</option>
+                                {% for genre in genres %}
+                                    <option value="{{ genre.name }}">{{ genre.name }}</option>
+                                {% endfor %}
+                            </select>
+                            <button type="submit">Search</button>
+                        </form>
+                    </div>
+                </div>
+                <div class="dropdown">
+                    <button class="dropdown-btn"><i class="fa-solid fa-caret-up"></i></button>
+                    <div class="dropdown-content">
+                        <a href="{% url 'users:profile_update' %}">Seettings</a>
+                        <a href="{% url 'users:view_notifications' %}">Notifications</a>
+                        <a href="{% url 'MyGames' %}">My Games</a>
+                        <a href="{% url 'users:logout' %}">logout</a>
+                    </div>
                 </div>
                 <div class="profile">
-                    <i class="fa-solid fa-caret-up"></i>
+                    
                     {% if user.is_authenticated %}
                     <!-- If the user is authenticated, show the user's image -->
-                    <a href="#">
+                    <a href="{% url 'users:register' %}">
                         <img src="{{ user.profile.image.url }}" alt="Profile Image">
                     </a>
                 {% endif %}
                 </div>
-                
             </nav>
         </div>
     </div>
-
     <!-- End Header -->
     <!-- Start Discover Games -->
     <div class="discover-Games">
@@ -91,25 +214,30 @@
             <div class="trending">
                 <h2>Trending</h2>
                 <div class="trending-games">
-                    {% for item in items %}
-                    <div class="box">
-                        <a href="{% url 'game-detail' item.pk %}">
-                            <img src="{{ item.image.url }}" alt="">
-                            <p style="color: white;">{{ item.title }}</p>
-                            {% if item.price == 0 %}
-                                <span class="free">Free</span>
-                            {% else %}
-                                {% if item.discounts %}
-                                    <span class="promo" reduction="-{{ item.discounts }}%">{{ item.price_discounted }}$</span>
-                                {% else %}
-                                    <span>${{ item.price }}</span>
-                                {% endif %}
-                            {% endif %}
-                        </a>
-                    </div>
-                {% endfor %}
+                    {% if items %}
+                        {% for item in items %}
+                            <div class="box">
+                                <a href="{% url 'game-detail' item.pk %}">
+                                    <img src="{{ item.image.url }}" alt="">
+                                    <p style="color: white;">{{ item.title }}</p>
+                                    {% if item.price == 0 %}
+                                        <span class="free">Free</span>
+                                    {% else %}
+                                        {% if item.discounts %}
+                                            <span class="promo" reduction="-{{ item.discounts }}%">{{ item.price_discounted }}$</span>
+                                        {% else %}
+                                            <span>${{ item.price }}</span>
+                                        {% endif %}
+                                    {% endif %}
+                                </a>
+                            </div>
+                        {% endfor %}
+                    {% else %}
+                        <div class="box">
+                            <h1>Not Found</h1>
+                        </div>
+                    {% endif %}
                 </div>
-            </div>
             <!-- End Trending -->
             <div class="containerr">
                 <div class="pacman">

@@ -1,6 +1,8 @@
 
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib import messages
+from django.db.models import Sum
+
 import smtplib
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
@@ -26,10 +28,9 @@ def index(request):
     genres = Genre.objects.all()
     
     order = None
-    
     if request.user.is_authenticated:
         order, created = Order.objects.get_or_create(user=request.user, is_completed=False)
-    
+
     active_category = request.GET.get('genre', '')
     query = request.GET.get('query', '')
 
@@ -52,15 +53,32 @@ def index(request):
 
 
 
-
-
 def MyGames(request):
     # Retrieve games associated with the current user
     user_games = Game.objects.filter(mygames__user=request.user)
     favorites = FavoriteGames.objects.filter(user=request.user)
 
-    context = {"items": user_games,
-               "favorites":favorites}
+    # Calculate total spendings and total games owned
+   
+    total_games_owned = user_games.count()
+
+    context = {
+        "items": user_games,
+        "favorites": favorites,
+        "total_games_owned": total_games_owned
+    }
+    return render(request, "users/mygames.html", context)
+
+
+@login_required
+def favorites_list(request):
+    items =  Game.objects.filter(favoritegames__user=request.user)
+
+
+    context = {
+        "items": items,
+        
+    }
     return render(request, "users/mygames.html", context)
 
 
@@ -166,17 +184,23 @@ def track_game(request):
 @login_required
 def add_to_favorites(request, game_id):
     if request.method == 'GET':
-        favorite, created = FavoriteGames.objects.get_or_create(user=request.user, game_id=game_id)
-        # You can handle cases where the favorite already exists
+        # Check if the game exists
+        try:
+            game = Game.objects.get(pk=game_id)
+        except Game.DoesNotExist:
+            return HttpResponseBadRequest("Game does not exist.")
+        
+        # Check if the game is already a favorite for the user
+        if FavoriteGames.objects.filter(user=request.user, game=game).exists():
+            return HttpResponseRedirect(reverse('game-detail', args=[game_id]))
+        
+        # Add the game to favorites
+        favorite = FavoriteGames.objects.create(user=request.user)
+        favorite.game.add(game)
+        
         return HttpResponseRedirect(reverse('game-detail', args=[game_id]))
     else:
         return HttpResponseBadRequest("Invalid request method: POST requests are not allowed.")
-
-@login_required
-def favorites_list(request):
-    favorites = FavoriteGames.objects.filter(user=request.user)
-    return render(request, 'shop/favorites_list.html', {'favorites': favorites})
-
 
 #############
 def game_search(request):

@@ -136,7 +136,7 @@ class MyGames(models.Model):
  
 class FavoriteGames(models.Model):
     user = models.ForeignKey(user, on_delete=models.CASCADE)
-    game = models.ForeignKey(Game, on_delete=models.CASCADE)
+    game = models.ManyToManyField(Game)
     
 ###############################
 

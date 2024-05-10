@@ -120,12 +120,7 @@ class ReviewAdmin(admin.ModelAdmin):
     list_display=['user','game','rating']
 
 
-class FavoriteGamesAdmin(admin.ModelAdmin):
-    list_display = ('user', 'game')
-    search_fields = ['user__username', 'game__name']
-    list_filter = ['user']
 
-admin.site.register(FavoriteGames, FavoriteGamesAdmin)
 admin.site.register(Order)
 admin.site.register(Game,GameAdmin)
 admin.site.register(Platforms,PlatformsAdmin)

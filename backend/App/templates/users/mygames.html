@@ -1,3 +1,5 @@
+
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -21,6 +23,127 @@
     <link
         href="https://fonts.googleapis.com/css2?family=Cairo:wght@200..1000&family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap"
         rel="stylesheet">
+
+    <style>.dropdown {
+        position: relative;
+        display: inline-block;
+    }
+
+    .dropdown-content {
+        display: none;
+        position: absolute;
+        background-color: #f9f9f9;
+        min-width: 160px;
+        box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+        z-index: 1;
+        border-radius: 5px;
+    }
+
+    .dropdown-content a {
+        color: black;
+        padding: 10px 16px;
+        text-decoration: none;
+        display: block;
+    }
+
+    .dropdown-content a:hover {
+        background-color: #f1f1f1;
+    }
+
+    .dropdown:hover .dropdown-content {
+        display: block;
+    }
+
+    .dropdown-btn {
+        background-color: transparent;
+        margin-left: 10px;
+        color: white;
+        padding: 5px;
+        font-size: 16px;
+        border: none;
+        cursor: pointer;
+        border-radius: 50%;
+    }
+
+    .dropdown-btn:hover {
+        background-color: transparent;
+    }
+
+    .dropdown-btn:hover .fa-solid {
+        display: none;
+    }
+
+    .dropdown-btn:hover:after {
+        font-family: "Font Awesome 5 Free";
+        font-weight: 900;
+        content: '\f0d7'; /* fa-caret-down */
+    }
+    
+        .content-section .form-group a {
+            color: yellow; /* Change link color to yellow */
+        }
+        
+        .content-section .form-group a:hover {
+            color: orange; /* Change link hover color to orange */
+        }
+        .content-section .form-group input[type="text"],
+        .content-section .form-group input[type="number"],
+        .content-section .form-group input[type="textarea"],
+        .content-section .form-group input[type="email"],
+        .content-section .form-group input[type="password"] {
+            background-color: transparent;
+            color: white;
+            border-color: #fcfcfc;
+            border-radius: 10px;
+        }
+        .form-group textarea {
+        background-color:transparent; /* Light gray background color */
+        color: #333; /* Dark gray text color */
+       /* Gray border */
+        padding: 8px; /* Add padding */
+         /* Add border radius */
+        width: 100%; /* Full width */
+        box-sizing: border-box; /* Include padding in width calculation */
+        margin-bottom: 10px; 
+        background-color: transparent;
+            color: white;
+            border-color: #fcfcfc;
+            border-radius: 10px;/* Add bottom margin for spacing */
+    }
+        .content-section .form-group input[type="text"]:focus,
+        .content-section .form-group input[type="number"]:focus,
+        .content-section .form-group input[type="number"]:focus,
+        .content-section .form-group input[type="textarea"]:focus,
+        .content-section .form-group input[type="email"]:focus,
+        .content-section .form-group input[type="password"]:focus {
+            background-color: transparent;
+            border-color: #333;
+        }
+        
+        .content-section .form-group a {
+            color: yellow; /* Change link color to yellow */
+        }
+        
+        .content-section .form-group a:hover {
+            color: orange; /* Change link hover color to orange */
+        }
+        .form-group button[type="submit"] {
+            padding-top: 10px;
+        background-color: #f0ceed; /* Green background color */
+        color: rgb(0, 0, 0); /* White text color */
+        border: none; /* Remove border */
+        padding: 10px 20px; /* Add padding */
+        font-size: 16px; /* Increase font size */
+        cursor: pointer; /* Add cursor pointer on hover */
+        border-radius: 5px; /* Add border radius */
+        transition: background-color 0.3s; /* Smooth background color transition */
+    }
+
+    .form-group button[type="submit"]:hover {
+        background-color: yellow; /* Darker green on hover */
+    }
+    </style>
+    
 </head>
 
 <body>
@@ -29,51 +152,48 @@
         <!-- p-relative => Sidebar above Contents -->
         <div class="sidebar p-20 p-relative">
             <h3 class="p-relative txt-c mt-0">Dark Forge</h3>
-            <ul>
+            <ul >
                 <li>
-                    <a class="d-flex align-center fs-14 c-black rad-6 p-10 home" href="">
-                        <i class="fa-solid fa-house"></i>
-                        <span>Home</span>
+                    <a class="d-flex align-items-center justify-content-between fs-14 c-black rad-6 p-10 home" href="{% url 'index' %}">
+                        <i class="fas fa-home"></i><span>Home</span>
+                        
                     </a>
                 </li>
                 <li>
-                    <a class=" d-flex align-center fs-14 c-black rad-6 p-10" href="">
-                        <i class="fa-regular fa-user fa-fw"></i>
-                        <span>Profile</span>
+                    <a class="d-flex align-items-center justify-content-between fs-14 c-black rad-6 p-10" href="{% url 'users:home' %}">
+                        <i class="far fa-user"></i><span>Profile</span>
+                        
                     </a>
                 </li>
                 <li>
-                    <a class="d-flex align-center fs-14 c-black rad-6 p-10" href="">
-                        <i class="fa-solid fa-diagram-project fa-fw"></i>
-                        <span>Games</span>
+                    <a class="d-flex align-items-center justify-content-between fs-14 c-black rad-6 p-10" href="{% url 'favs' %}">
+                        <i class="fas fa-heart"></i><span>Fav Games</span>
+                        
+                    </a>
+                </li>
+                <li>
+                    <a class="d-flex align-items-center justify-content-between fs-14 c-black rad-6 p-10" href="{% url 'MyGames' %}">
+                        <i class="fas fa-gamepad"></i><span>My Games</span>
+                        
+                    </a>
+                </li>
+                <li>
+                    <a class="d-flex align-items-center justify-content-between fs-14 c-black rad-6 p-10" href="{% url 'track_game' %}">
+                         <i class="fas fa-chart-line"></i><span>Track Game</span>
+                       
+                    </a>
+                </li>
+                <li>
+                    <a class="d-flex align-items-center justify-content-between fs-14 c-black rad-6 p-10" href="{% url 'users:view_notifications' %}">
+                        <i class="fas fa-bell"></i>
+                        <span>Notifications</span>
+                        
                     </a>
                 </li>
             </ul>
+            
 
-            <h3 class="last-played">Last Played</h3>
-            <div class="last-played-game d-flex  align-center border-eee p-10 rad-6 mb-15 fs-13">
-                <img src="/static/images/ReadDead2.png" alt="">
-                <div class="info txt-c">
-                    <p>Red Dead Redemption||</p>
-                    <span class="c-grey d-block mt-5">130h</span>
-                </div>
-            </div>
-            <div class="last-played-game d-flex align-center border-eee p-10 rad-6 mb-15 fs-13">
-                <img src="/static/images/Farcry.png" alt="">
-                <div class="info txt-c">
-                    <p>FARCRY4</p>
-                    <span class="c-grey d-block mt-5">150h</span>
-                </div>
-            </div>
-            <div class="last-played-game d-flex align-center border-eee p-10 rad-6 mb-15 fs-13">
-                <img src="/static/images/Horizon.png" alt="">
-                <div class="info txt-c">
-                    <p>Horizon Forbidden West</p>
-                    <span class="c-grey d-block mt-5">285h</span>
-                </div>
-            </div>
-
-
+           
         </div>
         <div class="content w-full p-relative">
             <!-- Start Head -->
@@ -81,61 +201,51 @@
                 <div class="search p-relative">
                     <input class="p-10" type="search" placeholder="Search">
                 </div>
+                
                 <div class="icons d-flex align-center">
+                    <div id="dropdmenu" class="dropdown">
+                        <button class="dropdown-btn"><i class="fas fa-caret-up"></i></button>
+                        <div class="dropdown-content">
+                            <a href="{% url 'users:profile_update' %}">Settings</a>
+                            <a href="{% url 'users:view_notifications' %}">Notifications</a>
+                            <a href="{% url 'MyGames' %}">My Games</a>
+                            <a href="{% url 'users:logout' %}">Logout</a>
+                        </div>
+                    </div>
                     <span class="notification p-relative ">
                         <i class="fa-regular fa-bell fa-lg"></i>
                     </span>
-                    <img class="profile-pic" src="/static/images/nassro.png" alt="">
+                    <img class="profile-pic" src="{{ user.profile.image.url }}" alt="">
                 </div>
             </div>
             <!-- End Head -->
             <h1 class="p-relative">
                 My Games
             </h1>
+            
             <div class="files-page d-flex m-20 gap-20">
                 <div class="games-stats p-20 bg-white rad-10">
                     <h2 class="mt-0 mb-35 c-white txt-c-mobile">Games Statistics</h2>
-                    <h3 class="favourite-game-title">Favourite Game:</h3>
-                    <div class="favourite-game d-flex align-center border-eee p-10 rad-6 fs-13">
-                        <img src="/static/images/Horizon.png" alt="">
-                        <div class="info txt-c">
-                            <p>Horizon Forbidden West</p>
-                            <div class="rating">
-                                <i class="filled fas fa-star"></i>
-                                <i class="filled fas fa-star"></i>
-                                <i class="filled fas fa-star"></i>
-                                <i class="filled fas fa-star"></i>
-                                <i class="far fa-star"></i>
-                            </div>
-                        </div>
-                    </div>
-                    <a href="#" class="upload bg-blue c-white fs-13 rad-6 d-block btn-shape w-fit m-auto">
-                        <i class="fa-solid fa-angles-up mr-10"></i>
-                        Upload
-                    </a>
+                    
                 </div>
                 <div class="files-content d-grid gap-20">
                     {% for item in items %}
                     
                 
                     <div class="file p-relative p-15 rad-10">
-                        <img src="" alt="">
+                        <img src="{{item.image.url}}" alt="">
                         <p class="mb-10 fs-13">Horizon Forbidden West</p>
                         <div class="info between-flex mt-0 pt-10 fs-10 c-grey">
                             <span>
-                                <i class="filled fas fa-star"></i>
-                                <i class="filled fas fa-star"></i>
-                                <i class="filled fas fa-star"></i>
-                                <i class="far fa-star"></i>
-                                <i class="far fa-star"></i>
+                                <i class="filled fas fa-star">{{item.rate}}</i>
+                                
                             </span>
-                            <span>{{item.size}}</span>
+                            <span>{{item.size}} GB</span>
                         </div>
                     </div>
                     
                     {% endfor %}
                 </div>
-
             </div>
         </div>
     </div>
