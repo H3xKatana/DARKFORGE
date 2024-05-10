@@ -20,6 +20,10 @@
     justify-content: space-between;
 }
 
+.fd-column {
+    flex-direction: column;
+}
+
 .f-wrap {
     flex-wrap: wrap;
 }
@@ -153,6 +157,10 @@
     margin-bottom: 20px;
 }
 
+.ml-0 {
+    margin-left: 0px;
+}
+
 /* End Padding + Margin */
 
 /* Start Color */
@@ -215,7 +223,7 @@
     position: relative;
 }
 
-.p-abosolute {
+.p-absolute {
     position: absolute;
 }
 

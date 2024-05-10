@@ -11,16 +11,15 @@ from .models import Chat
 from django.utils import timezone
 
 # some one get us and api key for open ai gpt3.5
-openai_api_key = ""
+openai_api_key = "sk-proj-3ODDXS0bXIJ1UigTLSL3T3BlbkFJxXSkq9wwpaDd1fSUF0xd"
 openai.api_key = openai_api_key
 
 def ask_openai(message):
     response = openai.ChatCompletion.create(
-        model = "gpt-4",
-        messages=[
-            {"role": "system", "content": "You are an helpful assistant."},
-            {"role": "user", "content": message},
-        ]
+       
+        model="text-davinci-003",
+        messages=[{"role": "user", "content": "Say this is a test"}],
+        stream=True,
     )
     
     answer = response.choices[0].message.content.strip()

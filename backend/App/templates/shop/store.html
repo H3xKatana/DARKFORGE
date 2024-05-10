@@ -140,6 +140,7 @@
             }
                 </style>
     <div class="header" id="header">
+        
         <div class="container">
             <a href="index.html" class="logo">
                 <img src="/static/images/logo.png" alt="Logo">
@@ -257,9 +258,10 @@
                         <div class="games-categories">
                             {% for genre in genres %}
                             <div class="box">
-                                <a href="{% url 'index' %}?query=&genre={{ genre.name }}">
-                                    <img src="{{ genre.image.url }}" alt="">
-                                    <p>{{ genre.name }}</p>
+                                <img src="{{ genre.image.url }}" alt="">
+                                <a href="{% url 'index' %}?query=&genre={{ genre.name }}">{{ genre.name }}</a>
+                               
+                                    
                                 </a>
                             </div>
                             {% endfor %}
@@ -298,13 +300,14 @@
                     <div class="discounts">
                         <h2 class="discounts-title">Discounts</h2>
                         <div class="image">
-                            <img src="/static/images/SPodermainWithout.png" alt="">
+                            <img src="/static/imagesTwo/Games Library/SPIDERMAN Discount.png" alt="">
                         </div>
                     </div>
                     <div class="create-game">
+                        
                         <h2 class="create-title">Create Your Game</h2>
-                        <img src="/static/images/create.png" alt="">
-                        <div class="dreams">Turn your dreams into reality</div>
+                        <img src="/static/images/create.png" alt=""><a href="{% url 'customgame' %}"></img>
+                        <div class="dreams"><a href="{% url 'customgame' %}">Create Your Game</a></div>
                         
 
                     </div>

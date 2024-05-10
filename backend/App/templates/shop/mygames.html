@@ -220,33 +220,13 @@
             </div>
             <!-- End Head -->
             <h1 class="p-relative">
-                My Games
+               Notifications
             </h1>
             
             <div class="files-page d-flex m-20 gap-20">
-                <div class="games-stats p-20 bg-white rad-10">
-                    <h2 class="mt-0 mb-35 c-white txt-c-mobile">Games Statistics</h2>
-                    <p>Total number of games =  <span style="color: yellow;">{{total_games_owned}}</span></p>
-                    {% for item in items %}<p>{{item.title}} :<i class="filled fas fa-star">{{item.rate}}</i> </p>{% endfor %}
-                </div>
-                <div class="files-content d-grid gap-20">
-                    {% for item in items %}
-                    
-                
-                    <div class="file p-relative p-15 rad-10">
-                        <img src="{{item.image.url}}" alt="">
-                        <p class="mb-10 fs-13">{{item.title}}</p>
-                        <div class="info between-flex mt-0 pt-10 fs-10 c-grey">
-                            <span>
-                                <i class="filled fas fa-star">{{item.rate}}</i>
-                                
-                            </span>
-                            <span>{{item.size}} GB</span>
-                        </div>
-                    </div>
-                    
-                    {% endfor %}
-                </div>
+                {% for notification in notifications %}
+                <li>{{ notification.message }}</li>
+                {% endfor %}
             </div>
         </div>
     </div>

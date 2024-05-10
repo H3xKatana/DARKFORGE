@@ -218,6 +218,12 @@ def new_message(request):
 
 # Displaying notifications
 def view_notifications(request):
-    user_notifications = Notification.objects.filter(recipient=request.user, is_read=False)
+    # Retrieve and mark all unread notifications for the current user as read
+    user_notifications = Notification.objects.filter(recipient=request.user)
+    user_notifications.update(is_read=True)
+    
+    # Retrieve the total count of unread notifications for display
     total_unread_notifications = user_notifications.count()
+    
+    # Render the notifications page with the updated notifications
     return render(request, 'users/notifications.html', {'notifications': user_notifications, 'total_unread_notifications': total_unread_notifications})

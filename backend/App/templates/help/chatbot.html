@@ -1,193 +1,253 @@
-{% extends 'help/base.html' %}
+<!DOCTYPE html>
+<html lang="en">
 
-{% block styles %}
-<style>
-    body, html {
-      height: 100%;
-    }
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Games</title>
+    <!-- Render All Elements Normally -->
+    <link rel="stylesheet" href="/static/css/normalize.css">
+    <!-- CSS Framework File -->
+    <link rel="stylesheet" href="/static/css/framework.css">
+    <!-- Font Awesome Library -->
+    <link rel="stylesheet" href="/static/css/all.min.css">
+    <!-- main Template CSS File  -->
+    <link rel="stylesheet" href="/static/css/master.css">
+    <!-- Second Template CSS File -->
+    <link rel="stylesheet" href="/static/css/masterTwo.css">
+    <!-- Google Fonts  -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Cairo:wght@200..1000&family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap"
+        rel="stylesheet">
+</head>
 
-    .messages-box {
-      flex: 1;
-      overflow-y: auto;
-    }
-
-    .messages-list {
-      padding-left: 0;
-    }
-
-    .message {
-      margin-bottom: 15px;
-      list-style: none;
-    }
-
-    .message-text {
-      padding: 10px;
-      border-radius: 5px;
-    }
-
-    .sent {
-      background-color: #dcf8c6;
-      align-self: flex-end;
-    }
-
-    .received {
-      background-color: #f1f0f0;
-      align-self: flex-start;
-    }
-
-    .message-form {
-      display: flex;
-      position: fixed;
-      bottom: 0;
-      left: 0;
-      right: 0;
-      padding: 10px;
-      background-color: #f8f9fa;
-    }
-
-    .message-input {
-      flex: 1;
-      border-radius: 0;
-      border-right: none;
-    }
-
-    .btn-send {
-      border-radius: 0;
-    }
-
-    .chat-container {
-      height: 100%;
-      display: flex;
-      flex-direction: column;
-    }
-  </style>
-{% endblock %}
-
-
-{% block content %}
-<div class="chat-container">
-  <div class="card flex-grow-1">
-    
-    {% if user.is_authenticated %}
-    <div class="card-header bg-primary text-white"><b>Welcome , {{user.username}} get some help from our helpbot</b>   </div>
-    {% else %}
-    <div class="card-header bg-primary text-white"><a style="color: yellow" href="login">Login</a>   <a style="color: yellow;" href="register">Register</a></div>
-    {% endif %}
-    <div class="card-body messages-box">
-      
-      <ul class="list-unstyled messages-list">
-        
-        <!-- <li class="message received">
-          <div class="message-text">
-            <div class="message-sender">
-              <b>AI Chatbot</b>
-            </div>
-            <div class="message-content">
-              Hi {{user.username}}, I am your AI Chatbot, you can ask me anything.
-            </div>
-          </div>
-        </li> -->
-
-        {% for chat in chats %}
-          {% if chat.user == request.user %}
-
-            <li class="message sent">
-          <div class="message-text">
-            <div class="message-sender">
-              <b>You</b>
-            </div>
-            <div class="message-content">
-              {{chat.message}}
-            </div>
-          </div>
-        </li>
-
-        <li class="message received">
-          <div class="message-text">
-            <div class="message-sender">
-              <b>AI Chatbot</b>
-            </div>
-            <div class="message-content">
-              {{chat.response}}
-            </div>
-          </div>
-        </li>
-
-          {% endif %}
-        {% endfor %}
-        
-      </ul>
-      
-    </div>
-    <br><br>
-    <br><br>
-    <br><br>
-  </div>
-  <form class="message-form">
-    {%csrf_token%}
-    <div class="input-group">
-      <input type="text" class="form-control message-input" placeholder="Type your message...">
-      <div class="input-group-append">
-        <button type="submit" class="btn btn-primary btn-send">Send</button>
-      </div>
-    </div>
-  </form>
-</div>
-
-<script>
-  const messagesList = document.querySelector('.messages-list');
-  const messageForm = document.querySelector('.message-form');
-  const messageInput = document.querySelector('.message-input');
-
-  messageForm.addEventListener('submit', (event) => {
-    event.preventDefault();
-
-    const message = messageInput.value.trim();
-    if (message.length === 0) {
-      return;
-    }
-
-    const messageItem = document.createElement('li');
-    messageItem.classList.add('message', 'sent');
-    messageItem.innerHTML = `
-        <div class="message-text">
-            <div class="message-sender">
-                <b>You</b>
-            </div>
-            <div class="message-content">
-                ${message}
-            </div>
-        </div>`;
-    messagesList.appendChild(messageItem);
-
-    messageInput.value = '';
-
-    fetch('', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-      body: new URLSearchParams({
-        'csrfmiddlewaretoken': document.querySelector('[name=csrfmiddlewaretoken]').value,
-        'message': message
-      })
-    })
-      .then(response => response.json())
-      .then(data => {
-        const response = data.response;
-        const messageItem = document.createElement('li');
-        messageItem.classList.add('message', 'received');
-        messageItem.innerHTML = `
-        <div class="message-text">
-            <div class="message-sender">
-              <b>AI Chatbot</b>
-            </div>
-            <div class="message-content">
-                ${response}
+<body>
+    <div class="page-dark-ai d-flex p-relative">
+        <div class="overlay"></div>
+        <!-- p-relative => Sidebar above Contents -->
+        <div class="sidebar-ai p-20 p-relative">
+            <h3 class="p-relative txt-c mt-0">Dark AI</h3>
+            <ul>
+                <li>
+                    <a class="center-flex fs-14 rad-6 p-10 chat" href="{% url 'help' %}">
+                        <i class="fa-solid fa-circle-plus"></i>
+                        <span class="ml-0">New Chat</span>
+                    </a>
+                </li>
+                <li>
+                    <a class="center-flex fs-14 rad-6 p-10" href="{% url 'index' %}">
+                        <i class="fa-solid fa-house"></i>
+                        <span>Home</span>
+                    </a>
+                </li>
+                <li>
+                    <a class="center-flex fs-14 rad-6 p-10" href="{% url 'MyGames' %}">
+                        <i class="fa-solid fa-gamepad"></i>
+                        <span>My Games</span>
+                    </a>
+                </li>
+                
+                <li>
+                    <a class="center-flex fs-14 rad-6 p-10" href="{% url 'upload_cv' %}">
+                        <i class="fa-solid fa-users-line"></i>
+                        <span>About Us</span>
+                    </a>
+                </li>
+                
+            </ul>
+            <!-- <a href="signIn.html" class="p-absolute d-block">Sign In/Sign Up</a> -->
+            <div class="user center-flex">
+                <img src="{{user.profile.image.url}}" alt="">
+                <span>{{user.username}}</span>
             </div>
         </div>
-          `;
-        messagesList.appendChild(messageItem);
-      });
-  });
+        <div class="content-dark-ai w-full p-relative">
+            <div class="help center-flex fd-column p-absolute">
+                <img src="/static/images/logo.png" alt="">
+                <p>Hello How Can I Help You Today?</p>
+            </div>
+            <div style="color: white; position: absolute;left: 50%;transform: translateX(-50%); width: fit-content; background-color: #403f3f84;width: 80%;border-radius: 6px;border: 2px solid #969696;padding: 15px;padding: 6px;" >
+                <div class="card-body messages-box">
+      
+                    <ul class="list-unstyled messages-list">
+                      
+              
+                      {% for chat in chats %}
+                        {% if chat.user == request.user %}
+              
+                          <li class="message sent">
+                        <div class="message-text">
+                          <div class="message-sender">
+                            <b>* You</b>
+                          </div>
+                          <div class="message-content">
+                            => {{chat.message}}
+                          </div>
+                        </div>
+                      </li>
+              
+                      <li class="message received">
+                        <div class="message-text">
+                          <div class="message-sender">
+                            <b>* AI Chatbot</b>
+                          </div>
+                          <div class="message-content">
+                            => {{chat.response}}
+                          </div>
+                        </div>
+                      </li>
+              
+                        {% endif %}
+                      {% endfor %}
+                      
+                    </ul>
+                    
+                  </div>
+            </div>
+                
+                
+            </div>
+            <div class="container-one" style="bottom: 9%;">
+                
+                <div class="search-bar-container" style="width: 500px;">
+                    
+                    <form class="message-form">
+                        {% csrf_token %}
+                        <div class="input-group">
+                            <input type="text" placeholder="Enter your query here" class="search-bar">
+                            <button type="submit" class="send-button"> <i class="fa-regular fa-paper-plane"></i></button>
+                        </div>
+                    </form>
+                    
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Start Footer -->
+    <div class="footer">
+        <div class="container">
+            <div class="box">
+                <h3>Dark Forge</h3>
+                <ul class="social">
+                    <li>
+                        <a href="#" class="facebook">
+                            <i class="fab fa-facebook-f"></i>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#" class="twitter">
+                            <i class="fab fa-twitter"></i>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#" class="youtube">
+                            <i class="fab fa-youtube"></i>
+                        </a>
+                    </li>
+                </ul>
+                <p class="text">Your best immersive and engaging gaming experiences</p>
+            </div>
+            <div class="box">
+                <ul class="links">
+                    <li><a href="discoverGames.html">Games</a></li>
+                    <li><a href="#">Create Your Game</a></li>
+                    <li><a href="#">Privacy Policy</a></li>
+                    <li><a href="#">About Us</a></li>
+                    <li><a href="#">Contact Us</a></li>
+                </ul>
+            </div>
+            <div class="box">
+                <div class="line">
+                    <i class="fas fa-map-marker-alt fa-fw"></i>
+                    <div class="info">
+                        Algeria, Bejaia, Amizour, École supérieure en Sciences et Technologies de l'Informatique et du
+                        Numérique, N75
+                    </div>
+                </div>
+                <div class="line">
+                    <i class="far fa-clock fa-fw"></i>
+                    <div class="info">
+                        Business Hours: From 10:00 To 18:00
+                    </div>
+                </div>
+                <div class="line">
+                    <i class="fas fa-phone-volume fa-fw"></i>
+                    <div class="info">
+                        <span>+20123456789</span>
+                        <span>+20198765432</span>
+                    </div>
+                </div>
+            </div>
+            <div class="box footer-gallery">
+                <img src="/static/images/exit.webp" alt="">
+                <img src="/static/images/door1.webp" alt="">
+                <img src="/static/images/gallery-03.jpg" alt="">
+                <img src="/static/images/gallery-04.png" alt="">
+                <img src="/static/images/gallery-05.jpg" alt="">
+                <img src="/static/images/gallery-06.png" alt="">
+            </div>
+        </div>
+        <!-- <p class="copyright">Made With <span>&lt;3</span> By Redouane</p> -->
+    </div>
+    <!-- End Footer -->
+    <script>
+        const messagesList = document.querySelector('.messages-list');
+        const messageForm = document.querySelector('.message-form');
+        const messageInput = document.querySelector('.search-bar'); // Update selector to match input field
+    
+        messageForm.addEventListener('submit', (event) => {
+            event.preventDefault();
+    
+            const message = messageInput.value.trim();
+            if (message.length === 0) {
+                return;
+            }
+    
+            const messageItem = document.createElement('li');
+            messageItem.classList.add('message', 'sent');
+            messageItem.innerHTML = `
+                <div class="message-text">
+                    <div class="message-sender">
+                        <b>You</b>
+                    </div>
+                    <div class="message-content">
+                        ${message}
+                    </div>
+                </div>`;
+            messagesList.appendChild(messageItem);
+    
+            messageInput.value = '';
+    
+            fetch('', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+                body: new URLSearchParams({
+                    'csrfmiddlewaretoken': document.querySelector('[name=csrfmiddlewaretoken]').value,
+                    'message': message
+                })
+            })
+            .then(response => response.json())
+            .then(data => {
+                const response = data.response;
+                const messageItem = document.createElement('li');
+                messageItem.classList.add('message', 'received');
+                messageItem.innerHTML = `
+                    <div class="message-text">
+                        <div class="message-sender">
+                            <b>AI Chatbot</b>
+                        </div>
+                        <div class="message-content">
+                            ${response}
+                        </div>
+                    </div>
+                `;
+                messagesList.appendChild(messageItem);
+            });
+        });
+    </script>   
+</body>
 
-</script>
-{% endblock %}
+</html>
