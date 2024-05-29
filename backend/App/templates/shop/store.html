@@ -258,11 +258,16 @@
                         <div class="games-categories">
                             {% for genre in genres %}
                             <div class="box " style="max-width: 200px; position: relative;">
-                                <img  src="{{ genre.image.url }}" alt="">
-                                <a  href="{% url 'search' %}?query=&genre={{ genre.name }}">{{ genre.name }}</a>
+
+                                <div class="box">
+                                    <a style="position: relative; z-index: 10; color: white;" href="{% url 'search' %}?query=&genre={{ genre.name }}">
+                                     <img  src="{{ genre.image.url }}" alt="">
+                                    <p style="color: white;">{{ genre.name }}</p>
+                                   
+                                    </a>
+                                    </div>
                                
-                                    
-                                </a>
+                                
                             </div>
                             {% endfor %}
                         </div>
