@@ -45,6 +45,7 @@
                 background-color: white;
                 padding: 10px;
                 border: 1px solid #ccc;
+                
                 border-radius: 5px;
                 box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
                 transition: opacity 0.3s ease, transform 0.3s ease;
@@ -54,6 +55,7 @@
             .form:hover .search-form {
                 display: block;
                 opacity: 1;
+                
             }
         
             .form:hover .search-form:focus-within {
@@ -63,7 +65,7 @@
         
             .search-form input[type="text"],
             .search-form select {
-                width: 100%;
+                
                 margin-bottom: 10px;
                 padding: 8px;
                 border: 1px solid #ccc;
@@ -72,7 +74,7 @@
         
             .search-form button {
                 display: block;
-                width: 100%;
+                
                 padding: 8px;
                 border: none;
                 background-color: #c359da;
@@ -170,7 +172,7 @@
                 <div class="form">
                     <i class="fas fa-search"></i>
                     <div class="search-form">
-                        <form action="{% url 'index' %}" method="GET">
+                        <form action="{% url 'search' %}" method="GET">
                             <input type="text" name="query" placeholder="Search games...">
                             <select name="genre">
                                 <option value="" selected>All Genres</option>
@@ -257,9 +259,9 @@
                         <h2 class="my-categories-title">Categories</h2>
                         <div class="games-categories">
                             {% for genre in genres %}
-                            <div class="box">
+                            <div class="box " style="max-width: 200px; position: relative;">
                                 <img src="{{ genre.image.url }}" alt="">
-                                <a href="{% url 'index' %}?query=&genre={{ genre.name }}">{{ genre.name }}</a>
+                                <a  style="z-index: 10;position: relative;" href="{% url 'search' %}?query=&genre={{ genre.name }}">{{ genre.name }}</a>
                                
                                     
                                 </a>
@@ -272,21 +274,13 @@
                             <h2 class="my-games-title">All Games</h2>
                         </a>
                         <div class="games-categories">
-                            
+                             
                             {% for item in all_games %}
                             <div class="box">
-                            <a href="{% url 'game-detail' item.pk %}">
+                            <a href="{% url 'game-detail' item.pk %}" style="position: relative;z-index: 10;">
                             <img src="{{ item.image.url }}" alt="">
                             <p style="color: white;">{{ item.title }}</p>
-                            {% if item.price == 0 %}
-                                <span class="free">Free</span>
-                            {% else %}
-                                {% if item.discounts %}
-                                    <span class="promo" reduction="-{{ item.discounts }}%">{{ item.price_discounted }}$</span>
-                                {% else %}
-                                    <span>${{ item.price }}</span>
-                                {% endif %}
-                            {% endif %}
+                           
                             </a>
                             </div>
                             {% endfor %}
@@ -300,13 +294,13 @@
                     <div class="discounts">
                         <h2 class="discounts-title">Discounts</h2>
                         <div class="image">
-                            <img src="/static/imagesTwo/Games Library/SPIDERMAN Discount.png" alt="">
+                            <img  style="width: 400px;height: 160px;" id="dynamicImage" src="/static/imagesTwo/Games Library/SPIDERMAN Discount.png" alt="">
                         </div>
                     </div>
                     <div class="create-game">
                         
                         <h2 class="create-title">Create Your Game</h2>
-                        <img src="/static/images/create.png" alt=""><a href="{% url 'customgame' %}"></img>
+                        <img style="width: 540px;height: 540px;" id="dynamicImage2" src="/static/images/create.png" alt=""><a href="{% url 'customgame' %}"></img>
                         <div class="dreams"><a href="{% url 'customgame' %}">Create Your Game</a></div>
                         
 
@@ -392,7 +386,29 @@
         <!-- <p class="copyright">Made With <span>&lt;3</span> By Redouane</p> -->
     </div>
     <!-- End Footer -->
-
+    <script>
+        // Array of image URLs
+        var imageUrls = [
+            "/static/imagesTwo/Games Library/SPIDERMAN Discount.png",
+            "/static/images/minecraft.png",
+            "/static/images/japan-aesthetic.gif",
+            
+            // Add more image URLs here if needed
+        ];
+       
+        
+        var currentIndex = 0; // Index to keep track of the current image
+        
+        // Function to change the image source
+        function changeImage() {
+            var dynamicImage = document.getElementById("dynamicImage");
+            dynamicImage.src = imageUrls[currentIndex]; // Update image source
+            currentIndex = (currentIndex + 1) % imageUrls.length; // Move to the next image index
+        }
+        
+        // Call the changeImage function every 5 seconds
+        setInterval(changeImage, 3000);
+    </script>
 </body>
 
 </html>

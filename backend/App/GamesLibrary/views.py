@@ -31,6 +31,35 @@ def index(request):
     if request.user.is_authenticated:
         order, created = Order.objects.get_or_create(user=request.user, is_completed=False)
 
+    
+    context = {
+        "items": items,
+        "order": order,
+        "genres": genres,
+        "all_games": all_games,
+        
+    }
+
+    return render(request, "shop/store.html", context)
+
+
+
+def search(request):
+    items = Game.objects.filter(rate__gt=4)
+    all_games =Game.objects.all()
+    genres = Genre.objects.all()
+    user_games = Game.objects.filter(mygames__user=request.user)
+    favorites = FavoriteGames.objects.filter(user=request.user)
+
+    # Calculate total spendings and total games owned
+   
+    total_games_owned = user_games.count()
+
+   
+    order = None
+    if request.user.is_authenticated:
+        order, created = Order.objects.get_or_create(user=request.user, is_completed=False)
+
     active_category = request.GET.get('genre', '')
     query = request.GET.get('query', '')
 
@@ -41,16 +70,14 @@ def index(request):
         items = Game.objects.filter(Q(title__icontains=query) | Q(description__icontains=query), rate__gt=4)
 
     context = {
+        "favorites": favorites,
+        "total_games_owned": total_games_owned,
         "items": items,
-        "order": order,
+       'active_category': active_category,
         "genres": genres,
-        "all_games": all_games,
-        'active_category': active_category
     }
 
-    return render(request, "shop/store.html", context)
-
-
+    return render(request, "shop/games.html", context)
 
 
 def MyGames(request):
@@ -174,7 +201,7 @@ def track_game(request):
             return render(request, 'shop/track_game.html', {'custom_game': custom_game,'user_custom_games': user_custom_games})
         except ValidationError:
             # If the order reference is not a valid UUID, render a 404 error page
-            return redirect('404')
+            return render(request, 'shop/track_game.html', {'custom_game': '404','user_custom_games': user_custom_games})
     else:
         # Retrieve custom game order references of the current user
         user_custom_games = CustomGame.objects.filter(user=request.user)

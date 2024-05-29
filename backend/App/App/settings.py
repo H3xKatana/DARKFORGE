@@ -230,7 +230,7 @@ EMAIL_HOST_PASSWORD = ''
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-PAYPAL_RECEIVER_EMAIL = 'mortadhakara@gmail.com' # where cash is paid into
+PAYPAL_RECEIVER_EMAIL = 'sb-3so3020154368@business.example.com'  # where cash is paid into
 # only for testing
 PAYPAL_TEST = True
 

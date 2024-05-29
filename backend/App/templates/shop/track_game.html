@@ -1,33 +1,501 @@
+
+
+
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Track Custom Game Order</title>
-</head>
-<body>
-    <h1>Track Custom Game Order</h1>
-    <form method="post">
-        {% csrf_token %}
-        <label for="order_reference">Enter Order Reference (Track ID):</label><br>
-        <input type="text" id="order_reference" name="order_reference" required><br><br>
-        <button type="submit">Track Order</button>
-    </form>
-    {% if custom_game %}
-        <h2>Order Status</h2>
-        <p>Order ID: {{ custom_game.id }}</p>
-        <!-- Display other order details or status here -->
-    {% endif %}
-    {% if error_message %}
-        <p>{{ error_message }}</p>
-    {% endif %}
+    <!-- Render All Elements Normally -->
+    <link rel="stylesheet" href="/static/css/normalize.css">
+    <!-- CSS Framework File -->
+    <link rel="stylesheet" href="/static/css/framework.css">
+    <!-- Font Awesome Library -->
+    <link rel="stylesheet" href="/static/css/all.min.css">
+    <!-- main Template CSS File  -->
+    <link rel="stylesheet" href="/static/css/master.css">
+    <!-- Second Template CSS File -->
+    <link rel="stylesheet" href="/static/css/masterTwo.css">
+    <!-- Google Fonts  -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Cairo:wght@200..1000&family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap"
+        rel="stylesheet">
 
-    <hr>
-    <h2>Your Custom Game Order References:</h2>
-    <ul>
-        {% for custom_game in user_custom_games %}
-            <li>{{ custom_game.order_reference }} - {{ custom_game.title }}</li>
-        {% endfor %}
-    </ul>
+    <style>
+    
+    .dropdown {
+        position: relative;
+        display: inline-block;
+    }
+
+    .dropdown-content {
+        display: none;
+        position: absolute;
+        background-color: #f9f9f9;
+        min-width: 160px;
+        box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+        z-index: 1;
+        border-radius: 5px;
+    }
+
+    .dropdown-content a {
+        color: black;
+        padding: 10px 16px;
+        text-decoration: none;
+        display: block;
+    }
+
+    .dropdown-content a:hover {
+        background-color: #f1f1f1;
+    }
+
+    .dropdown:hover .dropdown-content {
+        display: block;
+    }
+
+    .dropdown-btn {
+        background-color: transparent;
+        margin-left: 10px;
+        color: white;
+        padding: 5px;
+        font-size: 16px;
+        border: none;
+        cursor: pointer;
+        border-radius: 50%;
+    }
+
+    .dropdown-btn:hover {
+        background-color: transparent;
+    }
+
+    .dropdown-btn:hover .fa-solid {
+        display: none;
+    }
+
+    .dropdown-btn:hover:after {
+        font-family: "Font Awesome 5 Free";
+        font-weight: 900;
+        content: '\f0d7'; /* fa-caret-down */
+    }
+    
+        .content-section .form-group a {
+            color: yellow; /* Change link color to yellow */
+        }
+        
+        .content-section .form-group a:hover {
+            color: orange; /* Change link hover color to orange */
+        }
+        .content-section .form-group input[type="text"],
+        .content-section .form-group input[type="number"],
+        .content-section .form-group input[type="textarea"],
+        .content-section .form-group input[type="email"],
+        .content-section .form-group input[type="password"] {
+            background-color: transparent;
+            color: white;
+            border-color: #fcfcfc;
+            border-radius: 10px;
+        }
+        .form-group textarea {
+        background-color:transparent; /* Light gray background color */
+        color: #333; /* Dark gray text color */
+       /* Gray border */
+        padding: 8px; /* Add padding */
+         /* Add border radius */
+        width: 100%; /* Full width */
+        box-sizing: border-box; /* Include padding in width calculation */
+        margin-bottom: 10px; 
+        background-color: transparent;
+            color: white;
+            border-color: #fcfcfc;
+            border-radius: 10px;/* Add bottom margin for spacing */
+    }
+        .content-section .form-group input[type="text"]:focus,
+        .content-section .form-group input[type="number"]:focus,
+        .content-section .form-group input[type="number"]:focus,
+        .content-section .form-group input[type="textarea"]:focus,
+        .content-section .form-group input[type="email"]:focus,
+        .content-section .form-group input[type="password"]:focus {
+            background-color: transparent;
+            border-color: #333;
+        }
+        .order-details {
+    margin-bottom: 20px;
+}
+
+.order-details-title, .progress-info-title {
+    font-size: 20px;
+    margin-bottom: 10px;
+}
+
+.order-detail {
+    margin-bottom: 10px;
+}
+
+.detail-label {
+    font-weight: bold;
+}
+        .content-section .form-group a {
+            color: yellow; /* Change link color to yellow */
+        }
+        
+        .content-section .form-group a:hover {
+            color: orange; /* Change link hover color to orange */
+        }
+        .form-group button[type="submit"] {
+            padding-top: 10px;
+        background-color: #f0ceed; /* Green background color */
+        color: rgb(0, 0, 0); /* White text color */
+        border: none; /* Remove border */
+        padding: 10px 20px; /* Add padding */
+        font-size: 16px; /* Increase font size */
+        cursor: pointer; /* Add cursor pointer on hover */
+        border-radius: 5px; /* Add border radius */
+        transition: background-color 0.3s; /* Smooth background color transition */
+    }
+
+    .form-group button[type="submit"]:hover {
+        background-color: yellow; /* Darker green on hover */
+    }
+
+    .container {
+    
+    
+    padding-left: 50px;
+    position: relative;
+    z-index: 10;
+    display: grid;
+    gap: 20px;
+    padding: 20px;
+    background-color: #7e7e7e69;
+    border-radius: 10px;
+    box-shadow: 0 2px 15px rgb(0 0 0 / 71%);
+    transition: var(--main-transition);
+    position: relative;
+
+}
+
+.form-group {
+    margin-bottom: 15px;
+}
+
+
+
+input[type="text"] {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #6c6868;
+    border-radius: 5px;
+}
+
+button.btn-submit {
+    padding: 10px 20px;
+    background-color:yellow;
+    color: black;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+button.btn-submit:hover {
+    background-color: rgb(40, 199, 69);
+}
+
+.order-status, .error-message {
+    margin-top: 20px;
+    padding: 10px;
+   
+    border-radius: 5px;
+}
+
+.error-message {
+    background-color: #ffcdd2;
+    border-color: #f44336;
+    color: #f44336;
+}
+@import url('https://fonts.googleapis.com/css2?family=Orbitron&display=swap');
+*, *:before, *:after {box-sizing:border-box;}
+   
+.range {
+  position: relative;
+  background-color: #333;
+  width: 300px;
+  height: 30px;
+  transform: skew(30deg);
+  font-family: 'Orbitron', monospace;
+  
+  &:before {
+    --width: calc(var(--p) * 1%);
+    
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 0;
+    height: 100%;
+    background-color: #F3E600;
+    z-index: 0;
+    animation: load .5s forwards linear, glitch 2s infinite linear;
+  }
+  
+  &:after {
+    counter-reset: progress var(--p);
+    content: counter(progress) '%';
+    color: #000;
+    position: absolute;
+    left: 5%;
+    top: 50%;
+    transform: translateY(-50%) skewX(-30deg);
+    z-index: 1;
+  }
+  
+  &__label {
+    transform: skew(-30deg) translateY(-100%);
+    line-height: 1.5;
+  }
+}
+
+@keyframes load {
+  to {
+    width: var(--width);
+  }
+}
+
+@keyframes glitch {
+  0%, 5% {
+    transform: translate(0, 0);
+  }
+  1% {
+    transform: translate(-5%, -10%);
+  }
+  2% {
+    transform: translate(10%, 30%);
+  }
+  3%{
+    transform: translate(-43%, 10%);
+  }
+  4% {
+    transform: translate(2%, -23%);
+  }
+}
+
+    </style>
+    
+</head>
+
+<body>
+    <div class="page d-flex">
+        <div class="overlay"></div>
+        <!-- p-relative => Sidebar above Contents -->
+        <div class="sidebar p-20 p-relative">
+            <h3 class="p-relative txt-c mt-0">Dark Forge</h3>
+            <ul >
+                <li>
+                    <a class="d-flex align-items-center justify-content-between fs-14 c-black rad-6 p-10 home" href="{% url 'index' %}">
+                        <i class="fas fa-home"></i><span>Home</span>
+                        
+                    </a>
+                </li>
+                <li>
+                    <a class="d-flex align-items-center justify-content-between fs-14 c-black rad-6 p-10" href="{% url 'users:home' %}">
+                        <i class="far fa-user"></i><span>Profile</span>
+                        
+                    </a>
+                </li>
+                <li>
+                    <a class="d-flex align-items-center justify-content-between fs-14 c-black rad-6 p-10" href="{% url 'favs' %}">
+                        <i class="fas fa-heart"></i><span>Fav Games</span>
+                        
+                    </a>
+                </li>
+                <li>
+                    <a class="d-flex align-items-center justify-content-between fs-14 c-black rad-6 p-10" href="{% url 'MyGames' %}">
+                        <i class="fas fa-gamepad"></i><span>My Games</span>
+                        
+                    </a>
+                </li>
+                <li>
+                    <a class="d-flex align-items-center justify-content-between fs-14 c-black rad-6 p-10" href="{% url 'track_game' %}">
+                         <i class="fas fa-chart-line"></i><span>Track Game</span>
+                       
+                    </a>
+                </li>
+                <li>
+                    <a class="d-flex align-items-center justify-content-between fs-14 c-black rad-6 p-10" href="{% url 'users:view_notifications' %}">
+                        <i class="fas fa-bell"></i>
+                        <span>Notifications</span>
+                        
+                    </a>
+                </li>
+            </ul>
+            
+
+           
+        </div>
+        <div class="content w-full p-relative">
+            <!-- Start Head -->
+            <div class="head p-15 between-flex">
+                <div class="search p-relative">
+                    <input class="p-10" type="search" placeholder="Search">
+                </div>
+                
+                <div class="icons d-flex align-center">
+                    <div id="dropdmenu" class="dropdown">
+                        <button class="dropdown-btn"><i class="fas fa-caret-up"></i></button>
+                        <div class="dropdown-content">
+                            <a href="{% url 'users:profile_update' %}">Settings</a>
+                            <a href="{% url 'users:view_notifications' %}">Notifications</a>
+                            <a href="{% url 'MyGames' %}">My Games</a>
+                            <a href="{% url 'users:logout' %}">Logout</a>
+                        </div>
+                    </div>
+                    <span class="notification p-relative ">
+                        <i class="fa-regular fa-bell fa-lg"></i>
+                    </span>
+                    <img class="profile-pic" src="{{ user.profile.image.url }}" alt="">
+                </div>
+            </div>
+            <!-- End Head -->
+            <h1 class="p-relative">
+                Track Custom Game Order
+            </h1>
+            
+            <div class="files-page d-flex m-20 gap-20">
+                <div class="games-stats p-20 bg-white rad-10">
+                    <h2 class="mt-0 mb-35 c-white txt-c-mobile">Your Orders</h2>
+                    {% for custom_game in user_custom_games %}
+                    <p><i class="fas fa-gamepad"> - {{ custom_game.title }}</i> :  <p>
+                        <p><i style="color: yellow;">{{ custom_game.order_reference }} </i></p>
+                    {% endfor %}
+                    
+                </div>
+                <div class="container" "position: relative; color: white; position: absolute;left: 50%;transform: translateX(-50%); width: fit-content; background-color: #403f3f84;width: 80%;border-radius: 6px;border: 2px solid #969696;padding: 15px;padding: 6px;">
+                
+                    <form id="orderForm" method="post">
+                        {% csrf_token %}
+                        <div class="form-group">
+                            <h2 class="mt-0 mb-35 c-white txt-c-mobile">Enter Track Id </h2>
+                            <input type="text" id="order_reference" name="order_reference" required placeholder="Track-id">
+                        </div>
+                        <button type="submit" class="btn-submit">Track Order</button>
+                    </form>
+                
+                    {% if custom_game  == '404' %}
+                    <div class="order-status">
+                        Not found
+                    </div>
+                    {% else %}
+                        <div class="order-status">
+                            <h2 class="mt-0 mb-35 c-white txt-c-mobile"> Orders info</h2>
+                            <p><h2 class="mt-0 mb-35 c-white txt-c-mobile">Order Owner:  <span style="color: yellow;">{{ custom_game.user.username }}</span></h2></p>
+                            <p><h2 class="mt-0 mb-35 c-white txt-c-mobile"> Title:  <span style="color: yellow;">{{ custom_game.title }}</span></h2></p>
+                            <p><h2 class="mt-0 mb-35 c-white txt-c-mobile">Current Checkpoint:  <span style="color: yellow;font-size: large;">{{ custom_game.game_status }}</span></h2></p>
+                            <p><h2 class="mt-0 mb-35 c-white txt-c-mobile">Game complexity:  <span style="color: yellow;font-size: large;">{{ custom_game.game_complexity }}</span></h2></p>
+                            <p><h2 class="mt-0 mb-35 c-white txt-c-mobile">Estimated Price:  <span style="color: yellow;font-size: large;">{{ custom_game.price }} $</span></h2></p>
+                            <p><h2 class="mt-0 mb-35 c-white txt-c-mobile">Payment situaion:  <span style="color: yellow;font-size: large;">{% if custom_game.is_completed %}
+                                <i class="fas fa-check-circle"></i> Completed
+                            {% else %}
+                                <i class="fas fa-exclamation-circle"></i> Pending
+                            {% endif %}</span></h2></p>
+                            
+                           
+                            <!-- Display other order details or status here -->
+                            <h2 class="mt-0 mb-35 c-white txt-c-mobile">Progress</h2>
+                            <div class="range" style="--p: {{ custom_game.progression }} ">
+                                
+                            </div>
+                            
+                            <p><h2 class="mt-0 mb-35 c-white txt-c-mobile">Completeion:  <span style="color: yellow;font-size: large;">{% if custom_game.is_completed %}
+                                <i class="fas fa-check-circle"></i> Completed
+                            {% else %}
+                                <i class="fas fa-exclamation-circle"></i> Pending
+                            {% endif %}</span></h2></p>
+
+
+                        </div>
+                    {% endif %}
+                
+                    {% if error_message %}
+                        <div class="error-message">
+                            <p>{{ error_message }}</p>
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+           
+        </div>
+    </div>
+    <!-- Start Footer -->
+    <div class="footer">
+        <div class="container">
+            <div class="box">
+                <h3>Dark Forge</h3>
+                <ul class="social">
+                    <li>
+                        <a href="#" class="facebook">
+                            <i class="fab fa-facebook-f"></i>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#" class="twitter">
+                            <i class="fab fa-twitter"></i>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#" class="youtube">
+                            <i class="fab fa-youtube"></i>
+                        </a>
+                    </li>
+                </ul>
+                <p class="text">Your best immersive and engaging gaming experiences</p>
+            </div>
+            <div class="box">
+                <ul class="links">
+                    <li><a href="discoverGames.html">Games</a></li>
+                    <li><a href="#">Create Your Game</a></li>
+                    <li><a href="#">Privacy Policy</a></li>
+                    <li><a href="#">About Us</a></li>
+                    <li><a href="#">Contact Us</a></li>
+                </ul>
+            </div>
+            <div class="box">
+                <div class="line">
+                    <i class="fas fa-map-marker-alt fa-fw"></i>
+                    <div class="info">
+                        Algeria, Bejaia, Amizour, École supérieure en Sciences et Technologies de l'Informatique et du
+                        Numérique, N75
+                    </div>
+                </div>
+                <div class="line">
+                    <i class="far fa-clock fa-fw"></i>
+                    <div class="info">
+                        Business Hours: From 10:00 To 18:00
+                    </div>
+                </div>
+                <div class="line">
+                    <i class="fas fa-phone-volume fa-fw"></i>
+                    <div class="info">
+                        <span>+20123456789</span>
+                        <span>+20198765432</span>
+                    </div>
+                </div>
+            </div>
+            <div class="box footer-gallery">
+                <img src="/static/images/exit.webp" alt="">
+                <img src="/static/images/door1.webp" alt="">
+                <img src="/static/images/gallery-03.jpg" alt="">
+                <img src="/static/images/gallery-04.png" alt="">
+                <img src="/static/images/gallery-05.jpg" alt="">
+                <img src="/static/images/gallery-06.png" alt="">
+            </div>
+        </div>
+        <!-- <p class="copyright">Made With <span>&lt;3</span> By Redouane</p> -->
+    </div>
+    <!-- End Footer -->
+
 </body>
+
 </html>

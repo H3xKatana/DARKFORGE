@@ -1,19 +1,349 @@
-{% extends "users/base.html" %}
+
 {% load crispy_forms_tags %}
-{% block content %}
 
-<div class="container">
-    <h1>Create Custom Game</h1>
-    {% if form.is_bound and form.is_valid %}
-        <div class="alert alert-success" role="alert">
-            Form submitted successfully!
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dark Forge</title>
+    <!-- Render All Elements Normally -->
+    <link rel="stylesheet" href="/static/css/normalize.css">
+    <!-- Font Awesome Library -->
+    <link rel="stylesheet" href="/static/css/all.min.css">
+    <!-- main Template CSS File  -->
+    <link rel="stylesheet" href="/static/css/master2.css">
+    <!-- Google Fonts  -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Cairo:wght@200..1000&family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap"
+        rel="stylesheet">
+</head>
+
+<body>
+    <!-- Start Header -->
+    <style>
+
+        .form {
+                position: relative;
+            }
+        
+            .search-form {
+                display: none;
+                position: absolute;
+                top: calc(100% );
+                left: 50%;
+                transform: translateX(-50%);
+                z-index: 1;
+                background-color: white;
+                padding: 10px;
+                border: 1px solid #ccc;
+                border-radius: 5px;
+                box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+                transition: opacity 0.3s ease, transform 0.3s ease;
+                opacity: 0;
+            }
+        
+            .form:hover .search-form {
+                display: block;
+                opacity: 1;
+            }
+        
+            .form:hover .search-form:focus-within {
+                display: block;
+                opacity: 1;
+            }
+        
+            .search-form input[type="text"],
+            .search-form select {
+                width: 100%;
+                margin-bottom: 10px;
+                padding: 8px;
+                border: 1px solid #ccc;
+                border-radius: 5px;
+            }
+        
+            .search-form button {
+                display: block;
+                width: 100%;
+                padding: 8px;
+                border: none;
+                background-color: #c359da;
+                color: white;
+                border-radius: 5px;
+                cursor: pointer;
+                transition: background-color 0.3s ease;
+            }
+        
+            .search-form button:hover {
+                background-color: #0056b3;
+            }
+            .dropdown {
+                position: relative;
+                display: inline-block;
+            }
+        
+            .dropdown-content {
+                display: none;
+                position: absolute;
+                background-color: #f9f9f9;
+                min-width: 160px;
+                box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+                z-index: 1;
+                border-radius: 5px;
+            }
+        
+            .dropdown-content a {
+                color: black;
+                padding: 10px 16px;
+                text-decoration: none;
+                display: block;
+            }
+        
+            .dropdown-content a:hover {
+                background-color: #f1f1f1;
+            }
+        
+            .dropdown:hover .dropdown-content {
+                display: block;
+            }
+        
+            .dropdown-btn {
+                background-color: transparent;
+                margin-left: 10px;
+                color: white;
+                padding: 5px;
+                font-size: 16px;
+                border: none;
+                cursor: pointer;
+                border-radius: 50%;
+            }
+        
+            .dropdown-btn:hover {
+                background-color: transparent;
+            }
+        
+            .dropdown-btn:hover .fa-solid {
+                display: none;
+            }
+        
+            .dropdown-btn:hover:after {
+                font-family: "Font Awesome 5 Free";
+                font-weight: 900;
+                content: '\f0d7'; /* fa-caret-down */
+            }
+                </style>
+    <div class="header" id="header">
+        <div class="container">
+            <a href="index.html" class="logo">
+                <img src="/static/images/logo.png" alt="Logo">
+            </a>
+            <nav>
+                <i class="fas fa-bars toggle-menu"></i>
+                <ul class="principal-links">
+                    <li><a class="active" href="{% url 'Home_page' %}">Home</a></li>
+                    <li><a href="{% url 'index' %}">Discover Games</a></li>
+                    <li><a href="{% url 'help' %}">DARK AI</a></li>
+                    <li><a href="#features">About Us</a></li>
+                    <li><a href="{% url 'upload_cv' %}">Contact Us</a></li>
+                    {% if user.is_authenticated %}
+                    <!-- If the user is authenticated, do not show the Sign In/Sign Up link -->
+                    {% else %}
+                    <li><a href="{% url 'users:home' %}">Sign In/Sign Up</a></li>
+                    {% endif %}
+                </ul>
+                <div class="form">
+                    <i class="fas fa-search"></i>
+                    <div class="search-form">
+                        <form action="{% url 'index' %}" method="GET">
+                            <input type="text" name="query" placeholder="Search games...">
+                            <select name="genre">
+                                <option value="" selected>All Genres</option>
+                                {% for genre in genres %}
+                                    <option value="{{ genre.name }}">{{ genre.name }}</option>
+                                {% endfor %}
+                            </select>
+                            <button type="submit">Search</button>
+                        </form>
+                    </div>
+                </div>
+                <div class="dropdown">
+                    <button class="dropdown-btn"><i class="fa-solid fa-caret-up"></i></button>
+                    <div class="dropdown-content">
+                        <a href="{% url 'users:profile_update' %}">Seettings</a>
+                        <a href="{% url 'MyGames' %}">My Games</a>
+                        <a href="{% url 'users:logout' %}">logout</a
+                    </div>
+                </div>
+                <div class="profile">
+                    
+                    {% if user.is_authenticated %}
+                    <!-- If the user is authenticated, show the user's image -->
+                    <a href="{% url 'users:register' %}">
+                        <img src="{{ user.profile.image.url }}" alt="Profile Image">
+                    </a>
+                {% endif %}
+                </div>
+            </nav>
         </div>
-    {% endif %}
-    <form method="post" enctype="multipart/form-data" class="mt-4">
-        {% csrf_token %}
-        {{ form|crispy }}
+    </div>
+    <!-- End Header -->
+    <!-- Start Custome Game -->
+    <div class="customGame-welcome">
+        <div class="container">
+            <div class="text">
+                <h1>Welcome, To <span>Dark Forge World</span></h1>
+                <p>"Unleash the power of your gaming vision, And embark on a journey to bring your masterpiece to life"
+                </p>
+            </div>
+            <div class="image">
+                <img src="/static/images/landing-image.png" alt="">
+            </div>
+        </div>
+        <a href="#features" class="go-down">
+            <i class="fas fa-angle-double-down fa-2x"></i>
+        </a>
+    </div>
+    <!-- End Custome Game -->
+    <section class="curved"></section>
+    <!-- Start Features -->
+    <div class="features">
+        <h2 class="main-title" id="features">Features</h2>
+        <div class="container">
+            <div class="box quality">
+                <div class="img-holder">
+                    <img src="/static/images/c1.avif" alt="">
+                </div>
+                <h2>Passion</h2>
+                <p>Promote an environment where new and innovative ideas are valued and explored.</p>
+                <a href="#form">More</a>
+            </div>
+            <div class="box time">
+                <div class="img-holder">
+                    <img src="/static/images/c4.jpg" alt="">
+                </div>
+                <h2>Visionary</h2>
+                <p>Craft a clear and compelling vision for your game, guided by expertise in player psychology.</p>
+                <a href="#form">More</a>
+            </div>
+            <div class="box passion">
+                <div class="img-holder">
+                    <img src="/static/images/c3.avif" alt="">
+                </div>
+                <h2>Challenge</h2>
+                <p>Games should offer a satisfying level of challenge to keep players engaged and motivated.</p>
+                <a href="#form">More</a>
+            </div>
+        </div>
+    </div>
+    <!-- End Features -->
+    <!-- Start Game Form -->
+    <div class="gameForm" id="discount">
+        <div class="image">
+            <div class="content">
+                <h2>Submit Your <span>Dream Game Idea!</span></h2>
+                <p>Have you ever dreamt of a game so unique, so addictive, it would take the world by storm? Well, stop
+                    dreaming and start creating! We're looking for passionate gamers like you to unleash their inner
+                    gamechanger and submit their ideas for the next
+                    groundbreaking game.</p>
+                <img src="/static/images/megamenu.png" alt="">
+            </div>
+        </div>
+        <div class="form" id="form">
+            <div class="content">
+                <h2>Please Fill The Information down <span>Here !</span></h2>
+                
+        
+        
+            {% if form.is_bound and form.is_valid %}
+            <div class="alert alert-success" role="alert">
+            Form submitted successfully!
+            </div>
+            {% endif %}
+            <form method="post" enctype="multipart/form-data" class="mt-4">
+            {% csrf_token %}
+            {{ form|crispy }}
 
-        <button type="submit" class="btn btn-primary">Submit</button>
-    </form>
-</div>
-{% endblock content %}
+            <button type="submit" class="btn btn-primary">Submit</button>
+            </form>
+
+
+            </div>
+        </div>
+    </div>
+    <!-- End Game Form -->
+
+    <!-- Start Footer -->
+    <div class="footer">
+        <div class="container">
+            <div class="box">
+                <h3>Dark Forge</h3>
+                <ul class="social">
+                    <li>
+                        <a href="#" class="facebook">
+                            <i class="fab fa-facebook-f"></i>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#" class="twitter">
+                            <i class="fab fa-twitter"></i>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#" class="youtube">
+                            <i class="fab fa-youtube"></i>
+                        </a>
+                    </li>
+                </ul>
+                <p class="text">Your best immersive and engaging gaming experiences</p>
+            </div>
+            <div class="box">
+                <ul class="links">
+                    <li><a href="discoverGames.html">Games</a></li>
+                    <li><a href="customGame.html">Create Your Game</a></li>
+                    <li><a href="#">Privacy Policy</a></li>
+                    <li><a href="#">About Us</a></li>
+                    <li><a href="#">Contact Us</a></li>
+                </ul>
+            </div>
+            <div class="box">
+                <div class="line">
+                    <i class="fas fa-map-marker-alt fa-fw"></i>
+                    <div class="info">
+                        Algeria, Bejaia, Amizour, École supérieure en Sciences et Technologies de l'Informatique et du
+                        Numérique, N75
+                    </div>
+                </div>
+                <div class="line">
+                    <i class="far fa-clock fa-fw"></i>
+                    <div class="info">
+                        Business Hours: From 10:00 To 18:00
+                    </div>
+                </div>
+                <div class="line">
+                    <i class="fas fa-phone-volume fa-fw"></i>
+                    <div class="info">
+                        <span>+20123456789</span>
+                        <span>+20198765432</span>
+                    </div>
+                </div>
+            </div>
+            <div class="box footer-gallery">
+                <img src="/static/images/exit.webp" alt="">
+                <img src="/static/images/door1.webp" alt="">
+                <img src="/static/images/gallery-03.jpg" alt="">
+                <img src="/static/images/gallery-04.png" alt="">
+                <img src="/static/images/gallery-05.jpg" alt="">
+                <img src="/static/images/gallery-06.png" alt="">
+            </div>
+        </div>
+        <!-- <p class="copyright">Made With <span>&lt;3</span> By Redouane</p> -->
+    </div>
+    <!-- End Footer -->
+
+
+</body>
+
+</html>

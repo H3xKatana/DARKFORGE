@@ -6,7 +6,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My Games</title>
+    <title>GAMES</title>
     <!-- Render All Elements Normally -->
     <link rel="stylesheet" href="/static/css/normalize.css">
     <!-- CSS Framework File -->
@@ -190,6 +190,12 @@
                         
                     </a>
                 </li>
+                <li>
+                    <a class="d-flex align-items-center justify-content-between fs-14 c-black rad-6 p-10" href="{% url 'search' %}">
+                        <i class="fas fa-gamepad"></i><span>Games</span>
+                        
+                    </a>
+                </li>
             </ul>
             
 
@@ -199,7 +205,16 @@
             <!-- Start Head -->
             <div class="head p-15 between-flex">
                 <div class="search p-relative">
-                    <input class="p-10" type="search" placeholder="Search">
+                    <div class="form" style="z-index: auto;">
+                       
+                        <div class="search-form">
+                            <form action="{% url 'search' %}" method="GET">
+                                <input type="text" name="query" style="color: black;" placeholder="Search games...">
+                               
+                                
+                            </form>
+                        </div>
+                    </div>
                 </div>
                 
                 <div class="icons d-flex align-center">

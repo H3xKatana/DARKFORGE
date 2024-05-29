@@ -1,0 +1,92 @@
+
+.discover-Games .section .left-side .games-categories .box {
+    z-index: 1;
+    position: relative;
+    padding: 20px;
+    text-align: center;
+    transition: var(--main-transition-duration);
+}
+
+.discover-Games .section .left-side .games-categories .box:hover {
+    transform: translateY(-5px);
+    box-shadow: 0px 0px 7px 1px #f5f5f56e;
+}
+
+.discover-Games .section .left-side .games-categories .box:hover:before {
+    background-color: var(--main-color-alt);
+}
+
+.discover-Games .section .left-side .games-categories .box::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #7e7e7e69;
+    z-index: -1;
+    transition: var(--main-transition-duration);
+}
+
+.discover-Games .section .left-side .games-categories .box img {
+    max-width: 100%;
+    min-width: 120px;
+    height: 180px;
+    border-radius: 27px;
+}
+
+.discover-Games .section .left-side .games-categories .box p {
+    text-align: center;
+    font-weight: bold;
+    transition: var(--main-transition-duration);
+    color: white;
+}
+
+
+.discover-Games .section .left-side .games-categories .box:hover p {
+    color: black;
+}
+
+.discover-Games .section .left-side .games-categories .box span.free {
+    color: #85bb65;
+}
+
+.discover-Games .section .left-side .games-categories .box span {
+    transition: var(--main-transition-duration);
+    border-radius: 15px;
+    padding-left: 5px;
+    padding-right: 5px;
+    background-color: transparent;
+}
+
+.discover-Games .section .left-side .games-categories .box:hover span {
+    color: #84b567;
+    font-weight: bold;
+    background-color: white;
+}
+
+.discover-Games .section .left-side .games-categories .box span:not(span.free) {
+    color: #cdcdcd;
+}
+
+.discover-Games .section .left-side .games-categories .box:hover span:not(span.free) {
+    color: #4e4e4e;
+}
+
+
+.discover-Games .section .left-side .games-categories .box .promo {
+    position: relative;
+}
+
+.discover-Games .section .left-side .games-categories .box .promo:after {
+    content: attr(reduction);
+    position: absolute;
+    right: -50px;
+    bottom: -11px;
+    background-color: red;
+    border-radius: 45%;
+    padding: 3px;
+    font-weight: bold;
+    color: white;
+}
+

@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Track Custom Game Order</title>
+</head>
+<body>
+    <h1>Track Custom Game Order</h1>
+    <form method="post">
+        {% csrf_token %}
+        <label for="order_reference">Enter Order Reference (Track ID):</label><br>
+        <input type="text" id="order_reference" name="order_reference" required><br><br>
+        <button type="submit">Track Order</button>
+    </form>
+    {% if custom_game %}
+        <h2>Order Status</h2>
+        <p>Order ID: {{ custom_game.id }}</p>
+        <!-- Display other order details or status here -->
+    {% endif %}
+    {% if error_message %}
+        <p>{{ error_message }}</p>
+    {% endif %}
+
+    <hr>
+    <h2>Your Custom Game Order References:</h2>
+    <ul>
+        {% for custom_game in user_custom_games %}
+            <li>{{ custom_game.order_reference }} - {{ custom_game.title }}</li>
+        {% endfor %}
+    </ul>
+</body>
+</html>
+
+
