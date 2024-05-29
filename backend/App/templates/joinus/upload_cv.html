@@ -86,7 +86,7 @@
                 <img src="/static/images/logo.png" alt="">
                 <p>Welcome to our Team</p>
             </div>
-            <div style="position: relative; color: white; position: absolute;left: 50%;transform: translateX(-50%); width: fit-content; background-color: #403f3f84;width: 80%;border-radius: 6px;border: 2px solid #969696;padding: 15px;padding: 6px;" >
+            <div style=" top: 60%; position: relative; color: white; position: absolute;left: 50%;transform: translateX(-50%); width: fit-content; background-color: #403f3f84;width: 80%;border-radius: 6px;border: 2px solid #969696;padding: 15px;padding: 6px;" >
                 <div class="container mt-5">
                     <div class="row">
                         <div class="col-md-6 offset-md-3">
@@ -95,7 +95,7 @@
                                     <h1 class="mb-4">Upload Your CV</h1>
                                     <form method="post" enctype="multipart/form-data" id="cv-upload-form">
                                         {% csrf_token %}
-                                        <div id="drop-area" class="text-center">
+                                        <div id="drop-area" class="text-center" style="border: none;">
                                             <div class="upload-icon mb-3">
                                                 <i class="fas fa-cloud-upload-alt fa-3x"></i>
                                             </div>
@@ -104,7 +104,7 @@
                                             <p class="mt-2">Supported file types: PDF</p>
                                         </div>
                                         <div id="file-list" class="mt-3"></div>
-                                        <button style="background-color: yellow;color: black;border-radius: 10px; position: relative; z-index: 99;" type="submit" class="btn btn-success mt-3" id="submit-btn" >Send</button>
+                                        <button style="margin-left: 50px; background-color: yellow;color: black;border-radius: 10px; position: relative; z-index: 99;" type="submit" class="btn btn-success mt-3" id="submit-btn" >Send</button>
                                     </form>
                                 </div>
                             </div>

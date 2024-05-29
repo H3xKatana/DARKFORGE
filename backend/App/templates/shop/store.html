@@ -127,9 +127,7 @@
                 border-radius: 50%;
             }
         
-            .dropdown-btn:hover {
-                
-            }
+            
         
             .dropdown-btn:hover .fa-solid {
                 display: none;
@@ -260,8 +258,8 @@
                         <div class="games-categories">
                             {% for genre in genres %}
                             <div class="box " style="max-width: 200px; position: relative;">
-                                <img src="{{ genre.image.url }}" alt="">
-                                <a  style="z-index: 10;position: relative;" href="{% url 'search' %}?query=&genre={{ genre.name }}">{{ genre.name }}</a>
+                                <img  src="{{ genre.image.url }}" alt="">
+                                <a  href="{% url 'search' %}?query=&genre={{ genre.name }}">{{ genre.name }}</a>
                                
                                     
                                 </a>
