@@ -288,7 +288,9 @@ button.btn-submit:hover {
             </div>
             <!-- End Head -->
             <h1 class="p-relative">
-                Cart Info
+                <a href="{% url 'index' %}" onclick="history.go(-1);">
+                    <i class="far fa-arrow-alt-circle-left fa-lg" style="color: yellow;"></i>
+                  </a>  Cart Info
             </h1>
             
             <div class="files-page d-flex m-20 gap-20">

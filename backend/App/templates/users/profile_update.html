@@ -223,49 +223,32 @@
                 Profile Settings
             </h1>
             <div class="files-page d-flex m-20 gap-20">
-                <div class="games-stats p-20 bg-white rad-10">
-                    <h2 class="mt-0 mb-35 c-white txt-c-mobile">Games Statistics</h2>
-                    <h3 class="favourite-game-title">Favourite Game:</h3>
-                    <div class="favourite-game d-flex align-center border-eee p-10 rad-6 fs-13">
-                        <img src="/static/images/Horizon.png" alt="">
-                        <div class="info txt-c">
-                            <p>Horizon Forbidden West</p>
-                            <div class="rating">
-                                <i class="filled fas fa-star"></i>
-                                <i class="filled fas fa-star"></i>
-                                <i class="filled fas fa-star"></i>
-                                <i class="filled fas fa-star"></i>
-                                <i class="far fa-star"></i>
+                
+                    <div class="files-content d-grid gap-20">
+                        {% load crispy_forms_tags %}
+                        {% block content %}
+                        <div class="content-section" style="z-index: 10; width: 45px; color: rgb(255, 255, 255); font-family: 'Cairo sans serif', Times, serif; font-weight: 400;">
+                            <div class="media">
+                                <!-- Media content goes here -->
                             </div>
+                            <form method="POST" enctype="multipart/form-data" class="rounded shadow-lg p-4 bg-light">
+                                {% csrf_token %}
+                                <fieldset class="form-group" style="width: 450px; margin: 0 auto; margin-left: 30px;">
+                                    <legend class="border-bottom mb-4 text-primary">Profile Info</legend>
+                                    {{ u_form|crispy }}
+                                    {{ p_form|crispy }}
+                                </fieldset>
+                                <div class="form-group">
+                                    <button class="btn btn-primary btn-block" type="submit" style="margin-top: 20px;margin-left: 190px ; background-color: yellow;">Update</button>
+                                </div>
+                            </form>
                         </div>
+                        {% endblock content %}
                     </div>
-                    <a href="#" class="upload bg-blue c-white fs-13 rad-6 d-block btn-shape w-fit m-auto">
-                        <i class="fa-solid fa-angles-up mr-10"></i>
-                        Upload
-                    </a>
-                </div>
-                <div class="files-content d-grid gap-20">
-                  {% load crispy_forms_tags %}
-                  {% block content %}
-                  <div class="content-section" style="z-index: 10; width:300px;color: rgb(255, 255, 255);font-family: 'Cairo sans serif', Times, serif;font-weight: 400;">
-                    <div class="media">
-                        <!-- Media content goes here -->
-                    </div>
-                    <form method="POST" enctype="multipart/form-data" class="rounded shadow-lg p-4 bg-light">
-                        {% csrf_token %}
-                        <fieldset class="form-group">
-                            <legend class="border-bottom mb-4 text-primary" ">Profile Info</legend>
-                            {{ u_form|crispy }}
-                            {{ p_form|crispy }}
-                        </fieldset>
-                        <div class="form-group">
-                            <button class="btn btn-primary btn-block" type="submit">Update</button>
-                        </div>
-                    </form>
-                </div>
-                  {% endblock content %}
-                  
-                </div>
+                
+            </div>
+            
+               
 
             </div>
         </div>

@@ -79,7 +79,7 @@ def search(request):
 
     return render(request, "shop/games.html", context)
 
-
+@login_required
 def MyGames(request):
     # Retrieve games associated with the current user
     user_games = Game.objects.filter(mygames__user=request.user)
@@ -108,7 +108,7 @@ def favorites_list(request):
     }
     return render(request, "users/mygames.html", context)
 
-
+@login_required
 def add_to_order(request, game_id):
     game = get_object_or_404(Game, pk=game_id)
     order, created = Order.objects.get_or_create(user=request.user, is_completed=False)
@@ -123,14 +123,21 @@ def add_to_order(request, game_id):
     
     return redirect('index') 
 
-
+@login_required
 def remove_from_cart(request, item_id):
     item = get_object_or_404(OrderItem, id=item_id)
     item.remove_from_cart()
     return redirect('view_order', order_reference=item.order.order_reference)
 
+
+@login_required
 def view_order(request, order_reference):
     order = get_object_or_404(Order, order_reference=order_reference)
+    
+    # Check if the current user is the owner of the order
+    if order.user != request.user:
+        return render('404.html')
+    
     return render(request, 'shop/cart.html', {'order': order})
 
 
@@ -150,7 +157,7 @@ def checkout(request):  # Checking checkout page
     return render(request,'store/checkout.html')
 
 ##################################################
-
+@login_required
 def create_custom_game(request):
     if request.method == 'POST':
         form = CustomGameForm(request.POST, request.FILES)
@@ -191,7 +198,7 @@ def create_custom_game(request):
     return render(request, 'shop/custom_game_form.html', {'form': form})
 
 
-
+@login_required
 def track_game(request):
     if request.method == 'POST':
         order_reference = request.POST.get('order_reference')
@@ -287,10 +294,10 @@ def order_detail(request, order_uuid):
 
 
 
-
+@login_required
 def CheckOut(request, order_reference):
     order = get_object_or_404(Order, order_reference=order_reference)
-
+    full_price = order.total
     host = request.get_host()
 
     paypal_checkout = {
@@ -308,17 +315,18 @@ def CheckOut(request, order_reference):
 
     context = {
         'order': order,
+        'total':full_price,
         'paypal': paypal_payment
     }
 
     return render(request, 'shop/checkout.html', context)
 
-
+@login_required
 def PaymentSuccessful(request, order_reference):
     order = get_object_or_404(Order, order_reference=order_reference)
     
     return render(request, 'shop/payment-success.html', {'order': order})
-
+@login_required
 def paymentFailed(request, order_reference):
 
     order = get_object_or_404(Order, order_reference=order_reference)

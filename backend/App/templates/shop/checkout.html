@@ -293,7 +293,10 @@ button.btn-submit:hover {
             <div class="files-page d-flex m-20 gap-20">
                 
                 <div class="container" "position: relative; color: white; position: absolute;left: 50%;transform: translateX(-50%); width: fit-content; background-color: #403f3f84;width: 80%;border-radius: 6px;border: 2px solid #969696;padding: 15px;padding: 6px;">
-                    <p><h2 class="mt-0 mb-35 c-white txt-c-mobile">Checkout for order:  <span style="color: yellow;">{{order.order_reference}}</span></h2></p>
+                    
+                    <p><h2 class="mt-0 mb-35 c-white txt-c-mobile"><a href="{% url 'index' %}" onclick="history.go(-1);">
+                        <i class="far fa-arrow-alt-circle-left fa-lg" style="color: yellow;"></i>
+                      </a>     Checkout for order:  <span style="color: yellow;">{{order.order_reference}}</span></h2></p>
                     
                     <div class="order-container">
                         {% for item in order.orderitem_set.all %}
@@ -301,7 +304,13 @@ button.btn-submit:hover {
                             <p><h2 class="mt-0 mb-35 c-white txt-c-mobile"> Game : <span style="color: yellow">{{ item.game.title }} </span> Price: $ <span style="color: yellow">{{ item.game.price }} </span></h2></p>
                             
                         </div>
+                        
                         {% endfor %}
+
+                        <br><br><br>
+                        <p><h2 class="mt-0 mb-35 c-white txt-c-mobile"> Total Price: $ <span style="color: yellow">{{ total }} </span></h2></p>
+                        
+
                         <div class="paypal" style="padding-left: 40%;">
                             {{ paypal.render }}
                         </div>

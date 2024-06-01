@@ -245,6 +245,7 @@ button:-moz-focusring,
    */
 
 fieldset {
+    width: 300px;
     padding: 0.35em 0.75em 0.625em;
 }
 
