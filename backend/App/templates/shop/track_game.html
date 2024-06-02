@@ -367,9 +367,14 @@ button.btn-submit:hover {
                 <div class="games-stats p-20 bg-white rad-10">
                     <h2 class="mt-0 mb-35 c-white txt-c-mobile">Your Orders</h2>
                     {% for custom_game in user_custom_games %}
-                    <p><i class="fas fa-gamepad"> - {{ custom_game.title }}</i> :  <p>
-                        <p><i style="color: yellow;">{{ custom_game.order_reference }} </i></p>
-                    {% endfor %}
+                    <p><i class="fas fa-gamepad"> - {{ custom_game.title }}</i> :<button onclick="copyToClipboard('order-ref-{{ forloop.counter }}')" style="border: none; background: none; cursor: pointer;">
+                            <i class="fas fa-copy"></i>
+                        </button></p>
+                    <p>
+                        <i style="color: yellow;" id="order-ref-{{ forloop.counter }}">{{ custom_game.order_reference }}</i>
+                        
+                    </p>
+                {% endfor %}
                     
                 </div>
                 <div class="container" "position: relative; color: white; position: absolute;left: 50%;transform: translateX(-50%); width: fit-content; background-color: #403f3f84;width: 80%;border-radius: 6px;border: 2px solid #969696;padding: 15px;padding: 6px;">
@@ -495,7 +500,27 @@ button.btn-submit:hover {
         <!-- <p class="copyright">Made With <span>&lt;3</span> By Redouane</p> -->
     </div>
     <!-- End Footer -->
-
+    <script>
+        function copyToClipboard(elementId) {
+            // Get the text from the element
+            var copyText = document.getElementById(elementId).innerText;
+            
+            // Create a temporary input element
+            var tempInput = document.createElement("input");
+            tempInput.value = copyText;
+            document.body.appendChild(tempInput);
+    
+            // Select the text in the input element
+            tempInput.select();
+            tempInput.setSelectionRange(0, 99999);  // For mobile devices
+    
+            // Copy the text to the clipboard
+            document.execCommand("copy");
+    
+            // Remove the temporary input element
+            document.body.removeChild(tempInput);
+        }
+    </script>
 </body>
 
 </html>
