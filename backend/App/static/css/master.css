@@ -1659,6 +1659,8 @@ ul {
 
 .discover-Games .section .left-side .games-categories .box {
     z-index: 1;
+    max-width: 180px;
+    min-width: 180px;
     color: white;
     position: relative;
     text-align: center;

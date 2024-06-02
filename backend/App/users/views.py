@@ -109,7 +109,7 @@ def registeration_view(request):
     return render(request, 'users/register.html', {'form': form})
 
 
-@redirect_authenticated_user
+
 def forgot_password_view(request):
     if request.method == 'POST':
         form = ForgetPasswordEmailCodeForm(request.POST)
@@ -134,7 +134,7 @@ def forgot_password_view(request):
         form = ForgetPasswordEmailCodeForm()
     return render(request, 'users/forgot_password.html', context={'form': form})
 
-@redirect_authenticated_user
+
 def check_otp_view(request):
     if request.method == 'POST':
         form = OtpForm(request.POST)
@@ -149,7 +149,7 @@ def check_otp_view(request):
         form = OtpForm()
     return render(request, 'users/user_otp.html', {'form': form})
 
-@redirect_authenticated_user
+
 def check_reset_otp_view(request):
     if request.method == 'POST':
         form = OtpForm(request.POST)
@@ -164,18 +164,18 @@ def check_reset_otp_view(request):
     return render(request, 'users/user_otp.html', {'form': form})
 
 
-@redirect_authenticated_user
+
 def reset_new_password_view(request):
     if request.method == 'POST':
         form = ChangePasswordForm(request.POST)
         if form.is_valid():
             email = request.session['email']
             del request.session['email']
-            user = user.objects.get(email=email)
-            user.password = make_password(form.cleaned_data["new_password2"])
-            user.save()
+            user_instance = get_user_model().objects.get(email=email)  # Use a different variable name
+            user_instance.password = make_password(form.cleaned_data["new_password2"])
+            user_instance.save()
             messages.success(request, _(
-                "Your password changed. Now you can login with your new password."))
+                "Your password has been changed. Now you can login with your new password."))
             return redirect('users:login')
     else:
         form = ChangePasswordForm()

@@ -42,6 +42,7 @@
     text-align: center; /* Center the text horizontally */
     text-decoration: none; /* Remove default hyperlink underline */
     transition: background-color var(--main-transition-duration);
+    margin-left: 120px;
 }
 
 .purchase .buy:hover,
@@ -196,7 +197,7 @@
                         <span>{{ game.discounted_price }}</span>
                         <span>{{ game.price }}</span>
                         {% else %}
-                        <span>${{ game.price }}</span>
+                        <span style="color: white;">${{ game.price }}</span>
                     {% endif %}
                     </div>
                     <div class="purchase">

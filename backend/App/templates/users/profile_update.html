@@ -239,9 +239,15 @@
                                     {{ p_form|crispy }}
                                 </fieldset>
                                 <div class="form-group">
+                                    
+                                   
                                     <button class="btn btn-primary btn-block" type="submit" style="margin-top: 20px;margin-left: 190px ; background-color: yellow;">Update</button>
                                 </div>
-                            </form>
+                                <a style="display: inline-block; background-color: yellow; color: black; text-decoration: none; padding: 10px 20px; border-radius: 5px; margin-top: 20px; margin-left: 190px;" href="{% url 'users:forgot_password' %}">Password</a>    
+                               
+                            </form> 
+                                    
+                                    
                         </div>
                         {% endblock content %}
                     </div>

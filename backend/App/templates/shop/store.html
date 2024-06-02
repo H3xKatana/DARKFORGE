@@ -261,8 +261,8 @@
 
                                 <div class="box">
                                     <a style="position: relative; z-index: 10; color: white;" href="{% url 'search' %}?query=&genre={{ genre.name }}">
-                                     <img  src="{{ genre.image.url }}" alt="">
-                                    <p style="color: white;">{{ genre.name }}</p>
+                                    
+                                    <p style="bottom: 0px; color: white;">{{ genre.name }}</p>
                                    
                                     </a>
                                     </div>
@@ -279,10 +279,10 @@
                         <div class="games-categories">
                              
                             {% for item in all_games %}
-                            <div class="box">
-                            <a href="{% url 'game-detail' item.pk %}" style="position: relative;z-index: 10;">
+                            <div class="box" style="max-width: 180px;min-width: 180px;">
+                            
                             <img src="{{ item.image.url }}" alt="">
-                            <p style="color: white;">{{ item.title }}</p>
+                            <a href="{% url 'game-detail' item.pk %}"><p style="color: white;">{{ item.title }}</p>
                            
                             </a>
                             </div>

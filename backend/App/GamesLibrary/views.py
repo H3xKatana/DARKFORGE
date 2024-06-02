@@ -48,18 +48,14 @@ def search(request):
     items = Game.objects.filter(rate__gt=4)
     all_games =Game.objects.all()
     genres = Genre.objects.all()
-    user_games = Game.objects.filter(mygames__user=request.user)
-    favorites = FavoriteGames.objects.filter(user=request.user)
+   
 
     # Calculate total spendings and total games owned
    
-    total_games_owned = user_games.count()
+   
 
    
-    order = None
-    if request.user.is_authenticated:
-        order, created = Order.objects.get_or_create(user=request.user, is_completed=False)
-
+   
     active_category = request.GET.get('genre', '')
     query = request.GET.get('query', '')
 
@@ -70,8 +66,7 @@ def search(request):
         items = Game.objects.filter(Q(title__icontains=query) | Q(description__icontains=query), rate__gt=4)
 
     context = {
-        "favorites": favorites,
-        "total_games_owned": total_games_owned,
+        
         "items": items,
        'active_category': active_category,
         "genres": genres,
@@ -237,6 +232,7 @@ def add_to_favorites(request, game_id):
         return HttpResponseBadRequest("Invalid request method: POST requests are not allowed.")
 
 #############
+@login_required
 def game_search(request):
     title = request.GET.get('title')
     description = request.GET.get('description')
