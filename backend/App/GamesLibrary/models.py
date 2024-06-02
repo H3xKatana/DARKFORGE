@@ -262,3 +262,11 @@ class UserPayment(models.Model):
 def create_user_payment(sender, instance, created, **kwargs):
 	if created:
 		UserPayment.objects.create(app_user=instance)
+
+
+
+class Report(models.Model):
+    game = models.ForeignKey(Game, on_delete=models.CASCADE)
+    reported_by = models.ForeignKey(User, on_delete=models.CASCADE)
+    reason = models.TextField()
+    created_at = models.DateTimeField(auto_now_add=True)

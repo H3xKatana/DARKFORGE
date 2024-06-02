@@ -1,6 +1,6 @@
 
 
-
+{% load social_share %}
 <!DOCTYPE html>
 <html lang="en">
 
@@ -22,12 +22,48 @@
     <link
         href="https://fonts.googleapis.com/css2?family=Cairo:wght@200..1000&family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap"
         rel="stylesheet">
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+
+<!-- JavaScript -->
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+
         <style>
        .purchase {
     display: flex;
     flex-direction: column;
     align-items: flex-start; /* Align items to the start of the flex container */
 }
+
+.share-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 20px;
+        }
+
+        .share-button {
+            padding: 10px;
+            border: none;
+            font-size: 20px;
+            min-width: 100px;
+            flex-grow: 1;
+            background-color: #00000082;
+            color: white;
+            font-weight: bold;
+            box-shadow: 0 2px 15px rgb(0 0 0 / 71%);
+            border-radius: 9px;
+            cursor: pointer;
+            text-decoration: none;
+            transition: background-color 0.3s ease;
+        }
+
+        .share-button:hover {
+            background-color: #33333382;
+        }
+
 
 .purchase .buy,
 .purchase .add-fav {
@@ -210,12 +246,36 @@
                     </div>
                     <p class="unknown">{{game.game_requirments}}</p>
                     <div class="share-report">
-                        <input type="button" value="Share">
-                        <input type="button" value="Repport">
+                        
+                        
+                        <input type="button" class="btn btn-danger" value="Report" data-toggle="modal" data-target="#reportModal">
                     </div>
-                   
-
-                    
+                    <div class="share-container" style="padding: 10px;border: none;font-size: 20px;min-width: 100px;flex-grow: 1;background-color: #00000082;color: white;font-weight: bold;box-shadow: 0 2px 15px rgb(0 0 0 / 71%);border-radius: 9px;">
+                        <a href="{% post_to_facebook object_or_url as fb_url %}{{ fb_url }}" </a>
+                    </div>
+                    <div class="modal fade" id="reportModal" tabindex="-1" role="dialog" aria-labelledby="reportModalLabel" aria-hidden="true">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="reportModalLabel">Report Game</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                    <!-- Report Form -->
+                                    <form method="post" action="{% url 'report_game' game.id %}">
+                                        {% csrf_token %}
+                                        <div class="form-group">
+                                            <label for="reportReason">Reason:</label>
+                                            <textarea class="form-control" id="reportReason" name="reason" rows="4" required></textarea>
+                                        </div>
+                                        <input type="submit" class="btn btn-primary" value="Submit Report">
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                     
 
                 </div>

@@ -9,10 +9,10 @@ from email.mime.text import MIMEText
 from django.shortcuts import render, redirect
 from django.template.loader import render_to_string
 from django.utils.html import strip_tags
-from .models import Game,CustomGame,FavoriteGames, Genre, Platforms,Order,OrderItem,MyGames
+from .models import Game,CustomGame,FavoriteGames, Genre, Platforms,Order,OrderItem,MyGames,Report
 from django.http import HttpResponse,JsonResponse
 from django.core.exceptions import ObjectDoesNotExist,ValidationError
-from .forms import CustomGameForm, SetPriceForm
+from .forms import CustomGameForm, SetPriceForm,ReportForm
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponseRedirect,HttpResponseBadRequest
 from django.urls import reverse
@@ -330,3 +330,22 @@ def paymentFailed(request, order_reference):
 
     return render(request, 'store/payment-failed.html', {'order': order})
 
+
+
+@login_required
+def report_game_view(request, game_id):
+    game = get_object_or_404(Game, id=game_id)
+
+    if request.method == 'POST':
+        form = ReportForm(request.POST)
+        if form.is_valid():
+            report = form.save(commit=False)
+            report.game = game
+            report.reported_by = request.user
+            report.save()
+            messages.success(request, 'Your report has been submitted.')
+            return redirect('game-detail', pk=game_id)
+    else:
+        form = ReportForm()
+
+    return render(request, 'report_game.html', {'form': form, 'game': game})

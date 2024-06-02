@@ -1,6 +1,6 @@
 # forms.py
 from django import forms
-from .models import CustomGame
+from .models import CustomGame,Report
 
 
 class CustomGameForm(forms.ModelForm):
@@ -29,3 +29,13 @@ class SetPriceForm(forms.Form):
 class EmailForm(forms.Form):
     subject = forms.CharField(label='Subject', max_length=100)
     message = forms.CharField(label='Message', widget=forms.Textarea)
+
+
+
+class ReportForm(forms.ModelForm):
+    class Meta:
+        model = Report
+        fields = ['reason']
+        widgets = {
+            'reason': forms.Textarea(attrs={'rows': 4}),
+        }
