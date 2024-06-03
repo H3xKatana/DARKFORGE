@@ -218,7 +218,24 @@ button.btn-submit:hover {
 }
 @import url('https://fonts.googleapis.com/css2?family=Orbitron&display=swap');
 *, *:before, *:after {box-sizing:border-box;}
-   
+.download-button {
+            background-color: yellow;
+            color: black;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .download-button:hover {
+            background-color: black;
+            color: yellow;
+            border: 1px solid yellow;
+        }
 .range {
   position: relative;
   background-color: #333;
@@ -400,7 +417,7 @@ button.btn-submit:hover {
                             <p><h2 class="mt-0 mb-35 c-white txt-c-mobile">Current Checkpoint:  <span style="color: yellow;font-size: large;">{{ custom_game.game_status }}</span></h2></p>
                             <p><h2 class="mt-0 mb-35 c-white txt-c-mobile">Game complexity:  <span style="color: yellow;font-size: large;">{{ custom_game.game_complexity }}</span></h2></p>
                             <p><h2 class="mt-0 mb-35 c-white txt-c-mobile">Estimated Price:  <span style="color: yellow;font-size: large;">{{ custom_game.price }} $</span></h2></p>
-                            <p><h2 class="mt-0 mb-35 c-white txt-c-mobile">Payment situaion:  <span style="color: yellow;font-size: large;">{% if custom_game.is_completed %}
+                            <p><h2 class="mt-0 mb-35 c-white txt-c-mobile">Payment situaion:  <span style="color: yellow;font-size: large;">{% if custom_game.completed %}
                                 <i class="fas fa-check-circle"></i> Completed
                             {% else %}
                                 <i class="fas fa-exclamation-circle"></i> Pending
@@ -413,11 +430,24 @@ button.btn-submit:hover {
                                 
                             </div>
                             
-                            <p><h2 class="mt-0 mb-35 c-white txt-c-mobile">Completeion:  <span style="color: yellow;font-size: large;">{% if custom_game.is_completed %}
+                            <p><h2 class="mt-0 mb-35 c-white txt-c-mobile">Completeion:  <span style="color: yellow;font-size: large;">{% if custom_game.completed %}
                                 <i class="fas fa-check-circle"></i> Completed
                             {% else %}
                                 <i class="fas fa-exclamation-circle"></i> Pending
                             {% endif %}</span></h2></p>
+
+                            {% if custom_game.completed %}
+                            {% if custom_game.payment %}
+                            
+
+                            <a href="{{ custom_game.prototype }} " download class="download-button">Download</a>
+                            {% else %}
+
+                            <p><h2 class="mt-0 mb-35 c-white txt-c-mobile">Your order is completed  <span style="color: yellow;">You should contact adminn to complete payment </span></h2></p>
+
+                            {% endif %}
+                            {% endif %}
+
 
 
                         </div>

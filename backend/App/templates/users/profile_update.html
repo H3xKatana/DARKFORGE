@@ -370,7 +370,7 @@
             confirmDeleteBtn.addEventListener('click', function () {
                 // Redirect to delete account URL or submit a form to delete the account
                 // For demonstration purposes, let's redirect to a delete account URL
-                window.location.href = "{% url 'users:home' %}";
+                window.location.href = "{% url 'users:delete_account' %}";
             });
         });
     </script>

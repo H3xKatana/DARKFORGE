@@ -186,7 +186,7 @@ def delete_account_view(request):
     # Delete the user account
     request.user.delete()
     # Redirect to home page or any other page
-    return redirect('home')
+    return redirect('users:login')
 
 
 @login_required

@@ -362,14 +362,14 @@ button.btn-submit:hover {
                                 <img class="rounded-circle account-img" src="{{ user.profile.image.url }}" alt="Profile Picture">
                             </div>
                             <div class="profile-details" style="z-index: 10;position: relative;">
-                                <h2 class="account-heading">{{ user.username }}</h2>
-                                <p class="text-secondary">{{ user.email }}</p>
-                                <p class="bio-text">{{ user.profile.bio }}</p>
+                                <h2 class="account-heading" style="color: white">{{ user.username }}</h2>
+                                <p class="text-secondary" style="color: yellow;">{{ user.email }}</p>
+                                <p class="bio-text" style="color: white;">{{ user.profile.bio }}</p>
                                 <ul class="list-group">
-                                    <li class="list-group-item"><strong>Address:</strong> {{ user.profile.address }}</li>
-                                    <li class="list-group-item"><strong>Age:</strong> {{ user.profile.age }}</li>
-                                    <li class="list-group-item"><strong>Phone Number:</strong> {{ user.profile.phone_number }}</li>
-                                    <li class="list-group-item"><strong>Gender:</strong> {{ user.profile.gender }}</li>
+                                    <li class="list-group-item" style=" color: yellow;"><strong style=" color: white;">Address:</strong> {{ user.profile.address }}</li>
+                                    <li class="list-group-item" style=" color: yellow;"><strong style=" color: white;">Age:</strong> {{ user.profile.age }}</li>
+                                    <li class="list-group-item"style=" color: yellow;"><strong style=" color: white;">Phone Number:</strong> {{ user.profile.phone_number }}</li>
+                                    <li class="list-group-item"style=" color: yellow;"><strong style=" color: white;">Gender:</strong> {{ user.profile.gender }}</li>
                                     <!-- Include additional profile details as needed -->
                                 </ul>
                             </div>
