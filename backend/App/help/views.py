@@ -41,4 +41,3 @@ def help(request):
         return JsonResponse({'message': message, 'response': response})
     return render(request, 'help/chatbot.html', {'chats': chats})
 
-
