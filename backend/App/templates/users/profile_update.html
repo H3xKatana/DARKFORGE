@@ -20,6 +20,14 @@
     <!-- Google Fonts  -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <!-- CSS -->
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+
+<!-- JavaScript -->
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
     <link
         href="https://fonts.googleapis.com/css2?family=Cairo:wght@200..1000&family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap"
         rel="stylesheet">
@@ -132,7 +140,7 @@
         background-color: #f0ceed; /* Green background color */
         color: rgb(0, 0, 0); /* White text color */
         border: none; /* Remove border */
-        padding: 10px 20px; /* Add padding */
+        padding: 10px 80px; /* Add padding */
         font-size: 16px; /* Increase font size */
         cursor: pointer; /* Add cursor pointer on hover */
         border-radius: 5px; /* Add border radius */
@@ -231,23 +239,22 @@
                             <div class="media">
                                 <!-- Media content goes here -->
                             </div>
-                            <form method="POST" enctype="multipart/form-data" class="rounded shadow-lg p-4 bg-light">
+                            <form method="POST" enctype="multipart/form-data" >
                                 {% csrf_token %}
                                 <fieldset class="form-group" style="width: 450px; margin: 0 auto; margin-left: 30px;">
-                                    <legend class="border-bottom mb-4 text-primary">Profile Info</legend>
+                                    <legend class="border-bottom mb-4 text-primary" style="color: white;">Profile Info</legend>
                                     {{ u_form|crispy }}
                                     {{ p_form|crispy }}
                                 </fieldset>
                                 <div class="form-group">
                                     
                                    
-                                    <button class="btn btn-primary btn-block" type="submit" style="margin-top: 20px;margin-left: 190px ; background-color: yellow;">Update</button>
+                                    <button class="btn btn-primary btn-block" type="submit" style="padding-left: 20px; margin-top: 20px;margin-left: 190px ; background-color: yellow;">Update</button>
                                 </div>
-                                <a style="display: inline-block; background-color: yellow; color: black; text-decoration: none; padding: 10px 20px; border-radius: 5px; margin-top: 20px; margin-left: 190px;" href="{% url 'users:forgot_password' %}">Password</a>    
                                
                             </form> 
-                                    
-                                    
+                            <button style="background-color: yellow; color: black; text-decoration: none; padding: 10px 20px; border-radius: 5px;" id="deleteAccountBtn" class="btn btn-danger">Delete Account</button>
+                            <a style="background-color: yellow; color: black; text-decoration: none; padding: 10px 20px; border-radius: 5px; margin-left: 10px; display: inline-block;" href="{% url 'users:forgot_password' %}">Password</a>
                         </div>
                         {% endblock content %}
                     </div>
@@ -323,10 +330,48 @@
                 <img src="/static/images/gallery-06.png" alt="">
             </div>
         </div>
+
         <!-- <p class="copyright">Made With <span>&lt;3</span> By Redouane</p> -->
     </div>
-    <!-- End Footer -->
 
+    <!-- Confirmation Modal -->
+<div class="modal fade" id="confirmDeleteModal" tabindex="-1" role="dialog" aria-labelledby="confirmDeleteModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="confirmDeleteModalLabel">Confirm Delete Account</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                Are you sure you want to delete your account?
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                <button id="confirmDeleteBtn" type="button" class="btn btn-danger">Delete</button>
+            </div>
+        </div>
+    </div>
+</div>
+    <!-- End Footer -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const deleteAccountBtn = document.getElementById('deleteAccountBtn');
+            const confirmDeleteModal = document.getElementById('confirmDeleteModal');
+            const confirmDeleteBtn = document.getElementById('confirmDeleteBtn');
+    
+            deleteAccountBtn.addEventListener('click', function () {
+                $('#confirmDeleteModal').modal('show');
+            });
+    
+            confirmDeleteBtn.addEventListener('click', function () {
+                // Redirect to delete account URL or submit a form to delete the account
+                // For demonstration purposes, let's redirect to a delete account URL
+                window.location.href = "{% url 'users:home' %}";
+            });
+        });
+    </script>
 </body>
 
 </html>

@@ -181,6 +181,13 @@ def reset_new_password_view(request):
         form = ChangePasswordForm()
     return render(request, 'users/new_password.html', {'form': form})
 
+@login_required
+def delete_account_view(request):
+    # Delete the user account
+    request.user.delete()
+    # Redirect to home page or any other page
+    return redirect('home')
+
 
 @login_required
 def profile_update_view(request):
