@@ -119,7 +119,7 @@ class CommentAdmin(admin.ModelAdmin):
 class ReviewAdmin(admin.ModelAdmin):
     list_display=['user','game','rating']
 
-
+admin.site.register(FavoriteGames)
 admin.site.register(Report)
 admin.site.register(Order)
 admin.site.register(Game,GameAdmin)

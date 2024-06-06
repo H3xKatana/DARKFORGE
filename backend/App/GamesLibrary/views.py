@@ -2,7 +2,7 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib import messages
 from django.db.models import Sum
-
+import sys
 import smtplib
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
@@ -115,6 +115,7 @@ def add_to_order(request, game_id):
     if not item_created:
         order_item.quantity = 1
         order_item.save()
+    messages.success(request, 'added to Cart .')
     
     return redirect('index') 
 
@@ -187,6 +188,7 @@ def create_custom_game(request):
                 server.sendmail(from_email, to_email, msg.as_string())
 
             messages.success(request, 'Your custom game order has been submitted. It will be processed shortly. An email has been sent to you with the details.')
+            sys.sleep(3)
             return redirect('users:home')  # Redirect to a success URL
     else:
         form = CustomGameForm()
@@ -217,19 +219,46 @@ def add_to_favorites(request, game_id):
         try:
             game = Game.objects.get(pk=game_id)
         except Game.DoesNotExist:
+           
             return HttpResponseBadRequest("Game does not exist.")
         
         # Check if the game is already a favorite for the user
         if FavoriteGames.objects.filter(user=request.user, game=game).exists():
+            messages.success(request, 'aleardy in favs')
             return HttpResponseRedirect(reverse('game-detail', args=[game_id]))
         
         # Add the game to favorites
         favorite = FavoriteGames.objects.create(user=request.user)
         favorite.game.add(game)
-        
+       
+       
         return HttpResponseRedirect(reverse('game-detail', args=[game_id]))
     else:
         return HttpResponseBadRequest("Invalid request method: POST requests are not allowed.")
+
+@login_required
+def rm_from_favorites(request, game_id):
+    if request.method == 'GET':
+        try:
+            game = Game.objects.get(pk=game_id)
+        except Game.DoesNotExist:
+            return HttpResponseBadRequest("Game does not exist.")
+
+        # Check if the game is already a favorite for the user
+        if FavoriteGames.objects.filter(user=request.user, game=game).exists():
+            favorite = FavoriteGames.objects.get(user=request.user, game=game)
+            favorite.delete()
+            messages.success(request, 'Game removed from favorites')
+        else:
+            # Handle the case where the game is not already a favorite
+            messages.warning(request, 'Game is not currently in your favorites')
+
+        return HttpResponseRedirect(reverse('game-detail', args=[game_id]))
+    else:
+        return HttpResponseBadRequest("Invalid request method: Only POST requests allowed.")
+
+
+
 
 #############
 @login_required

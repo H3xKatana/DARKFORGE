@@ -18,8 +18,14 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
 
-    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@200..1000&family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap"rel="stylesheet">
-       
+    
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+
+<!-- JavaScript -->
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
 
       
 
@@ -204,11 +210,27 @@
         </div>
     </div>
     <!-- End Header -->
+  
+ 
+
+
+ 
     <!-- Start Discover Games -->
     <div class="discover-Games">
         <h2 class="main-title">Discover Games</h2>
         <div class="container">
-           
+            {% if messages %}
+    <div class="alert-container">
+      {% for message in messages %}
+        <div class="alert alert-dismissible alert-{{ message.tags }}" role="alert" style="z-index: 15;">
+          <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+          {{ message }}
+            </div>
+         {% endfor %}
+        </div>
+        {% endif %}
             <div class="overlay">
             </div>
             <!-- Start Trending -->

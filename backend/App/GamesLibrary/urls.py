@@ -7,6 +7,7 @@ urlpatterns = [
     path('games/<int:pk>/', views.game_detail, name='game-detail'),
      path('games/<int:game_id>/report/', views.report_game_view, name='report_game'),
     path('add-to-favorites/<int:game_id>/', views.add_to_favorites, name='add-to-favorites'),
+    path('rmfav/<int:game_id>/', views.rm_from_favorites, name='rm_from_favs'),
     path('favorites/', views.favorites_list, name='favorites-list'),
     path('customgame/',views.create_custom_game,name='custom_game'),
     path('search/',views.search,name='search'),

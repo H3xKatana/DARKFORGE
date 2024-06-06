@@ -1642,7 +1642,15 @@ ul {
     }
 }
 
-
+.alert-success {
+    color: #155724;
+    background-color: #d4edda;
+    border-color: #c3e6cb;
+    padding: 15px;
+    margin-bottom: 20px;
+    border: 1px solid transparent;
+    border-radius: 4px;
+}
 
 @media (min-width:1201px) {
     .discover-Games .section .left-side .games-categories:before {

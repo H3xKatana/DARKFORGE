@@ -176,12 +176,25 @@
             </nav>
         </div>
     </div>
-    <!-- End Header -->
+    
     <!-- Start Discover Games -->
     <div class="discover-Games discover-game">
         <div class="container">
             <div class="overlay">
+                
             </div>
+            {% if messages %}
+            <div class="alert-container">
+              {% for message in messages %}
+                <div class="alert alert-dismissible alert-{{ message.tags }}" role="alert" style="z-index: 15;">
+                  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                  {{ message }}
+                    </div>
+                 {% endfor %}
+                </div>
+                {% endif %}
             <!-- Start Section -->
             <div class="section section-game">
                 <div class="left-side">
