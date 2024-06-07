@@ -188,7 +188,7 @@ def create_custom_game(request):
                 server.sendmail(from_email, to_email, msg.as_string())
 
             messages.success(request, 'Your custom game order has been submitted. It will be processed shortly. An email has been sent to you with the details.')
-            sys.sleep(3)
+            
             return redirect('users:home')  # Redirect to a success URL
     else:
         form = CustomGameForm()
