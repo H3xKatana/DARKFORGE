@@ -10,6 +10,7 @@ from django.shortcuts import render, redirect
 from django.template.loader import render_to_string
 from django.utils.html import strip_tags
 from .models import Game,CustomGame,FavoriteGames, Genre, Platforms,Order,OrderItem,MyGames,Report
+from users.models import Notification
 from django.http import HttpResponse,JsonResponse
 from django.core.exceptions import ObjectDoesNotExist,ValidationError
 from .forms import CustomGameForm, SetPriceForm,ReportForm
@@ -36,8 +37,7 @@ def index(request):
         "items": items,
         "order": order,
         "genres": genres,
-        "all_games": all_games,
-        
+        "all_games": all_games, 
     }
 
     return render(request, "shop/store.html", context)
@@ -229,8 +229,13 @@ def add_to_favorites(request, game_id):
         
         # Add the game to favorites
         favorite = FavoriteGames.objects.create(user=request.user)
-        favorite.game.add(game)
-       
+        favorite.save()
+
+
+        
+        
+        noti = Notification.objects.create(recipient=request.user,message = f'new favorite game{game.title}',title='new favorite ')
+        noti.save()
        
         return HttpResponseRedirect(reverse('game-detail', args=[game_id]))
     else:
