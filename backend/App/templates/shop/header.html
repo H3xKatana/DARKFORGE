@@ -1,3 +1,5 @@
+{% load static%}
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -14,12 +16,45 @@
     <!-- Google Fonts  -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+
+    
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+
+<!-- JavaScript -->
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link
+    href="https://fonts.googleapis.com/css2?family=Cairo:wght@200..1000&family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap"
+    rel="stylesheet">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dark Forge</title>
+    <!-- Render All Elements Normally -->
+    <link rel="stylesheet" href="/static/css/normalize.css">
+    <!-- Font Awesome Library -->
+    <link rel="stylesheet" href="/static/css/all.min.css">
+    <!-- main Template CSS File  -->
+    <link rel="stylesheet" href="/static/css/new.css">
+    <!-- Google Fonts  -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
         href="https://fonts.googleapis.com/css2?family=Cairo:wght@200..1000&family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap"
         rel="stylesheet">
+      
+
+
 </head>
 
+
 <body>
+    
+    <!-- Start Header -->
     <style>
 
         .form {
@@ -36,6 +71,7 @@
                 background-color: white;
                 padding: 10px;
                 border: 1px solid #ccc;
+                
                 border-radius: 5px;
                 box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
                 transition: opacity 0.3s ease, transform 0.3s ease;
@@ -45,6 +81,7 @@
             .form:hover .search-form {
                 display: block;
                 opacity: 1;
+                
             }
         
             .form:hover .search-form:focus-within {
@@ -54,7 +91,7 @@
         
             .search-form input[type="text"],
             .search-form select {
-                width: 100%;
+                
                 margin-bottom: 10px;
                 padding: 8px;
                 border: 1px solid #ccc;
@@ -63,7 +100,7 @@
         
             .search-form button {
                 display: block;
-                width: 100%;
+                
                 padding: 8px;
                 border: none;
                 background-color: #c359da;
@@ -107,7 +144,6 @@
             }
         
             .dropdown-btn {
-                background-color: transparent;
                 margin-left: 10px;
                 color: white;
                 padding: 5px;
@@ -117,9 +153,7 @@
                 border-radius: 50%;
             }
         
-            .dropdown-btn:hover {
-                background-color: transparent;
-            }
+            
         
             .dropdown-btn:hover .fa-solid {
                 display: none;
@@ -130,8 +164,11 @@
                 font-weight: 900;
                 content: '\f0d7'; /* fa-caret-down */
             }
+
                 </style>
+                
     <div class="header" id="header">
+        
         <div class="container">
             <a href="index.html" class="logo">
                 <img src="/static/images/logo.png" alt="Logo">
@@ -149,6 +186,14 @@
                     {% else %}
                     <li><a href="{% url 'users:home' %}">Sign In/Sign Up</a></li>
                     {% endif %}
+                    {% if order.total_items > 0 %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'view_order' order.order_reference %}">
+                            <i class="fas fa-shopping-cart"></i>
+                            <span id="cart-count" class="badge badge-light ml-1">{{ order.total_items }}</span>
+                        </a>
+                    </li>
+                {% endif %}
                 </ul>
                 <div class="form">
                     <i class="fas fa-search"></i>
@@ -165,17 +210,15 @@
                         </form>
                     </div>
                 </div>
-                {% if user.is_authenticated %}
                 <div class="dropdown">
                     <button class="dropdown-btn"><i class="fa-solid fa-caret-up"></i></button>
                     <div class="dropdown-content">
                         <a href="{% url 'users:profile_update' %}">Seettings</a>
-                        <a href="{% url 'MyGames' %}">My Games</a>
                         <a href="{% url 'users:view_notifications' %}">Notifications</a>
+                        <a href="{% url 'MyGames' %}">My Games</a>
                         <a href="{% url 'users:logout' %}">logout</a>
                     </div>
                 </div>
-                {% endif %}
                 <div class="profile">
                     
                     {% if user.is_authenticated %}
@@ -188,3 +231,6 @@
             </nav>
         </div>
     </div>
+    <!-- End Header -->
+  
+ 

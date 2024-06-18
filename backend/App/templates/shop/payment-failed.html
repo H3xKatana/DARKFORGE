@@ -1,10 +1,5 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Payment failed</title>
-</head>
+{% include 'shop/header.html'%}   
+ 
 <body>
     <h1>Payment failed for order: {{order.order_reference}}</h1>
     <div class="order-container">
@@ -55,5 +50,6 @@
             border: none;
         }
     </style>
+    {% include 'shop/footer.html'%}
 </body>
 </html>

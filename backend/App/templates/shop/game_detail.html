@@ -1,33 +1,6 @@
 
 
 {% load social_share %}
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dark Forge</title>
-    <!-- Render All Elements Normally -->
-    <link rel="stylesheet" href="/static/css/normalize.css">
-    <!-- Font Awesome Library -->
-    <link rel="stylesheet" href="/static/css/all.min.css">
-    <!-- main Template CSS File  -->
-    <link rel="stylesheet" href="/static/css/master.css">
-    <!-- Second Template CSS File -->
-    <link rel="stylesheet" href="/static/css/masterTwo.css">
-    <!-- Google Fonts  -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link
-        href="https://fonts.googleapis.com/css2?family=Cairo:wght@200..1000&family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap"
-        rel="stylesheet">
-        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-
-<!-- JavaScript -->
-<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
 
         <style>
@@ -138,44 +111,10 @@
 }
 
         </style>
-</head>
 
-<body>
-    <!-- Start Header -->
-    <div class="header" id="header">
-        <div class="container">
-            <a href="index.html" class="logo">
-                <img src="/static/images/logo.png" alt="Logo">
-            </a>
-            <nav>
-                <i class="fas fa-bars toggle-menu"></i>
-                <ul class="principal-links">
-                    <li><a class="active" href="{% url 'Home_page' %}">Home</a></li>
-                    <li><a href="{% url 'index' %}">Discover Games</a></li>
-                    <li><a href="{% url 'help' %}">DARK AI</a></li>
-                    <li><a href="#features">About Us</a></li>
-                    <li><a href="{% url 'upload_cv' %}">Contact Us</a></li>
-                    {% if user.is_authenticated %}
-                    <!-- If the user is authenticated, do not show the Sign In/Sign Up link -->
-                    {% else %}
-                    <li><a href="{% url 'users:home' %}">Sign In/Sign Up</a></li>
-                    {% endif %}
-                </ul>
-                <div class="form">
-                    <i class="fas fa-search"></i>
-                </div>
-                <div class="profile">
-                    <i class="fa-solid fa-caret-up"></i>
-                    {% if user.is_authenticated %}
-                    <!-- If the user is authenticated, show the user's image -->
-                    <a href="{% url 'users:register' %}">
-                        <img src="{{ user.profile.image.url }}" alt="Profile Image">
-                    </a>
-                {% endif %}
-                </div>
-            </nav>
-        </div>
-    </div>
+{% include 'shop/header.html'%}
+
+
     
     <!-- Start Discover Games -->
     <div class="discover-Games discover-game">
