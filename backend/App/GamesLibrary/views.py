@@ -266,54 +266,6 @@ def rm_from_favorites(request, game_id):
 
 
 #############
-@login_required
-def game_search(request):
-    title = request.GET.get('title')
-    description = request.GET.get('description')
-    genres_filter = request.GET.getlist('genres')
-    platforms_filter = request.GET.getlist('platforms')
-    min_price = request.GET.get('min_price')
-    max_price = request.GET.get('max_price')
-
-    games = Game.objects.filter(is_published=True)
-
-    if title:
-        games = games.filter(title__icontains=title)
-
-    if description:
-        games = games.filter(description__icontains=description)
-
-    if genres_filter:
-        games = games.filter(genres__name__in=genres_filter)
-
-    if platforms_filter:
-        games = games.filter(platforms__name__in=platforms_filter)
-
-    if min_price:
-        games = games.filter(price__gte=float(min_price))
-
-    if max_price:
-        games = games.filter(price__lte=float(max_price))
-
-    # Get available genres and platforms
-    available_genres = Genre.objects.all()
-    available_platforms = Platforms.objects.all()
-
-    context = {
-        'games': games,
-        'available_genres': available_genres,
-        'available_platforms': available_platforms,
-        'selected_genres': genres_filter,
-        'selected_platforms': platforms_filter,
-        'selected_title': title,
-        'selected_description': description,
-        'selected_min_price': min_price,
-        'selected_max_price': max_price,
-    }
-
-    return render(request, 'shop/game_search.html', context)
-
-
 
 @login_required
 def order_detail(request, order_uuid):
